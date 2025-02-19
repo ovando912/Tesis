@@ -88,6 +88,8 @@
 \newcommand{\autor}[1]{\def\@autorLabel{#1}}
 \newcommand{\orientador}[1]{\def\@orientadorLabel{#1}}
 \newcommand{\coorientador}[1]{\def\@coorientadorLabel{#1}}
+\newcommand{\juradoA}[1]{\def\@juradoALabel{#1}}
+\newcommand{\juradoB}[1]{\def\@juradoBLabel{#1}}
 \newcommand{\curso}[1]{\def\@cursoLabel{#1}}
 \newcommand{\local}[1]{\def\@localLabel{#1}}
 \newcommand{\dia}[1]{\def\@diaLabel{#1}}
@@ -97,8 +99,8 @@
 % configurações do beamer para o template
 \logo{%
     \begin{tikzpicture}[overlay,remember picture]%
-    \node[left=0cm] at (current page.-27){%
-        \includegraphics[scale=0.08]{imagens/logoLIPES}%
+    \node[left=0cm] at (current page.-26){%
+        \includegraphics[scale=0.02]{imagens/logoLIPES}%
     };
     \end{tikzpicture}%
 }
@@ -169,7 +171,7 @@
   
     {\ifdef{\@subtituloLabel}{{\usebeamerfont{subtitle}\@subtituloLabel}}{}}
     
-    {\ifdef{\@cursoLabel}{{\usebeamerfont{author}\usebeamercolor[fg]{author}\textbf{Curso: }\@cursoLabel}}{}}
+    {\ifdef{\@cursoLabel}{{\usebeamerfont{author}\usebeamercolor[fg]{author}\textbf{Carrera: }\@cursoLabel}}{}}
     
     {\ifdef{\@nomeLabel}{{\usebeamerfont{author}\usebeamercolor[fg]{author}\@nomeLabel}}{}}
     
@@ -177,11 +179,15 @@
     \vspace{.3cm}
     {\ifdef{\@autorLabel}{{\usebeamerfont{author}\usebeamercolor[fg]{author}\textbf{\@autorLabel}}}{}}
     
-    {\ifdef{\@orientadorLabel}{{\usebeamerfont{author}\usebeamercolor[fg]{author}\textit{Orientador(a): }\textit{\@orientadorLabel}}}{}}
+    {\ifdef{\@orientadorLabel}{{\usebeamerfont{author}\usebeamercolor[fg]{author}\textit{Director: }\textit{\@orientadorLabel}}}{}}
     
-    {\ifdef{\@coorientadorLabel}{\usebeamerfont{author}\usebeamercolor[fg]{author}\textit{Coorientador(a): }\textit{\@coorientadorLabel}}{}}
+    {\ifdef{\@coorientadorLabel}{\usebeamerfont{author}\usebeamercolor[fg]{author}\textit{Codirectora: }\textit{\@coorientadorLabel}}{}}
+
+    {\ifdef{\@juradoALabel}{\usebeamerfont{author}\usebeamercolor[fg]{author}\textit{Jurado: }\@juradoALabel}{}}
+
+    {\ifdef{\@juradoBLabel}{\usebeamerfont{author}\usebeamercolor[fg]{author}\textit{Jurado: }\@juradoBLabel}{}}
   
-    {\ifdef{\@localLabel}{{\usebeamerfont{date}\usebeamercolor[fg]{date}\@localLabel,{ }\@diaLabel{ }de \@mesLabel{ }de \@anoLabel}}{}}
+    {\ifdef{\@localLabel}{{\usebeamerfont{date}\usebeamercolor[fg]{date}\@localLabel.{ }\@diaLabel{ }de \@mesLabel{ }de \@anoLabel}}{}}
   \end{beamercolorbox}
 }
 

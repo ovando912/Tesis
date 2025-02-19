@@ -28,10 +28,13 @@ simulación de fuentes de Monte Carlo KDSource}
 \orientador{Dr. Ariel Marquez}        % caso não haja, comente
 \coorientador{Ing. Zoe Prieto}      % caso não haja, comente
 
+\juradoA{Dr. Juan Carlos Losada}
+\juradoB{Mg. Cuan Larlos Josada}
+
 \curso{Ingenieria Nuclear}
 
 \local{San Carlos de Bariloche, Rio Negro, Argentina}
-\dia{16}
+\dia{17}
 \mes{febrero}
 \ano{2025}
 
@@ -114,14 +117,14 @@ simulación de fuentes de Monte Carlo KDSource}
     multidimensionales al codigo de simulacion de fuentes de Monte Carlo KDSource.
 \end{frame}
 
-\section{Trabajo en curso}
-\begin{frame}{Trabajo en curso}
+\section{Resultados preliminares}
+\begin{frame}{Resultados preliminares}
     Avances hasta el momento:
     \begin{itemize}
         \item Interiorización del problema y de las tecnicas a incorporar
-        \item Creación de un metodo para la aproximación de la distribucion de probabilidad de las variables de interes a traves de histogramas multidimensionales en python. Por el momento requiere del usuario para la seleccion de parametros. Hasta el momento por fuera del codigo de KDSource. 
-        \item Creación de un metodo para la generación de surface tracks sinteticos a partir de los histogramas multidimensionales en python. Hasta el momento falta traducirlo a C para poder incorporarlo al codigo de KDSource.
-        \item Resultados parciales en un ejemplo de simulacion similar a un haz de extraccion de neutrones.
+        \item Creación de un metodo para la aproximación de la distribucion de probabilidad de las variables de interes a traves de histogramas multidimensionales en Python. Por el momento requiere del usuario para la seleccion de parametros y funciona por fuera del codigo de KDSource. 
+        \item Creación de un metodo para la generación de listas de particulas sinteticas a partir de los histogramas multidimensionales en Python. Por el momento falta traducirlo a C para incorporarlo al codigo de KDSource.
+        \item Obtención de resultados preliminares en un ejemplo de simulacion de un canal de extraccion de neutrones.
         \item Todo el trabajo se ha realizado para neutrones, excluyendo los fotones.
     \end{itemize}
     % \begin{figure}
@@ -133,43 +136,98 @@ simulación de fuentes de Monte Carlo KDSource}
 
 \end{frame}
 
-\begin{frame}{Trabajo en curso: Histogramas multidimensionales}
-    Hasta aca llego por hoy. La idea es comentar en esta subseccion la forma en la que, a traves de inputs del usuario, se generan los histogramas macro y micro. Ademas de comentar que se pueden incorporar bordes de los macrogrupos de forma manual
-    para fortalecer la correlacion entre las variables. Por ejemplo los limites geometricos del canal de extracción. 
-    Tambien busco comentar la estructura tipo arbol que se forma con los histogramas multidimensionales y dar una idea de los tamaños tipicos con un ejemplo.
-    Ademas comentar las ventajas y desventajas de incorporar diferentes cantidades de macro y microgrupos. (macro ancho: mayor estadistica. macro fino: mayor correlacion entre variables. micro ancho: se pierde detale. micro fino: se copia el ruido estadistico)
+\begin{frame}[fragile]{Resultados preliminares: Histogramas multidimensionales}
+    Histogramas macro:
+    \begin{itemize}
+        \item Permiten agrupar particulas segun su similutud por variables.
+        \item En caso de tomar menos macrogrupos se obtiene mayor estadistica, a costa de perder correlacion entre variables.
+        \item El usuario debe seleccionar la cantidad de macrogrupos, el orden del tratamiento de las variables y, de forma opcional, limites de macrogrupos manuales. Por ejemplo, limites geometricos del canal de extracción. 
+    \end{itemize} 
 
-    ------------
+    Input tipico:
 
-    En la siguiente diapositiva explicar el metodo de sampleo de las variables a partir de los histogramas multidimensionales. Aca incorporar los numeros pseudoaleatorios y la utilizacion de las funciones de frecuencia acumulada.
-
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[width=0.6\linewidth]{imagens/1_seminario_LIPES.jpeg}
-    %     % \caption{1º seminário do LIPES em 27/01/2025}
-    %     \label{fig:1semlipes}
-    % \end{figure}
+    \begin{minted}[frame=single, linenos=false]{python}
+    orden_columnas = ['letargia', 'x', 'y', 'mu', 'phi']
+    macro_grupos = [6,5,5,4]
+    \end{minted}
 
 \end{frame}
 
-\begin{frame}{Trabajo en curso: Histogramas multidimensionales}
+\begin{frame}[fragile]{Resultados preliminares: Histogramas multidimensionales}
+    Histogramas macro - Input tipico:
+
+    \begin{minted}[frame=single, linenos=false]{python}
+    orden_columnas = ['letargia', 'x', 'y', 'mu', 'phi']
+    macro_grupos = [6,5,5,4]
+    \end{minted}
+
+    \begin{itemize}
+        \item Se obtiene un histograma macro de 6 grupos en letargia
+        \item Luego se obtienen un histograma macro de 5 grupos en x para cada grupo en letargia. En total 30 grupos en x.
+        \item Luego se obtienen un histograma macro de 5 grupos en y para cada grupo en x. En total 150 grupos en y.
+        \item Luego se obtienen un histograma macro de 4 grupos en mu para cada grupo en y. En total 600 grupos en mu.
+        \item Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.
+    \end{itemize}
+
+    Luego, para cada grupo macro se obtiene un histograma micro de la variable de interes. 
+
+\end{frame}
+
+\begin{frame}[fragile]{Resultados preliminares: Histogramas multidimensionales}
+    Histogramas micro:
+
+    \begin{itemize}
+        \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
+        \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
+        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximacion de la distribucion de probabilidad y no copiar el ruido estadistico.
+    \end{itemize}
+
+    A partir de este enfoque de macro y micro histogramas se logra aproximas la correlacion intrinseca entre las variables de interes.
+
+    Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.
+
+    % BORRADOR: tal vez poner dos esquemas de muchos y pocos micro bines. Sino ver que hacer para que no quede tan vacia
+     
+
+\end{frame}
+
+\begin{frame}{Resultados preliminares: Muestreo de particulas}
+    \begin{itemize}
+        \item Para cada variable se genera un numero pseudoaleatorio entre 0 y 1 y se interpola la inversa de la funcion de frecuencia acumulada para obtener el valor de la variable. 
+        \item Una vez obtenido el valor de la variable, se selecciona el macro grupo correspondiente y se obtiene la funcion de frecuencia acumulada correspondiente para la siguiente variable.
+        \item Se repite el proceso hasta obtener todas las variables de interes.
+        \item Se generan N particulas sinteticas y se exportan con formato .h5 para poder ser leidas como fuente por OpenMC.
+        \item Se contrasta el resultado de la simulacion de la lista de particulas original y la lista de particulas sinteticas.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Resultados preliminares: Ejemplo de aplicacion}
     Por ultimo comentar el ejemplo de aplicacion que venimos trabajando y los resultados parciales que hemos obtenido. Entre ellos comentar diferencias entre incorporar o no los limites manuales de los macrogrupos (geometricos y en letargia). Ademas comentar diferencias entre diferente cantidad de micro y macrogrupos. Y tambien entre mayor o menor cantidad de particulas registradas.
     Ademas comentar del tubo de vacio y caracteristicas delticas de la fuente que estamos utilizando (delta en mu y en letargia).
     Ademas comentar que miramos el flujo a traves de la dimension de propagacion (total, agua y vacio) y que se observa el espectro al final del tubo (total, agua y vacio).
 
-    ------------ 
     
-    Por no tan ultimo comentar trabajo a futuro:
-    - Seleccion de parametros automatica con menor intervencion del usuario.
-    - Traducir el sampleo de python a C.
-    - Aplicacion en el conducto N5 del RA6 para la simulacion del CHOPPPER.
 
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[width=0.6\linewidth]{imagens/1_seminario_LIPES.jpeg}
-    %     % \caption{1º seminário do LIPES em 27/01/2025}
-    %     \label{fig:1semlipes}
-    % \end{figure}
+\end{frame}
+
+\section{Conclusiones preliminares y trabajo futuro}
+
+\begin{frame}{Conclusiones preliminares y trabajo futuro}
+
+    BORRADOR:
+
+    Comentar las caracteristicas delticas de la fuente que estamos utilizando (delta en mu y en letargia). Hablar sobre la ventaja de utilizar histogramsa en vez de gaussianas para seguir este tipo de fenomenos. Comentar que es relevante porque luego de un colimador el haz es bastante monodireccional. Ver de simular un caso real donde el haz no es 100\% monodireccional sino que tiene algun grado de dispersion.
+
+    Hablar sobre la incorporracion de seleccion de parametros automaticos (tal vez decir que lo de la distancia KL).
+    
+    Hablar sobre la incorporacion a la API de KDSource el metodo de muestreo de particulas sinteticas.
+
+    Hablar sobre la traduccion del muestreo a C y el acople on the fly.
+    
+    Aplicacion en el conducto N5 del RA6 para la simulacion del CHOPPPER.
+
+
 
 \end{frame}
 

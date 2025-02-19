@@ -1,11 +1,16 @@
-\frametitle{Código}
-\begin{minted}{python}
-from qiskit import QuantumRegister, QuantumCircuit
-from numpy import pi
+\frametitle{Resultados preliminares: Histogramas multidimensionales}
+Histogramas micro:
 
-qreg_q = QuantumRegister(2, 'q')
-circuit = QuantumCircuit(qreg_q)
+    \begin{itemize}
+        \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
+        \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
+        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximacion de la distribucion de probabilidad y no copiar el ruido estadistico.
+    \end{itemize}
 
-circuit.h(qreg_q[0])
-circuit.cx(qreg_q[0], qreg_q[1])
-\end{minted}
+    A partir de este enfoque de macro y micro histogramas se logra aproximas la correlacion intrinseca entre las variables de interes.
+
+    Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.
+
+    % BORRADOR: tal vez poner dos esquemas de muchos y pocos micro bines. Sino ver que hacer para que no quede tan vacia
+
+

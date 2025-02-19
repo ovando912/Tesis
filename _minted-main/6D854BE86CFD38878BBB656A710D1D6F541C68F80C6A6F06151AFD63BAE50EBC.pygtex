@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{orden\PYGZus{}columnas} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}letargia\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}x\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}mu\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}phi\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{macro\PYGZus{}grupos} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{6}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{]}
+\end{Verbatim}

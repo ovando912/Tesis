@@ -1,15 +1,22 @@
 \frametitle{Resultados preliminares: Histogramas multidimensionales}
-Histogramas micro:
+\textbf{Histogramas micro:}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.55\linewidth]{imagens/esquema4.jpeg}
+        % \caption{Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.}
+        \label{fig:esquema4}
+    \end{figure}
 
     \begin{itemize}
-        \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
-        \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
-        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximacion de la distribucion de probabilidad y no copiar el ruido estadistico.
+        % \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
+        % \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
+        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximación de la distribución de probabilidad y evitar reproducir el ruido estadistico.
+        \item A partir de este enfoque de macro y micro histogramas se logra aproximar la correlación intrinseca entre las variables de interes.
     \end{itemize}
 
-    A partir de este enfoque de macro y micro histogramas se logra aproximas la correlacion intrinseca entre las variables de interes.
 
-    Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.
+    \textcolor{red}{Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.}
 
     % BORRADOR: tal vez poner dos esquemas de muchos y pocos micro bines. Sino ver que hacer para que no quede tan vacia
 

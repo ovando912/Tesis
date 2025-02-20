@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.2.12)  17 FEB 2025 12:12
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.2.12)  19 FEB 2025 17:58
  system commands enabled.
  file:line:error style messages enabled.
 **/home/lucas/Documents/Proyecto_Integrador/Tesis/main.tex
@@ -1414,32 +1414,40 @@ Package: ragged2e 2023/06/22 v3.6 ragged2e Package
 \RaggedLeftParindent=\skip94
 \RaggedRightParindent=\skip95
 \JustifyingParindent=\skip96
+) (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip97
+\enit@outerparindent=\dimen396
+\enit@toks=\toks69
+\enit@inbox=\box109
+\enit@count@id=\count438
+\enitdp@description=\count439
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryautomata.code.tex
 File: tikzlibraryautomata.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.multipart.code.tex
 File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box109
-\pgfnodeparttwobox=\box110
-\pgfnodepartthreebox=\box111
-\pgfnodepartfourbox=\box112
-\pgfnodeparttwentybox=\box113
-\pgfnodepartnineteenbox=\box114
-\pgfnodeparteighteenbox=\box115
-\pgfnodepartseventeenbox=\box116
-\pgfnodepartsixteenbox=\box117
-\pgfnodepartfifteenbox=\box118
-\pgfnodepartfourteenbox=\box119
-\pgfnodepartthirteenbox=\box120
-\pgfnodeparttwelvebox=\box121
-\pgfnodepartelevenbox=\box122
-\pgfnodeparttenbox=\box123
-\pgfnodepartninebox=\box124
-\pgfnodeparteightbox=\box125
-\pgfnodepartsevenbox=\box126
-\pgfnodepartsixbox=\box127
-\pgfnodepartfivebox=\box128
+\pgfnodepartlowerbox=\box110
+\pgfnodeparttwobox=\box111
+\pgfnodepartthreebox=\box112
+\pgfnodepartfourbox=\box113
+\pgfnodeparttwentybox=\box114
+\pgfnodepartnineteenbox=\box115
+\pgfnodeparteighteenbox=\box116
+\pgfnodepartseventeenbox=\box117
+\pgfnodepartsixteenbox=\box118
+\pgfnodepartfifteenbox=\box119
+\pgfnodepartfourteenbox=\box120
+\pgfnodepartthirteenbox=\box121
+\pgfnodeparttwelvebox=\box122
+\pgfnodepartelevenbox=\box123
+\pgfnodeparttenbox=\box124
+\pgfnodepartninebox=\box125
+\pgfnodeparteightbox=\box126
+\pgfnodepartsevenbox=\box127
+\pgfnodepartsixbox=\box128
+\pgfnodepartfivebox=\box129
 ))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
 File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
@@ -1455,9 +1463,9 @@ File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.arrows.code.tex
 File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.callouts.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.callouts.code.tex))) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerthemeDarmstadt.sty (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerouterthemesmoothbars.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerinnerthemerounded.sty) (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamercolorthemeorchid.sty))
-Package newfloat Info: New float `quadro' with options ` fileext = qos , listname = {Lista de Quadros} , name = Quadro ' on input line 207.
-\c@quadro=\count438
-Package newfloat Info: float type `quadro'=8 on input line 207.
+Package newfloat Info: New float `quadro' with options ` fileext = qos , listname = {Lista de Quadros} , name = Quadro ' on input line 209.
+\c@quadro=\count440
+Package newfloat Info: float type `quadro'=8 on input line 209.
 ) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
  (/usr/share/texlive/texmf-dist/tex/generic/babel/luababel.def
@@ -1554,8 +1562,8 @@ Package babel Info: Non-standard hyphenation setup on input line 118.
 \babelcatcodetablenum=\catcodetable14
 \bbl@pattcodes=\catcodetable15
 )
-\babel@savecnt=\count439
-\U@D=\dimen396
+\babel@savecnt=\count441
+\U@D=\dimen397
 \l@unhyphenated=\language90
  (/usr/share/texlive/texmf-dist/tex/generic/babel/luababel.def
 \bbl@attr@locale=\attribute4
@@ -1571,8 +1579,8 @@ Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language35). Reported on input line 108.
 ) (/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
 Language: spanish.ldf 2021/05/27 v5.0q Spanish support from the babel system
-\es@quottoks=\toks69
-\es@quotdepth=\count440
+\es@quottoks=\toks70
+\es@quotdepth=\count442
 Package babel Info: Making " an active character on input line 570.
 Package babel Info: Making . an active character on input line 675.
 Package babel Info: Making < an active character on input line 722.
@@ -1588,20 +1596,20 @@ Package: abntex2cite 2018/11/24 v-1.9.7 abnTeX2
  (/usr/share/texlive/texmf-dist/tex/latex/abntex2/abntex2abrev.sty) (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )
-\bibindent=\skip97
-\minimumbiblabelwidth=\skip98
-\ABCIauxlen=\skip99
-\c@ABCIaux=\count441
-\c@ABCImax=\count442
+\bibindent=\skip98
+\minimumbiblabelwidth=\skip99
+\ABCIauxlen=\skip100
+\c@ABCIaux=\count443
+\c@ABCImax=\count444
  (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifpdf.sty
 Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
 ) (/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
 )
-\biblabelsep=\skip100
+\biblabelsep=\skip101
 LaTeX Info: Redefining \newblock on input line 591.
 LaTeX Info: Redefining \cite on input line 618.
-\ABCItoken=\toks70
+\ABCItoken=\toks71
 )
 runsystem(command -v pygmentize && touch main.aex)...executed.
 runsystem(rm main.aex)...executed.
@@ -1672,17 +1680,17 @@ LaTeX Font Info:    ... okay on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count443
-\scratchdimen=\dimen397
-\scratchbox=\box129
-\nofMPsegments=\count444
-\nofMParguments=\count445
-\everyMPshowfont=\toks71
-\MPscratchCnt=\count446
-\MPscratchDim=\dimen398
-\MPnumerator=\count447
-\makeMPintoPDFobject=\count448
-\everyMPtoPDFconversion=\toks72
+\scratchcounter=\count445
+\scratchdimen=\dimen398
+\scratchbox=\box130
+\nofMPsegments=\count446
+\nofMParguments=\count447
+\everyMPshowfont=\toks72
+\MPscratchCnt=\count448
+\MPscratchDim=\dimen399
+\MPnumerator=\count449
+\makeMPintoPDFobject=\count450
+\everyMPtoPDFconversion=\toks73
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -1779,7 +1787,7 @@ Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count449
+\c@lstlisting=\count451
  (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
  (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
@@ -1801,12 +1809,12 @@ LaTeX Info: Redefining \% on input line 21.
 LaTeX Font Info:    Font shape `TU/Carlito(0)/b/n' will be
 (Font)              scaled to size 8.0pt on input line 21.
  (./capa.tex
-<imagens/capaLIPES.png, id=87, 1827.82875pt x 973.6375pt>
+<imagens/capaLIPES.png, id=101, 1827.82875pt x 973.6375pt>
 File: imagens/capaLIPES.png Graphic file (type png)
 <use imagens/capaLIPES.png>
 Package luatex.def Info: imagens/capaLIPES.png  used on input line 17.
-(luatex.def)             Requested size: 493.52036pt x 262.88564pt.
-<imagens/logoLIPES.png, id=88, 3456.4332pt x 1500.807pt>
+(luatex.def)             Requested size: 484.37231pt x 258.01271pt.
+<imagens/logoLIPES.png, id=102, 3456.4332pt x 1500.807pt>
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
 Package luatex.def Info: imagens/logoLIPES.png  used on input line 17.
@@ -1853,6 +1861,8 @@ Package luatex.def Info: imagens/logoLIPES.png  used on input line 46.
  [3
 
 ]
+LaTeX Font Info:    Font shape `TU/Carlito(0)/b/n' will be
+(Font)              scaled to size 10.95pt on input line 54.
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
 Package luatex.def Info: imagens/logoLIPES.png  used on input line 54.
@@ -1860,70 +1870,123 @@ Package luatex.def Info: imagens/logoLIPES.png  used on input line 54.
  [4
 
 ]
-<imagens/esquema1.jpeg, id=293, 1284.8pt x 327.2225pt>
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 57.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [5
+
+]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 65.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [6
+
+]
+<imagens/esquema1.jpeg, id=466, 1284.8pt x 327.2225pt>
 File: imagens/esquema1.jpeg Graphic file (type jpg)
 <use imagens/esquema1.jpeg>
-Package luatex.def Info: imagens/esquema1.jpeg  used on input line 67.
-(luatex.def)             Requested size: 398.3386pt x 101.4529pt.
+Package luatex.def Info: imagens/esquema1.jpeg  used on input line 78.
+(luatex.def)             Requested size: 378.42044pt x 96.38pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 78.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [7
 
-Overfull \vbox (4.42862pt too high) detected at line 67
+<./imagens/esquema1.jpeg>]
+<imagens/esquema2.jpeg, id=528, 840.13875pt x 528.97626pt>
+File: imagens/esquema2.jpeg Graphic file (type jpg)
+<use imagens/esquema2.jpeg>
+Package luatex.def Info: imagens/esquema2.jpeg  used on input line 93.
+(luatex.def)             Requested size: 139.42093pt x 87.77774pt.
+
+Overfull \vbox (2.6746pt too high) detected at line 93
  []
 
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 67.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 93.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
-[5
-
-<./imagens/esquema1.jpeg>]
-<imagens/esquema2.jpeg, id=344, 840.13875pt x 528.97626pt>
-File: imagens/esquema2.jpeg Graphic file (type jpg)
-<use imagens/esquema2.jpeg>
-Package luatex.def Info: imagens/esquema2.jpeg  used on input line 83.
-(luatex.def)             Requested size: 139.42093pt x 87.77774pt.
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 83.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [6
+[8
 
 <./imagens/esquema2.jpeg>]
-<imagens/esquema3.png, id=395, 531.6663pt x 145.5036pt>
+<imagens/openmc.png, id=589, 1065.9825pt x 241.90375pt>
+File: imagens/openmc.png Graphic file (type png)
+<use imagens/openmc.png>
+Package luatex.def Info: imagens/openmc.png  used on input line 125.
+(luatex.def)             Requested size: 139.42093pt x 31.63683pt.
+LaTeX Font Info:    Trying to load font information for OT1+Carlito(0) on input line 125.
+LaTeX Font Info:    No file OT1Carlito(0).fd. on input line 125.
+
+
+LaTeX Font Warning: Font shape `OT1/Carlito(0)/m/n' undefined
+(Font)              using `OT1/cmr/m/n' instead on input line 125.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `Carlito' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 125.
+ (/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 125.
+ (/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 125.
+ (/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 125.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 125.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 125.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 125.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 125.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Font shape `TU/Carlito(0)/m/it' will be
+(Font)              scaled to size 10.95pt on input line 125.
+LaTeX Font Info:    Font shape `TU/Carlito(0)/m/it' will be
+(Font)              scaled to size 6.0pt on input line 125.
+<imagens/esquema3.png, id=590, 531.6663pt x 145.5036pt>
 File: imagens/esquema3.png Graphic file (type png)
 <use imagens/esquema3.png>
-Package luatex.def Info: imagens/esquema3.png  used on input line 99.
+Package luatex.def Info: imagens/esquema3.png  used on input line 125.
 (luatex.def)             Requested size: 139.42093pt x 38.1564pt.
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 99.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [7
-
-<./imagens/esquema3.png>]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 101.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [8
-
-]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 118.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 125.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [9
 
-]
+<./imagens/openmc.png><./imagens/esquema3.png>]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 120.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 127.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [10
 
 ]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 137.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 143.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [11
 
@@ -1939,7 +2002,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 ))
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 154.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 160.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [12
 
@@ -1947,97 +2010,121 @@ Package luatex.def Info: imagens/logoLIPES.png  used on input line 154.
 \openout4 = main.vrb
  (./main.vrb
 \openout5 = main.pyg
- (./_minted-main/6D854BE86CFD38878BBB656A710D1D6F541C68F80C6A6F06151AFD63BAE50EBC.pygtex))
+ (./_minted-main/6D854BE86CFD38878BBB656A710D1D6F541C68F80C6A6F06151AFD63BAE50EBC.pygtex)
+<imagens/esquema3.jpeg, id=889, 773.89125pt x 312.16624pt>
+File: imagens/esquema3.jpeg Graphic file (type jpg)
+<use imagens/esquema3.jpeg>
+Package luatex.def Info: imagens/esquema3.jpeg  used on input line 10.
+(luatex.def)             Requested size: 278.83578pt x 112.47502pt.
+)
+Overfull \vbox (10.26833pt too high) detected at line 187
+ []
+
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 174.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 187.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [13
+[13
 
-]
+<./imagens/esquema3.jpeg>]
 \openout4 = main.vrb
- (./main.vrb)
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 192.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [14
+ (./main.vrb
+<imagens/esquema4.jpeg, id=978, 997.7275pt x 449.68pt>
+File: imagens/esquema4.jpeg Graphic file (type jpg)
+<use imagens/esquema4.jpeg>
+Package luatex.def Info: imagens/esquema4.jpeg  used on input line 6.
+(luatex.def)             Requested size: 219.08743pt x 98.73778pt.
+)
+Overfull \vbox (43.18996pt too high) detected at line 212
+ []
 
-]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 203.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [15
-
-]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
 Package luatex.def Info: imagens/logoLIPES.png  used on input line 212.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [16
+[14
 
-]
+<./imagens/esquema4.jpeg>]
+<imagens/esquema5.jpeg, id=1039, 1064.97874pt x 208.78pt>
+File: imagens/esquema5.jpeg Graphic file (type jpg)
+<use imagens/esquema5.jpeg>
+Package luatex.def Info: imagens/esquema5.jpeg  used on input line 230.
+(luatex.def)             Requested size: 378.42044pt x 74.1859pt.
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 214.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 230.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [17
+ [15
 
-]
-LaTeX Font Info:    Trying to load font information for OT1+Carlito(0) on input line 232.
-LaTeX Font Info:    No file OT1Carlito(0).fd. on input line 232.
+<./imagens/esquema5.jpeg>]
+<imagens/croquis1.jpeg, id=1100, 808.01875pt x 444.66125pt>
+File: imagens/croquis1.jpeg Graphic file (type jpg)
+<use imagens/croquis1.jpeg>
+Package luatex.def Info: imagens/croquis1.jpeg  used on input line 266.
+(luatex.def)             Requested size: 278.83578pt x 153.449pt.
 
+Overfull \vbox (2.2603pt too high) detected at line 266
+ []
 
-LaTeX Font Warning: Font shape `OT1/Carlito(0)/m/n' undefined
-(Font)              using `OT1/cmr/m/n' instead on input line 232.
-
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `Carlito' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 232.
- (/usr/share/texmf/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 232.
- (/usr/share/texmf/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 232.
- (/usr/share/texmf/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 232.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 232.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 232.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 232.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 232.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    Font shape `TU/Carlito(0)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 232.
-LaTeX Font Info:    Font shape `TU/Carlito(0)/m/it' will be
-(Font)              scaled to size 6.0pt on input line 232.
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 232.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 266.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+[16
+
+<./imagens/croquis1.jpeg>]
+<imagens/flujos.png, id=1164, 948.54375pt x 373.395pt>
+File: imagens/flujos.png Graphic file (type png)
+<use imagens/flujos.png>
+Package luatex.def Info: imagens/flujos.png  used on input line 277.
+(luatex.def)             Requested size: 358.50229pt x 141.1224pt.
+
+Overfull \vbox (3.41574pt too high) detected at line 277
+ []
+
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 277.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+[17
+
+<./imagens/flujos.png>]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 284.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [18
+
+]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 296.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [19
+
+]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 306.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [20
+
+]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 308.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [21
+
+]
+Overfull \vbox (15.61137pt too high) detected at line 320
+ []
+
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 320.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+[22
 
 ] (./referencias.tex)
 \tf@nav=\write8
@@ -2062,24 +2149,24 @@ L3 programming layer <2020/03/25>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6A419FD7AF67AC8590D586D297B67930;701.
+(rerunfilecheck)             Checksum: 27A5437426D521A8AAE91DD326E435F7;723.
 runsystem(rm main.pyg)...executed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 48320 strings out of 476553
+ 48749 strings out of 476553
  100000,1977958 words of node,token memory allocated
- 19150 words of node memory still in use:
-   171 hlist, 14 vlist, 7 rule, 156 disc, 12 local_par, 2 math, 340 glue, 139 kern, 23 penalty, 9 margin_kern, 946 glyph, 1223 attribute, 87 glue_spec, 614 attribute_list, 5 write, 304 pdf_literal, 22 pdf_start_link, 22 pdf_end_link, 22 pdf_action, 80 pdf_colorstack nodes
-   avail lists: 1:3,2:3362,3:1020,4:392,5:366,6:61,7:2765,8:1,9:754,10:19,11:350
- 68422 multiletter control sequences out of 65536+600000
- 62 fonts using 12014759 bytes
+ 19114 words of node memory still in use:
+   212 hlist, 14 vlist, 12 rule, 121 disc, 11 local_par, 2 math, 381 glue, 120 kern, 48 penalty, 1 margin_kern, 716 glyph, 1533 attribute, 87 glue_spec, 769 attribute_list, 5 write, 368 pdf_literal, 27 pdf_start_link, 27 pdf_end_link, 27 pdf_action, 106 pdf_colorstack nodes
+   avail lists: 1:3,2:3902,3:1202,4:367,5:376,6:70,7:2669,8:4,9:853,10:18,11:345
+ 68801 multiletter control sequences out of 65536+600000
+ 63 fonts using 12460367 bytes
  128i,20n,124p,1294b,1198s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Italic.ttf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Regular.ttf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Bold.ttf>
-Output written on main.pdf (18 pages, 1533246 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Italic.ttf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Regular.ttf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Bold.ttf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb>
+Output written on main.pdf (22 pages, 1813254 bytes).
 
-PDF statistics: 1071 PDF objects out of 1200 (max. 8388607)
- 530 compressed objects within 6 object streams
- 45 named destinations out of 1000 (max. 131072)
- 116 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 1538 PDF objects out of 1728 (max. 8388607)
+ 763 compressed objects within 8 object streams
+ 60 named destinations out of 1000 (max. 131072)
+ 124 words of extra memory for PDF output out of 10000 (max. 100000000)
 

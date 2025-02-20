@@ -28,13 +28,13 @@ simulación de fuentes de Monte Carlo KDSource}
 \orientador{Dr. Ariel Marquez}        % caso não haja, comente
 \coorientador{Ing. Zoe Prieto}      % caso não haja, comente
 
-\juradoA{Dr. Juan Carlos Losada}
-\juradoB{Mg. Cuan Larlos Josada}
+\juradoA{Dr. Edmundo Lopasso}
+\juradoB{Mg. Norberto Schmidt}
 
 \curso{Ingenieria Nuclear}
 
 \local{San Carlos de Bariloche, Rio Negro, Argentina}
-\dia{17}
+\dia{19}
 \mes{febrero}
 \ano{2025}
 
@@ -43,27 +43,38 @@ simulación de fuentes de Monte Carlo KDSource}
 
 % CONTEÚDO -----------------------------------------------------------------
 
+\section{Motivación}
+\begin{frame}{Motivación}
+    \begin{itemize}[itemsep=1.5em]
+        \item \textbf{Problema:} En cálculos Monte Carlo de blindaje y extracción de haces de neutrones, se necesita determinar el flujo de radiación a grandes distancias de la fuente, en zonas de bajo flujo.
+        % \item \textbf{Desafío:} El cálculo de blindajes implica evaluar flujos en regiones con niveles muy bajos, lo que complica la simulación.
+        \item \textbf{Solución:} Reducir tiempos de cómputo mediante técnicas de reducción de varianza.
+        \item \textbf{Enfoque:} Incorporar técnicas de muestreo con histogramas multidimensionales en el código de simulación Monte Carlo KDSource.
+    \end{itemize}
+\end{frame}
+
+
 \section{Introdución}
 \begin{frame}{Introdución}
     En este trabajo se planea incorporar una:
-    \begin{itemize}
-        \item tecnica de muestreo...
+    \begin{itemize}[itemsep=1.5em]
+        \item Tecnica de muestreo...
         \item ... mediante histogramas multidimensionales...
-        \item ... al codigo de simulacion de fuentes Monte Carlo KDSource
+        \item ... al codigo de simulacion de fuentes Monte Carlo KDSource.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Introdución: Tecnica de muestreo}
     \begin{figure}
         \centering
-        \includegraphics[width=1\linewidth]{imagens/esquema1.jpeg}
+        \includegraphics[width=0.95\linewidth]{imagens/esquema1.jpeg}
         % \caption{1º seminário do LIPES em 27/01/2025}
         \label{fig:esquema1}
     \end{figure}
 
-    Idea: a partir de una simulacion Monte Carlo donde se registran las particulas que atraviesan una superficie
-    de registro se obtiene un surface track original. Luego se genera un surface track sintetico de mayor tamaño 
-    para continuar la simulacion desde esa superficie en adelante.
+    A partir de una simulacion Monte Carlo se obtiene una lista de las particulas que atraviesan una superficie de registro.\\
+    \newline
+    Luego se genera una lista de particulas de mayor tamaño para continuar la simulacion desde esa superficie en adelante.
 \end{frame}
 
 \begin{frame}{Introdución: Histogramas multidimensionales}
@@ -74,57 +85,52 @@ simulación de fuentes de Monte Carlo KDSource}
         \label{fig:esquema2}
     \end{figure}
 
-    Idea: realizar un histograma de la primer variable para luego subdividir la variable en macro grupos. Luego se 
-    realiza subsiguientes histogramas de la siguiente variable para cada macro grupo. Se repite el proceso hasta formar
-     un arbol de histogramas multidimensionales.
-
-    Esto se realiza para poder obtener aproximaciones de la distribucion de probabilidad de las variables de interes mientras 
-    se conserva la correlacion entre las variables.
+    Se realiza un histograma de la primer variable y se la subdivide en macro grupos. \\
+    Luego se realiza subsiguientes histogramas de la siguiente variable para cada macro grupo. \\
+    Se repite el proceso hasta formar un arbol de histogramas multidimensionales.\\
+    \newline
+    Esto se realiza para poder obtener aproximaciones de la distribucion de probabilidad de las variables de interes conservando la correlacion entre las variables.
 \end{frame}
 
-\begin{frame}{Introdución: Codigo de simulación de fuentes Monte Carlo KDSource}
+\begin{frame}{Introdución: Codigos Monte Carlo: OpenMC y KDSource}
     \begin{figure}
         \centering
-        \includegraphics[width=0.35\linewidth]{imagens/esquema3.png}
-        % \caption{1º seminário do LIPES em 27/01/2025}
-        \label{fig:esquema3}
+        \begin{minipage}{0.35\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{imagens/openmc.png}
+            % \caption{Esquema 3}
+            \label{fig:openmc}
+        \end{minipage}\hfill
+        \begin{minipage}{0.35\textwidth}
+            \centering
+            \includegraphics[width=\linewidth]{imagens/esquema3.png}
+            % \caption{Otra imagen}
+            \label{fig:esquema3}
+        \end{minipage}
     \end{figure}
 
-    Idea: KDSource es un codigo de simulacion de fuentes de Monte Carlo que se formulo en la tesis de maestria de 
-    Inti Osiris Abbate para el codigo de fuente libre OpenMC. 
-    
-    El mismo actualmente permite simular fuentes de neutrones y fotones 
-    a traves del metodo KDE. Se planea aprovechar la plataforma de KDSource para incorporar las tecnicas de muestreo
-    mediante histogramas multidimensionales.
-\end{frame}
-
-\section{Motivación}
-\begin{frame}{Motivación}
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[width=0.6\linewidth]{imagens/1_seminario_LIPES.jpeg}
-    %     % \caption{1º seminário do LIPES em 27/01/2025}
-    %     \label{fig:1semlipes}
-    % \end{figure}
-    En problemas de transporte de radiación aplicados a calculo de blindajes y extraccion de 
-    haces de neutrones se presenta la necesidad de obtener el flujo de radiacion a grandes 
-    distancias del nucleo del reactor. Ademas, el calculo de blindajes trae el problema intrinseco 
-    de querer obtener el flujo de radiacion en puntos donde se espera que haya bajo flujo.
-    La forma de reducir el tiempo de calculo en estos problemas es la incorporacion de tecnicas de 
-    reducción de varianza. Con estas es posible obtener tiempos razonables de simulación.
-    
-    Con este objetivo se plantea la incorporacion de tecnicas de muestreo mediante histogramas 
-    multidimensionales al codigo de simulacion de fuentes de Monte Carlo KDSource.
+    \begin{columns}[t]
+        \column{0.45\textwidth}
+            \begin{itemize}
+                \item Código Monte Carlo open source.
+                \item Diseñado para simulaciones de transporte de partículas.
+            \end{itemize}
+        \column{0.45\textwidth}
+            \begin{itemize}
+                \item Inicialmente para simular fuentes de neutrones y fotones mediante \textit{kernel density estimation}.
+                \item En desarrollo para incorporar histogramas multidimensionales.
+                \item Originado en la tesis de maestría de Inti Osiris Abbate.
+            \end{itemize}
+    \end{columns}
 \end{frame}
 
 \section{Resultados preliminares}
 \begin{frame}{Resultados preliminares}
-    Avances hasta el momento:
     \begin{itemize}
-        \item Interiorización del problema y de las tecnicas a incorporar
-        \item Creación de un metodo para la aproximación de la distribucion de probabilidad de las variables de interes a traves de histogramas multidimensionales en Python. Por el momento requiere del usuario para la seleccion de parametros y funciona por fuera del codigo de KDSource. 
-        \item Creación de un metodo para la generación de listas de particulas sinteticas a partir de los histogramas multidimensionales en Python. Por el momento falta traducirlo a C para incorporarlo al codigo de KDSource.
-        \item Obtención de resultados preliminares en un ejemplo de simulacion de un canal de extraccion de neutrones.
+        \item Interiorización del problema y de las tecnicas a incorporar.
+        \item Metodo para la aproximación de la distribucion de probabilidad de las variables de interes a traves de histogramas multidimensionales en Python. \textcolor{red}{Por el momento requiere del usuario para la seleccion de parametros y funciona por fuera del codigo de KDSource.}
+        \item Metodo para la generación de listas de particulas sinteticas a partir de los histogramas multidimensionales en Python. \textcolor{red}{Por el momento falta traducirlo a C para incorporarlo al codigo de KDSource.}
+        \item Resultados preliminares en un canal de extraccion de neutrones.
         \item Todo el trabajo se ha realizado para neutrones, excluyendo los fotones.
     \end{itemize}
     % \begin{figure}
@@ -137,11 +143,11 @@ simulación de fuentes de Monte Carlo KDSource}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados preliminares: Histogramas multidimensionales}
-    Histogramas macro:
+    \textbf{Histogramas macro:}
     \begin{itemize}
         \item Permiten agrupar particulas segun su similutud por variables.
         \item En caso de tomar menos macrogrupos se obtiene mayor estadistica, a costa de perder correlacion entre variables.
-        \item El usuario debe seleccionar la cantidad de macrogrupos, el orden del tratamiento de las variables y, de forma opcional, limites de macrogrupos manuales. Por ejemplo, limites geometricos del canal de extracción. 
+        \item El usuario debe seleccionar la cantidad de macrogrupos, el orden del tratamiento de las variables y, de forma opcional, limites de macrogrupos manuales. \textcolor{red}{Por ejemplo, limites geometricos del canal de extracción.}
     \end{itemize} 
 
     Input tipico:
@@ -154,37 +160,51 @@ simulación de fuentes de Monte Carlo KDSource}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados preliminares: Histogramas multidimensionales}
-    Histogramas macro - Input tipico:
+    % Explicacion de un input tipico:
 
     \begin{minted}[frame=single, linenos=false]{python}
     orden_columnas = ['letargia', 'x', 'y', 'mu', 'phi']
     macro_grupos = [6,5,5,4]
     \end{minted}
 
-    \begin{itemize}
-        \item Se obtiene un histograma macro de 6 grupos en letargia
-        \item Luego se obtienen un histograma macro de 5 grupos en x para cada grupo en letargia. En total 30 grupos en x.
-        \item Luego se obtienen un histograma macro de 5 grupos en y para cada grupo en x. En total 150 grupos en y.
-        \item Luego se obtienen un histograma macro de 4 grupos en mu para cada grupo en y. En total 600 grupos en mu.
-        \item Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.
-    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{imagens/esquema3.jpeg}
+        % \caption{Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.}
+        \label{fig:esquema31}
+    \end{figure}
 
-    Luego, para cada grupo macro se obtiene un histograma micro de la variable de interes. 
+    \begin{itemize}
+        % \item Se obtiene un histograma macro de 6 grupos de letargia
+        % \item Luego se obtienen un histograma macro de 5 grupos de x para cada grupo en letargia. \\En total 30 grupos de x.
+        % \item Luego se obtienen un histograma macro de 5 grupos de y para cada grupo en x. \\En total 150 grupos de y.
+        % \item Luego se obtienen un histograma macro de 4 grupos de mu para cada grupo en y. \\En total 600 grupos de mu.
+        \item Total: 6 + 30 + 150 + 600 = 786 grupos macro en estructura de arbol.
+    \end{itemize}
+    % \newline
+    \textcolor{red}{Luego, para cada grupo macro se obtiene un histograma micro de la variable de interes.}
 
 \end{frame}
 
 \begin{frame}[fragile]{Resultados preliminares: Histogramas multidimensionales}
-    Histogramas micro:
+    \textbf{Histogramas micro:}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.55\linewidth]{imagens/esquema4.jpeg}
+        % \caption{Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.}
+        \label{fig:esquema4}
+    \end{figure}
 
     \begin{itemize}
-        \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
-        \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
-        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximacion de la distribucion de probabilidad y no copiar el ruido estadistico.
+        % \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
+        % \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
+        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximación de la distribución de probabilidad y evitar reproducir el ruido estadistico.
+        \item A partir de este enfoque de macro y micro histogramas se logra aproximar la correlación intrinseca entre las variables de interes.
     \end{itemize}
 
-    A partir de este enfoque de macro y micro histogramas se logra aproximas la correlacion intrinseca entre las variables de interes.
 
-    Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.
+    \textcolor{red}{Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.}
 
     % BORRADOR: tal vez poner dos esquemas de muchos y pocos micro bines. Sino ver que hacer para que no quede tan vacia
      
@@ -192,10 +212,17 @@ simulación de fuentes de Monte Carlo KDSource}
 \end{frame}
 
 \begin{frame}{Resultados preliminares: Muestreo de particulas}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.95\linewidth]{imagens/esquema5.jpeg}
+        % \caption{Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.}
+        \label{fig:esquema5}
+    \end{figure}
+
     \begin{itemize}
-        \item Para cada variable se genera un numero pseudoaleatorio entre 0 y 1 y se interpola la inversa de la funcion de frecuencia acumulada para obtener el valor de la variable. 
-        \item Una vez obtenido el valor de la variable, se selecciona el macro grupo correspondiente y se obtiene la funcion de frecuencia acumulada correspondiente para la siguiente variable.
-        \item Se repite el proceso hasta obtener todas las variables de interes.
+        % \item Para cada variable se genera un numero pseudoaleatorio entre 0 y 1 y se interpola la inversa de la funcion de frecuencia acumulada para obtener el valor de la variable. 
+        % \item Una vez obtenido el valor de la variable, se selecciona el macro grupo correspondiente y se obtiene la funcion de frecuencia acumulada correspondiente para la siguiente variable.
+        % \item Se repite el proceso hasta obtener todas las variables de interes.
         \item Se generan N particulas sinteticas y se exportan con formato .h5 para poder ser leidas como fuente por OpenMC.
         \item Se contrasta el resultado de la simulacion de la lista de particulas original y la lista de particulas sinteticas.
     \end{itemize}
@@ -203,30 +230,91 @@ simulación de fuentes de Monte Carlo KDSource}
 \end{frame}
 
 \begin{frame}{Resultados preliminares: Ejemplo de aplicacion}
-    Por ultimo comentar el ejemplo de aplicacion que venimos trabajando y los resultados parciales que hemos obtenido. Entre ellos comentar diferencias entre incorporar o no los limites manuales de los macrogrupos (geometricos y en letargia). Ademas comentar diferencias entre diferente cantidad de micro y macrogrupos. Y tambien entre mayor o menor cantidad de particulas registradas.
-    Ademas comentar del tubo de vacio y caracteristicas delticas de la fuente que estamos utilizando (delta en mu y en letargia).
-    Ademas comentar que miramos el flujo a traves de la dimension de propagacion (total, agua y vacio) y que se observa el espectro al final del tubo (total, agua y vacio).
+    % \begin{figure}
+    %     \centering
+    %     \includegraphics[width=0.55\linewidth]{imagens/croquis1.jpeg}
+    %     % \caption{Total: 1 + 30 + 150 + 600 = 781 grupos macro en estructura de arbol.}
+    %     \label{fig:croquis1}
+    % \end{figure}
+    
+    % \centering
+    % Caracteristicas de la fuente:
+    % \begin{itemize}
+    %     \centering
+    %     \item Monoenergetica de $1 MeV$
+    %     \item Uniforme en el plano $XY$
+    %     \item Colimada en $\mu = 1$ 
+    % \end{itemize}
 
+    \begin{columns}
+        \column{0.7\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{imagens/croquis1.jpeg}
+            \label{fig:croquis1}
+        \end{figure}
+        
+        \column{0.35\textwidth}
+        Caracteristicas de la fuente:
+        \begin{itemize}
+            \item Monoenergetica de $1 \, MeV$
+            \item Uniforme en el plano $XY$
+            \item Colimada en $\mu = 1$ 
+        \end{itemize}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{Resultados preliminares: Ejemplo de aplicacion}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\linewidth]{imagens/flujos.png}
+        \label{fig:flujos.png}
+    \end{figure}
+    \textcolor{red}{Falta poner los datos de esta simulacion. Pero no los puse porque despues voy a hacer estos graficos de vuelta y tal vez uso otros inputs.}
     
 
 \end{frame}
 
-\section{Conclusiones preliminares y trabajo futuro}
-
-\begin{frame}{Conclusiones preliminares y trabajo futuro}
-
-    BORRADOR:
-
-    Comentar las caracteristicas delticas de la fuente que estamos utilizando (delta en mu y en letargia). Hablar sobre la ventaja de utilizar histogramsa en vez de gaussianas para seguir este tipo de fenomenos. Comentar que es relevante porque luego de un colimador el haz es bastante monodireccional. Ver de simular un caso real donde el haz no es 100\% monodireccional sino que tiene algun grado de dispersion.
-
-    Hablar sobre la incorporracion de seleccion de parametros automaticos (tal vez decir que lo de la distancia KL).
+\begin{frame}{Resultados preliminares: Ejemplo de aplicacion}
     
-    Hablar sobre la incorporacion a la API de KDSource el metodo de muestreo de particulas sinteticas.
-
-    Hablar sobre la traduccion del muestreo a C y el acople on the fly.
+    \textcolor{red}{Aca voy a poner un grafico como el anterior pero del espectro al final del tubo.}
     
-    Aplicacion en el conducto N5 del RA6 para la simulacion del CHOPPPER.
 
+\end{frame}
+
+% \begin{frame}{Resultados preliminares: Ejemplo de aplicacion}
+%     Entre ellos comentar diferencias entre incorporar o no los limites manuales de los macrogrupos (geometricos y en letargia). \\
+%     Ademas comentar diferencias entre diferente cantidad de micro y macrogrupos. Y tambien entre mayor o menor cantidad de particulas registradas.\\
+%     Ademas comentar del tubo de vacio y caracteristicas delticas de la fuente que estamos utilizando (delta en mu y en letargia).\\
+%     Ademas comentar que miramos el flujo a traves de la dimension de propagacion (total, agua y vacio) y que se observa el espectro al final del tubo (total, agua y vacio).
+
+    
+
+% \end{frame}
+
+\section{Conclusiones preliminares}
+\begin{frame}{Conclusiones preliminares}
+    \begin{itemize}
+        \item Comentar las caracteristicas delticas de la fuente que estamos utilizando (delta en mu y en letargia). Comentar que es relevante porque luego de un colimador el haz es bastante monodireccional.
+        \item Hablar sobre la ventaja de utilizar histogramas en vez de gaussianas para seguir este tipo de fenomenos.
+        \item Comentar la importacia de seleccionar manualmente los limites de los macrogrupos, tanto los geometricos como los de letargia.
+        \item Comentar la importacia de seleccionar una cantidad apropiada de macro y micro bines.
+    
+    \end{itemize}
+
+\end{frame}
+
+\section{Trabajo futuro}
+\begin{frame}{Trabajo futuro}
+
+    \begin{itemize}
+        \item Incorporracion de seleccion de parametros automaticos (tal vez decir que lo de la distancia KL).\\
+        \item Ver de simular un caso real donde el haz no es 100\% monodireccional sino que tiene algun grado de dispersion.\\
+        \item Incorporar a la API de KDSource los metodos de histogramas multidimensionales.\\
+        \item Incorporar a la API de KDSource el metodo de muestreo de particulas sinteticas. \textcolor{red}{Esto incluye traducirlo a C y el acople on the fly.}\\
+        \item Aplicacion en el conducto N5 del RA6 para la simulacion del CHOPPER. \textcolor{red}{En este ejemplo podemos calcular a traves de la simulacion del RA6 y comparar contra medicion.}\\
+    \end{itemize}
 
 
 \end{frame}
@@ -255,6 +343,7 @@ simulación de fuentes de Monte Carlo KDSource}
 
 % FIM DO CONTEÚDO -----------------------------------------------------------------
 
-% NÃO REMOVA!
+% NÃO REMOVA! 
+% Comentarios: benchmark GODIVA para anexo. 
 \input{referencias}     
 \end{document}

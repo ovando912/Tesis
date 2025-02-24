@@ -1,6 +1,7 @@
 \babel@toc {spanish}{}\relax 
-\beamer@sectionintoc {2}{Motivación}{3}{0}{1}
-\beamer@sectionintoc {3}{Introdución}{5}{0}{2}
-\beamer@sectionintoc {4}{Resultados preliminares}{10}{0}{3}
-\beamer@sectionintoc {5}{Conclusiones preliminares}{19}{0}{4}
-\beamer@sectionintoc {6}{Trabajo futuro}{21}{0}{5}
+\beamer@sectionintoc {1}{Motivación}{3}{0}{1}
+\beamer@sectionintoc {2}{Introducción}{5}{0}{2}
+\beamer@sectionintoc {3}{Estado actual}{10}{0}{3}
+\beamer@sectionintoc {4}{Resultados preliminares}{16}{0}{4}
+\beamer@sectionintoc {5}{Conclusiones preliminares}{20}{0}{5}
+\beamer@sectionintoc {6}{Trabajo futuro}{22}{0}{6}

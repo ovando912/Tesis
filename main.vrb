@@ -1,4 +1,4 @@
-\frametitle{Resultados preliminares: Histogramas multidimensionales}
+\frametitle{Histogramas multidimensionales}
 \textbf{Histogramas micro:}
 
     \begin{figure}
@@ -9,15 +9,15 @@
     \end{figure}
 
     \begin{itemize}
-        % \item Para cada macro grupo se obtiene un histograma micro de la variable de interes.
-        % \item A partir del histograma se normaliza y se obtiene la distribucion de frecuencia acumulada.
-        \item La elección del numero de microgrupos es un compromiso entre obtener una buena aproximación de la distribución de probabilidad y evitar reproducir el ruido estadistico.
-        \item A partir de este enfoque de macro y micro histogramas se logra aproximar la correlación intrinseca entre las variables de interes.
+        % \item Para cada macro grupo se obtiene un histograma micro de la variable de interés.
+        % \item A partir del histograma se normaliza y se obtiene la distribución de frecuencia acumulada.
+        \item La elección del número de microgrupos es un compromiso entre obtener una buena aproximación de la distribución de probabilidad y evitar reproducir el ruido estadístico.
+        \item A partir de este enfoque de macro y micro histogramas se logra aproximar la correlación intrínseca entre las variables de interés.
     \end{itemize}
 
 
-    \textcolor{red}{Luego es posible muestrear listas de particulas sinteticas a partir de los histogramas multidimensionales, utilizando numeros pseudoaleatorios y las funciones de frecuencia acumulada.}
+    \textcolor{red}{Luego es posible muestrear listas de partículas sintéticas a partir de los histogramas multidimensionales, utilizando números pseudoaleatorios y las funciones de frecuencia acumulada.}
 
-    % BORRADOR: tal vez poner dos esquemas de muchos y pocos micro bines. Sino ver que hacer para que no quede tan vacia
+    % BORRADOR: tal vez poner dos esquemas de muchos y pocos micro bines. Sino ver que hacer para que no quede tan vacía
 
 

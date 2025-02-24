@@ -547,12 +547,15 @@ INPUT ./imagens/logoLIPES.png
 INPUT ./imagens/esquema5.jpeg
 INPUT ./imagens/esquema5.jpeg
 INPUT ./imagens/logoLIPES.png
+INPUT ./imagens/logoLIPES.png
 INPUT ./imagens/croquis1.jpeg
 INPUT ./imagens/croquis1.jpeg
 INPUT ./imagens/logoLIPES.png
-INPUT ./imagens/flujos.png
-INPUT ./imagens/flujos.png
+INPUT ./imagens/resultados_flujo.png
+INPUT ./imagens/resultados_flujo.png
 INPUT ./imagens/logoLIPES.png
+INPUT ./imagens/resultados_espectro.png
+INPUT ./imagens/resultados_espectro.png
 INPUT ./imagens/logoLIPES.png
 INPUT ./imagens/logoLIPES.png
 INPUT ./imagens/logoLIPES.png

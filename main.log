@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.2.12)  23 FEB 2025 18:40
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.2.12)  27 FEB 2025 12:17
  system commands enabled.
  file:line:error style messages enabled.
 **/home/lucas/Documents/Proyecto_Integrador/Tesis/main.tex
@@ -1809,12 +1809,12 @@ LaTeX Info: Redefining \% on input line 21.
 LaTeX Font Info:    Font shape `TU/Carlito(0)/b/n' will be
 (Font)              scaled to size 8.0pt on input line 21.
  (./capa.tex
-<imagens/capaLIPES.png, id=101, 1827.82875pt x 973.6375pt>
+<imagens/capaLIPES.png, id=107, 1827.82875pt x 973.6375pt>
 File: imagens/capaLIPES.png Graphic file (type png)
 <use imagens/capaLIPES.png>
 Package luatex.def Info: imagens/capaLIPES.png  used on input line 17.
 (luatex.def)             Requested size: 484.37231pt x 258.01271pt.
-<imagens/logoLIPES.png, id=102, 3456.4332pt x 1500.807pt>
+<imagens/logoLIPES.png, id=108, 3456.4332pt x 1500.807pt>
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
 Package luatex.def Info: imagens/logoLIPES.png  used on input line 17.
@@ -1861,68 +1861,109 @@ Package luatex.def Info: imagens/logoLIPES.png  used on input line 46.
  [3
 
 ]
-LaTeX Font Info:    Font shape `TU/Carlito(0)/b/n' will be
-(Font)              scaled to size 10.95pt on input line 54.
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 54.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [4
+<imagens/nucleo1.png, id=313, 413.545pt x 510.90875pt>
+File: imagens/nucleo1.png Graphic file (type png)
+<use imagens/nucleo1.png>
+Package luatex.def Info: imagens/nucleo1.png  used on input line 54.
+(luatex.def)             Requested size: 139.42093pt x 172.24886pt.
 
-]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 57.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [5
-
-]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 65.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [6
-
-]
-<imagens/esquema1.jpeg, id=468, 1284.8pt x 327.2225pt>
-File: imagens/esquema1.jpeg Graphic file (type jpg)
-<use imagens/esquema1.jpeg>
-Package luatex.def Info: imagens/esquema1.jpeg  used on input line 78.
-(luatex.def)             Requested size: 378.42044pt x 96.38pt.
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 78.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [7
-
-<./imagens/esquema1.jpeg>]
-<imagens/esquema2.jpeg, id=530, 840.13875pt x 528.97626pt>
-File: imagens/esquema2.jpeg Graphic file (type jpg)
-<use imagens/esquema2.jpeg>
-Package luatex.def Info: imagens/esquema2.jpeg  used on input line 93.
-(luatex.def)             Requested size: 139.42093pt x 87.77774pt.
-
-Overfull \vbox (16.18907pt too high) detected at line 93
+Overfull \vbox (5.46014pt too high) detected at line 54
  []
 
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 93.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 54.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
-[8
+[4
 
-<./imagens/esquema2.jpeg>]
-<imagens/openmc.png, id=591, 1065.9825pt x 241.90375pt>
+<./imagens/nucleo1.png>]
+<imagens/nucleo2.png, id=380, 1018.80624pt x 513.92pt>
+File: imagens/nucleo2.png Graphic file (type png)
+<use imagens/nucleo2.png>
+Package luatex.def Info: imagens/nucleo2.png  used on input line 63.
+(luatex.def)             Requested size: 298.75394pt x 150.70328pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 63.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [5
+
+<./imagens/nucleo2.png>]
+<imagens/nucleo3.png, id=447, 1618.045pt x 524.96124pt>
+File: imagens/nucleo3.png Graphic file (type png)
+<use imagens/nucleo3.png>
+Package luatex.def Info: imagens/nucleo3.png  used on input line 72.
+(luatex.def)             Requested size: 398.3386pt x 129.23743pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 72.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [6
+
+<./imagens/nucleo3.png>]
+<imagens/nucleo6.png, id=515, 347.2975pt x 353.32pt>
+File: imagens/nucleo6.png Graphic file (type png)
+<use imagens/nucleo6.png>
+Package luatex.def Info: imagens/nucleo6.png  used on input line 81.
+(luatex.def)             Requested size: 179.25114pt x 182.36348pt.
+
+Overfull \vbox (15.57477pt too high) detected at line 81
+ []
+
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 81.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+[7
+
+<./imagens/nucleo6.png>]
+<imagens/nucleo5.png, id=582, 692.5875pt x 358.33875pt>
+File: imagens/nucleo5.png Graphic file (type png)
+<use imagens/nucleo5.png>
+Package luatex.def Info: imagens/nucleo5.png  used on input line 90.
+(luatex.def)             Requested size: 318.67209pt x 164.88156pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 90.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [8
+
+<./imagens/nucleo5.png>]
+<imagens/nucleo4.png, id=649, 1042.89626pt x 356.33125pt>
+File: imagens/nucleo4.png Graphic file (type png)
+<use imagens/nucleo4.png>
+Package luatex.def Info: imagens/nucleo4.png  used on input line 99.
+(luatex.def)             Requested size: 398.3386pt x 136.10323pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 99.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [9
+
+<./imagens/nucleo4.png>]
+<imagens/tabla.png, id=717, 1384.17125pt x 474.77374pt>
+File: imagens/tabla.png Graphic file (type png)
+<use imagens/tabla.png>
+Package luatex.def Info: imagens/tabla.png  used on input line 148.
+(luatex.def)             Requested size: 398.3386pt x 136.6304pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 148.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [10
+
+<./imagens/tabla.png>]
+<imagens/openmc.png, id=785, 1065.9825pt x 241.90375pt>
 File: imagens/openmc.png Graphic file (type png)
 <use imagens/openmc.png>
-Package luatex.def Info: imagens/openmc.png  used on input line 125.
+Package luatex.def Info: imagens/openmc.png  used on input line 180.
 (luatex.def)             Requested size: 139.42093pt x 31.63683pt.
-LaTeX Font Info:    Trying to load font information for OT1+Carlito(0) on input line 125.
-LaTeX Font Info:    No file OT1Carlito(0).fd. on input line 125.
+LaTeX Font Info:    Trying to load font information for OT1+Carlito(0) on input line 180.
+LaTeX Font Info:    No file OT1Carlito(0).fd. on input line 180.
 
 
 LaTeX Font Warning: Font shape `OT1/Carlito(0)/m/n' undefined
-(Font)              using `OT1/cmr/m/n' instead on input line 125.
+(Font)              using `OT1/cmr/m/n' instead on input line 180.
 
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
@@ -1931,68 +1972,71 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `Carlito' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 125.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 180.
  (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 125.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 180.
  (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 125.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 180.
  (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 125.
+(Font)              <10.95> on input line 180.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 125.
+(Font)              <8> on input line 180.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 125.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 125.
+(Font)              <6> on input line 180.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 180.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 125.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 180.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `TU/Carlito(0)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 125.
+(Font)              scaled to size 10.95pt on input line 180.
 LaTeX Font Info:    Font shape `TU/Carlito(0)/m/it' will be
-(Font)              scaled to size 6.0pt on input line 125.
-<imagens/esquema3.png, id=592, 531.6663pt x 145.5036pt>
+(Font)              scaled to size 6.0pt on input line 180.
+<imagens/esquema3.png, id=786, 2416.02625pt x 606.265pt>
 File: imagens/esquema3.png Graphic file (type png)
 <use imagens/esquema3.png>
-Package luatex.def Info: imagens/esquema3.png  used on input line 125.
-(luatex.def)             Requested size: 139.42093pt x 38.1564pt.
+Package luatex.def Info: imagens/esquema3.png  used on input line 180.
+(luatex.def)             Requested size: 139.42093pt x 34.97745pt.
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 125.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 180.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [9
+ [11
 
 <./imagens/openmc.png><./imagens/esquema3.png>]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 127.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 182.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [10
+ [12
 
 ]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 143.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 198.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [11
+ [13
 
 ]
 \openout4 = main.vrb
  (./main.vrb
+LaTeX Font Info:    Font shape `TU/Carlito(0)/b/n' will be
+(Font)              scaled to size 10.95pt on input line 2.
+
 \openout5 = main.pyg
  (./_minted-main/default.pygstyle) (./_minted-main/6D854BE86CFD38878BBB656A710D1D6F541C68F80C6A6F06151AFD63BAE50EBC.pygtex
 Package microtype Info: Loading generic protrusion settings for font family
@@ -2002,138 +2046,140 @@ Package microtype Info: Loading generic protrusion settings for font family
 ))
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 160.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 215.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [12
+ [14
 
 ]
 \openout4 = main.vrb
  (./main.vrb
 \openout5 = main.pyg
  (./_minted-main/6D854BE86CFD38878BBB656A710D1D6F541C68F80C6A6F06151AFD63BAE50EBC.pygtex)
-<imagens/esquema3.jpeg, id=891, 773.89125pt x 312.16624pt>
+<imagens/esquema3.jpeg, id=1115, 773.89125pt x 312.16624pt>
 File: imagens/esquema3.jpeg Graphic file (type jpg)
 <use imagens/esquema3.jpeg>
 Package luatex.def Info: imagens/esquema3.jpeg  used on input line 10.
 (luatex.def)             Requested size: 278.83578pt x 112.47502pt.
 )
-Overfull \vbox (10.26833pt too high) detected at line 187
- []
-
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 187.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 242.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
-[13
+ [15
 
 <./imagens/esquema3.jpeg>]
 \openout4 = main.vrb
  (./main.vrb
-<imagens/esquema4.jpeg, id=980, 997.7275pt x 449.68pt>
+<imagens/esquema4.jpeg, id=1213, 997.7275pt x 449.68pt>
 File: imagens/esquema4.jpeg Graphic file (type jpg)
 <use imagens/esquema4.jpeg>
 Package luatex.def Info: imagens/esquema4.jpeg  used on input line 6.
 (luatex.def)             Requested size: 219.08743pt x 98.73778pt.
 )
-Overfull \vbox (43.18996pt too high) detected at line 212
- []
-
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 212.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
-[14
-
-<./imagens/esquema4.jpeg>]
-<imagens/esquema5.jpeg, id=1041, 1064.97874pt x 208.78pt>
-File: imagens/esquema5.jpeg Graphic file (type jpg)
-<use imagens/esquema5.jpeg>
-Package luatex.def Info: imagens/esquema5.jpeg  used on input line 230.
-(luatex.def)             Requested size: 378.42044pt x 74.1859pt.
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 230.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [15
-
-<./imagens/esquema5.jpeg>]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 232.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [16
-
-]
-<imagens/croquis1.jpeg, id=1163, 808.01875pt x 444.66125pt>
-File: imagens/croquis1.jpeg Graphic file (type jpg)
-<use imagens/croquis1.jpeg>
-Package luatex.def Info: imagens/croquis1.jpeg  used on input line 267.
-(luatex.def)             Requested size: 278.83578pt x 153.449pt.
-
-Overfull \vbox (2.2603pt too high) detected at line 267
+Overfull \vbox (2.38994pt too high) detected at line 267
  []
 
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
 Package luatex.def Info: imagens/logoLIPES.png  used on input line 267.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
-[17
+[16
 
-<./imagens/croquis1.jpeg>]
-<imagens/resultados_flujo.png, id=1226, 1445.4pt x 520.344pt>
-File: imagens/resultados_flujo.png Graphic file (type png)
-<use imagens/resultados_flujo.png>
-Package luatex.def Info: imagens/resultados_flujo.png  used on input line 278.
-(luatex.def)             Requested size: 398.3386pt x 143.40071pt.
+<./imagens/esquema4.jpeg>]
+<imagens/esquema5.jpeg, id=1280, 1064.97874pt x 208.78pt>
+File: imagens/esquema5.jpeg Graphic file (type jpg)
+<use imagens/esquema5.jpeg>
+Package luatex.def Info: imagens/esquema5.jpeg  used on input line 285.
+(luatex.def)             Requested size: 378.42044pt x 74.1859pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 285.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [17
 
-Overfull \vbox (19.29405pt too high) detected at line 278
+<./imagens/esquema5.jpeg>]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 287.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [18
+
+]
+<imagens/croquis1.jpeg, id=1414, 808.01875pt x 444.66125pt>
+File: imagens/croquis1.jpeg Graphic file (type jpg)
+<use imagens/croquis1.jpeg>
+Package luatex.def Info: imagens/croquis1.jpeg  used on input line 322.
+(luatex.def)             Requested size: 278.83578pt x 153.449pt.
+
+Overfull \vbox (2.2603pt too high) detected at line 322
  []
 
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 278.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 322.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
-[18
+[19
 
-<./imagens/resultados_flujo.png>]
-<imagens/resultados_espectro.png, id=1288, 1445.4pt x 520.344pt>
-File: imagens/resultados_espectro.png Graphic file (type png)
-<use imagens/resultados_espectro.png>
-Package luatex.def Info: imagens/resultados_espectro.png  used on input line 288.
+<./imagens/croquis1.jpeg>]
+<imagens/resultados_flujo.png, id=1483, 1445.4pt x 520.344pt>
+File: imagens/resultados_flujo.png Graphic file (type png)
+<use imagens/resultados_flujo.png>
+Package luatex.def Info: imagens/resultados_flujo.png  used on input line 333.
 (luatex.def)             Requested size: 398.3386pt x 143.40071pt.
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 288.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 333.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [19
+ [20
+
+<./imagens/resultados_flujo.png>]
+<imagens/resultados_espectro.png, id=1552, 1445.4pt x 520.344pt>
+File: imagens/resultados_espectro.png Graphic file (type png)
+<use imagens/resultados_espectro.png>
+Package luatex.def Info: imagens/resultados_espectro.png  used on input line 343.
+(luatex.def)             Requested size: 398.3386pt x 143.40071pt.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 343.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [21
 
 <./imagens/resultados_espectro.png>]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 300.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [20
-
-]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 310.
-(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
- [21
-
-]
-File: imagens/logoLIPES.png Graphic file (type png)
-<use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 312.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 355.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [22
 
 ]
 File: imagens/logoLIPES.png Graphic file (type png)
 <use imagens/logoLIPES.png>
-Package luatex.def Info: imagens/logoLIPES.png  used on input line 323.
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 365.
 (luatex.def)             Requested size: 69.14325pt x 30.02248pt.
  [23
+
+]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 367.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [24
+
+]
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 378.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [25
+
+]
+LaTeX Font Info:    Font shape `TU/Carlito(0)/m/n' will be
+(Font)              scaled to size 24.88pt on input line 387.
+File: imagens/logoLIPES.png Graphic file (type png)
+<use imagens/logoLIPES.png>
+Package luatex.def Info: imagens/logoLIPES.png  used on input line 387.
+(luatex.def)             Requested size: 69.14325pt x 30.02248pt.
+ [26
 
 ] (./referencias.tex)
 \tf@nav=\write8
@@ -2158,24 +2204,24 @@ L3 programming layer <2020/03/25>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 25286B011C618BA5BA0B187612975FA3;761.
+(rerunfilecheck)             Checksum: AA4F3571A2A3444FDE2608BB7FA4138A;723.
 runsystem(rm main.pyg)...executed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 48759 strings out of 476553
+ 48835 strings out of 476553
  100000,1977958 words of node,token memory allocated
- 17534 words of node memory still in use:
-   205 hlist, 14 vlist, 11 rule, 107 disc, 10 local_par, 339 glue, 109 kern, 40 penalty, 1 margin_kern, 591 glyph, 1507 attribute, 87 glue_spec, 756 attribute_list, 5 write, 368 pdf_literal, 27 pdf_start_link, 27 pdf_end_link, 27 pdf_action, 104 pdf_colorstack nodes
-   avail lists: 1:3,2:3941,3:1252,4:372,5:383,6:71,7:2822,8:4,9:919,10:18,11:353
- 68802 multiletter control sequences out of 65536+600000
- 63 fonts using 12460367 bytes
+ 12689 words of node memory still in use:
+   201 hlist, 14 vlist, 7 rule, 26 disc, 8 local_par, 236 glue, 47 kern, 15 penalty, 3 margin_kern, 135 glyph, 1589 attribute, 87 glue_spec, 797 attribute_list, 5 write, 416 pdf_literal, 30 pdf_start_link, 30 pdf_end_link, 30 pdf_action, 98 pdf_colorstack nodes
+   avail lists: 1:3,2:4526,3:1388,4:382,5:343,6:77,7:2691,8:4,9:930,10:18,11:284
+ 68849 multiletter control sequences out of 65536+600000
+ 64 fonts using 12906039 bytes
  128i,20n,124p,1294b,1187s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Italic.ttf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Regular.ttf></usr/share/texlive/texmf-dist/fonts/truetype/typoland/carlito/Carlito-Bold.ttf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb>
-Output written on main.pdf (23 pages, 2015372 bytes).
+Output written on main.pdf (26 pages, 2895696 bytes).
 
-PDF statistics: 1603 PDF objects out of 1728 (max. 8388607)
- 798 compressed objects within 8 object streams
- 63 named destinations out of 1000 (max. 131072)
+PDF statistics: 1960 PDF objects out of 2073 (max. 8388607)
+ 967 compressed objects within 10 object streams
+ 68 named destinations out of 1000 (max. 131072)
  124 words of extra memory for PDF output out of 10000 (max. 100000000)
 

@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \documentclass[12pt,papel,twoside]{ibtesis}
+% \documentclass[12pt,papel,singlespace,oneside]{ibtesis}
+% \documentclass[12pt,papel,preprint,singlespace,oneside]{ibtesis}
+
+\documentclass[screen,pagebackref]{ibtesis}
+% Antes acá estaba
+% \documentclass[12pt,screen,twoside,pagebackref]{ibtesis}
+
+
+%%%%%%%%%%%%%%%%%%%%% Paquetes extra %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Por conveniencia: aqu\'{\i} puede cargar todos los paquetes y definir los comandos 
+% que necesite
+\usepackage{ibextra}
+\usepackage{booktabs}
+\usepackage{float}
+
+%\usepackage{hyphen-spanis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Informacion sobre la tesis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Incorporación de técnicas de muestreo mediante histogramas multidimensionales al código de
+simulación de fuentes de Monte Carlo KDSource}
+\author{Lucas Ezequiel Ovando}
+\director{Dr. Ariel Marquez}
+\codirector{Ing. Zoe Prieto}
+\carrera{Proyecto Integrador de la Carrera de Ingeniería Nuclear}
+\grado{Estudiante}
+\laboratorio{Departamento de Fisica de Reactores y Radiaciones}
+\jurado{Dr. Edmundo Lopasso \\ 
+Mg. Norberto Schmidt}
+\palabrasclave{formato de Tesis, Lineamientos de escritura, Instituto Balseiro}
+\keywords{Thesis format, Templates, Instituto Balseiro}
+% Si queremos poner la fecha manualmente:
+% \date{Diciembre de 2099}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\titlepagefalse % Si no quiere compilar la portada descomente esta linea
+%\includeonly{apendices} % Compilar s\'{o}lo estos archivos 
+\graphicspath{{figs/}} % Lugar donde encontrar las figuras generales (se puede poner uno en cada cap{\'{\i}}tulo)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+% Dentro del environment 'preliminary' va:
+% la dedicatoria, resumen, abstract, indices
+
+\begin{preliminary}
+
+% Escriba su dedicatoria
+\dedicatoria{
+A todos por igual
+}
+
+%%% \'{I}ndices %%%%
+
+\begin{abreviaturas}
+                                %Abreviaturas
+\end{abreviaturas}
+
+\tableofcontents                %\'{I}ndice
+
+\listoffigures                  %Figuras
+
+\listoftables                   %Tablas
+
+\include{Capitulos/Abstract}
+
+\end{preliminary}
+
+%% acá deberían incluirse los capítulos
+\include{Capitulos/Introduccion}
+\include{Capitulos/Metodologia}
+\include{Capitulos/Resampleo}
+\include{Capitulos/Paralelepipedo}
+\include{Capitulos/Conducto}
+
+\appendix
+\include{Capitulos/Ap_A}
+
+\begin{biblio}
+\bibliography{mibib}
+\end{biblio}
+
+
+\begin{postliminary}
+
+\begin{seccion}{Publicaciones asociadas}
+  \begin{enumerate}
+  \item Mi primer aviso en la revista \textbf{ABC}, 1996
+  \item Mi segunda publicaci\'{o}n en la revista \textbf{ABC}, 1997
+  \end{enumerate}
+\end{seccion}
+
+\begin{seccion}{Agradecimientos}
+A todos los que se lo merecen, por merecerlo
+\end{seccion}
+
+\end{postliminary}
+
+\end{document}
+

@@ -1,0 +1,174 @@
+\chapter{Introducción}
+
+\section{Contexto y motivación}
+
+Las simulaciones Monte Carlo son la herramienta estándar cuando la complejidad geométrica o la marcada anisotropía angular del flujo neutrónico hacen inviables los métodos determinísticos. Sin embargo, cuando las partículas atraviesan blindajes o regiones altamente absorbentes\footnote{\textit{Deep penetration problem}}, la estadística disponible en la zona de interés se reduce considerablemente, aumentando significativamente la incertidumbre en tallies clave como el flujo escalar o la dosis equivalente ambiental. La incertidumbre estadística de estos resultados, por lo general, decrece lentamente con el número de historias simuladas, incrementando el costo computacional de forma prohibitiva.
+
+Para mitigar esta problemática, se emplean técnicas de reducción de varianza. Entre ellas, destaca el método general del \emph{source biasing}, basado en re-muestrear las fuentes originales. Esta técnica consiste en reemplazar la distribución original de partículas por una estadísticamente equivalente, construida sobre una superficie intermedia estratégicamente seleccionada. De esta manera, las partículas transportadas tienen mayor probabilidad de contribuir eficientemente a los tallies seleccionados, mejorando la estadística en la región objetivo sin aumentar desproporcionadamente el tiempo de CPU.
+
+\section{Fuentes distribucionales – base conceptual}
+
+El método se implementa dividiendo el problema original en una sucesión de etapas consecutivas delimitadas por \emph{superficies de acople} $\{\mathcal{S}_{i}\}_{i=1}^{\,n-1}$. Durante cada etapa $i$, se simulan partículas desde la fuente original hasta la superficie $\mathcal{S}_{i}$, almacenándose las propiedades de cada partícula (\emph{tracks}) en el espacio de fases ($\mathbf{E}$–$\mathbf{r}$–$\boldsymbol{\Omega}$) y su peso estadístico. Estas superficies se definen en posiciones donde sea posible registrar suficientes partículas para construir una fuente secundaria representativa en un tiempo razonable.
+
+A partir de las listas generadas, se estima la distribución multidimensional de las partículas en la superficie $\mathcal{S}_{i}$, preservando las correlaciones entre las variables mencionadas. Esta distribución estimada se utiliza luego como fuente inicial en la siguiente etapa ($i+1$). De este modo, la fuente se traslada progresivamente hacia la región objetivo, logrando la precisión requerida con un número considerablemente menor de historias que el método tradicional sin reducción de varianza.
+
+En resumen, el procedimiento consta de tres etapas fundamentales:
+
+\begin{itemize}
+    \item \textbf{Detección}: Registro de los tracks en superficies intermedias de desacople que separan las etapas de simulación. En este proceso se obtiene un \emph{trackfile} original al cual se lo va a procesar con la metodologia desarrollada en este trabajo.
+    \item \textbf{Estimación}: Aproximación de la distribución multidimensional y sus correlaciones, a partir del \emph{trackfile}.
+    \item \textbf{Producción}: Remuestreo de la distribución estimada para generar nuevas partículas en simulaciones subsecuentes.
+\end{itemize}
+
+Los desarrollos previos en el Departamento de Física de Reactores y Radiaciones (DFRyR) han empleado histogramas anidados con discretización gruesa y fina (macro/micro-bins) para capturar adecuadamente las correlaciones entre energía, posición y dirección en fuentes planas rectangulares. Si bien este enfoque permitió resolver satisfactoriamente casos específicos relacionados con el reactor RA‑10, presenta limitaciones. Entre ellas, destacan la necesidad de definir manualmente las grillas de discretización, la poca suavidad inherente a los histogramas y las dificultades para tratar correctamente discontinuidades marcadas, como aquellas generadas por cambios abruptos de material o geometría.
+
+Posteriormente, la herramienta KDSource—desarrollada también en el DFRyR—introdujo el uso de técnicas más avanzadas basadas en \textit{Kernel Density Estimation} (KDE) multivariante adaptativa. El flujo de trabajo de KDSource comprende dos etapas diferenciadas: (i) una fase inicial de optimización \emph{off-line}, en la cual se ajusta automáticamente el modelo KDE a partir de listas de tracks preexistentes, y (ii) una fase de muestreo \emph{on-the-fly}, donde un módulo integrado en \texttt{C}/\texttt{C++} genera nuevas partículas durante la simulación Monte Carlo manteniendo las correlaciones globales y la normalización del peso original. Este enfoque elimina la necesidad de manejar listas voluminosas de tracks durante la simulación, optimizando sustancialmente el uso de memoria RAM.
+
+No obstante, KDE presenta una desventaja notable: su carácter inherentemente suavizante puede reducir la capacidad de representar adecuadamente discontinuidades abruptas presentes en ciertos problemas físicos relevantes. En consecuencia, el presente trabajo propone desarrollar un esquema complementario basado en histogramas multidimensionales adaptativos. El objetivo es mantener las ventajas del remuestreo continuo ofrecido por KDE, pero proporcionando un control más explícito sobre la resolución local y permitiendo capturar discontinuidades importantes.
+
+\section{Aportes específicos de este trabajo}
+
+Este trabajo busca profundizar el desarrollo de KDSource mediante la incorporación de histogramas multidimensionales adaptativos como una alternativa -o complemento- a la metodología KDE existente. Las contribuciones específicas son:
+
+\begin{itemize}
+    \item Implementación de histogramas multidimensionales adaptativos en KDSource, capaces de:
+    \begin{itemize}
+        \item preservar las correlaciones esenciales entre variables ($\mathbf{E}$–$\mathbf{r}$–$\boldsymbol{\Omega}$) para fuentes planas rectangulares perpendiculares al eje $z$;
+        \item representar fielmente discontinuidades espectrales y espaciales debidas a interfaces abruptas o colimadores;
+        \item ofrecer un control explícito de la resolución en la aproximación de las distribuciones y correlaciones.
+    \end{itemize}
+
+    \item Integración optimizada del flujo de trabajo en \texttt{OpenMC} mediante:
+    \begin{itemize}
+        \item generación \emph{off-line} de un archivo intermedio en formato XML conteniendo histogramas adaptativos y metadatos de la fuente;
+        \item desarrollo de un módulo en C que utilice eficientemente esta información para producir partículas individualmente;
+        \item implementación de un muestreo \emph{on-the-fly} integrado directamente en OpenMC, minimizando la ocupación de memoria al evitar la carga y gestión de archivos extensos de partículas.
+    \end{itemize}
+
+    \item Validación sistemática del método en casos de complejidad creciente:
+    \begin{itemize}
+        \item Verificación de la técnica de resampleo utilizando \emph{trackfiles} de ejemplo.
+        \item Un caso simplificado, consistente en un haz colimado ingresando en un paralelepípedo de agua atravesado por un canal de vacío, con fuentes definidas artificialmente para permitir una comparación con una simulación directa sin reducción de varianza. 
+        \item Un caso más realista condicionado por la fuente original: la propagación a través del conducto N.º 5 del reactor RA‑6, utilizando una trackfile proporcionada por el departamento de Física de Neutrones generada a través de una simulación del núcleo en OpenMC, lo cual impone restricciones estadísticas reales para evaluar el desempeño práctico del método propuesto.
+    \end{itemize}
+\end{itemize}
+
+NOTA: Despues de este capitulo falta agregar otro que sea de presentacion de las herramientas presentadas: por ahora hay que explicar que es KDSource y OpenMC, y como se relacionan entre si. (aunque un poco ya esta).  Tambien hay que explicar la divergencia KL (Esta medio comentado en el capitulo del resampleo). Explicar MCPL. y XML. Tambien python, c, y c++.
+
+
+% \chapter{Introducción}
+
+% \section{Contexto y motivación}
+
+% Las simulaciones de transporte por metodo Monte Carlo son la herramienta de referencia cuando 
+% la geometría y/o la anisotropía angular hacen inviables los métodos determinísticos. 
+% Sin embargo, a medida que las partículas atraviesan blindajes o regiones muy absorbentes,
+%  la estadística en la zona de interés se vuelve escasa y la incertidumbre de tallies, como
+%   el flujo escalar por ejemplo, escala de forma prohibitiva con el tiempo de simulacion.
+%   Para reducir el error estadistico sin multiplicar el tiempo de CPU se recurre a técnicas de 
+%   reducción de varianza. Una de las más 
+%    utilizadas es el re-muestreo de fuentes (source biasing en sentido amplio), 
+%    donde se reemplaza la fuente original por una distribución estadísticamente 
+%    equivalente construida en una superficie intermedia. De este modo se transportan 
+%    preferentemente las partículas con mayor probabilidad de contribuir a los tallies 
+%    seleccionados.
+
+% \section{Fuentes distribucionales – base conceptual}
+
+
+% La metodología se lleva a la práctica dividiendo el problema original 
+% en $n$ etapas de transporte contiguas, delimitadas por \emph{superficies 
+% de acople} $\{\mathcal{S}_{i}\}_{i=1}^{\,n-1}$. Durante la etapa $i$ se 
+% simulan todas las partículas desde la fuente hasta la superficie 
+% $\mathcal{S}_{i}$ y se guarda la \emph{lista de tracks} asociada, es decir, 
+% el vector de fase de cada partícula que atraviesa la superficie. 
+% Estas superficies se eligen de modo que el número de tracks registrado 
+% resulte estadísticamente representativo para construir una fuente secundaria 
+% confiable.
+
+
+% A partir de cada lista se obtiene una estimación de la distribución multidimensional de 
+% las partículas sobre $\mathcal{S}_{i}$ —conservando las correlaciones entre energía, posición 
+% y dirección— y esa distribución se utiliza como fuente al comenzar la etapa $i\!+\!1$. Así, 
+% la fuente efectiva se relocaliza paso a paso hacia la región de detección y se alcanza la 
+% precisión deseada con un número de historias considerablemente menor que el requerido en un 
+% cálculo sin \emph{source biasing}.
+
+
+
+% El procedimiento completo consta de tres etapas:
+
+% \begin{itemize}
+%     \item \textbf{Detección} – Se registran las partículas (tracks) que cruzan una 
+%     superficie intermedia de desacople, la cual actúa como desacople entre las distintas etapas de la simulación Monte Carlo, y se almacenan sus coordenadas en el espacio de fases 
+%     ($E$, $x$, $y$, $\mu$, $\phi$, peso).
+%     \item \textbf{Estimación} – A partir de esa lista se aproxima la distribución 
+%     conjunta y sus correlaciones.
+%     \item \textbf{Producción} – Se muestrea esa distribución para generar tantas 
+%     partículas como sea necesario en la simulación secundaria.
+% \end{itemize}
+
+% Los primeros desarrollos en el Departamento de Física de Reactores y Radiaciones emplearon
+% histogramas anidados (macro/micro–bins) para capturar las correlaciones
+% $E$–$x$–$y$–$\mu$–$\phi$ en fuentes planas rectangulares.  
+% Si bien el método permitió resolver algunos casos de aplicación
+% presentados en tesis previas vinculadas al RA‑10, la definición manual
+% de grillas y la limitada suavidad de las curvas generadas plantean
+% desafíos cuando aparecen discontinuidades fuertes —por ejemplo, en cambios
+% bruscos de material a través de una interfase— y al trasladarlo a otras
+% geometrías.
+
+% KDSource —una herramienta creada en el DFRyR para el post‑procesamiento
+% y re‑muestreo de listas de partículas— emplea desde su concepción la
+% \textit{Kernel Density Estimation} (KDE) multivariante adaptativa.
+% El flujo de trabajo estándar consta de dos etapas: (i) optimización
+% \emph{off‑line}, donde a partir de la lista de tracks se ajusta un
+% modelo KDE con selección automática de ancho de banda, y (ii) muestreo
+% \emph{on‑the‑fly}, en el cual un módulo en \texttt{C}/\texttt{C++}
+% integra ese modelo dentro del código Monte Carlo y genera
+% partículas una a una, conservando las correlaciones globales
+% $E$–$\mathbf{r}$–$\boldsymbol{\Omega}$ y la normalización original del peso.
+% Gracias a esta separación, KDSource elimina la necesidad de manipular
+% archivos voluminosos de tracks durante la simulación. No obstante, el carácter suavizante de
+% KDE puede atenuar discontinuidades muy marcadas; por ello este trabajo
+% propone un esquema de histogramas multidimensionales adaptativos que
+% mantenga las ventajas del muestreo continuo pero ofrezca un control
+% más explícito sobre la resolución local.
+
+% \section{Aportes específicos de este trabajo}
+
+% El proyecto profundiza el desarrollo de KDSource mediante la
+% incorporación de histogramas multidimensionales adaptativos como
+% alternativa —o complemento— a KDE, con el objetivo de reproducir con
+% mayor fidelidad estructuras espectrales o espaciales abruptas sin perder
+% la correlación global entre variables.
+
+% \begin{itemize}
+%     \item Implementar un método alternativo de histogramas multidimensionales adaptativos dentro de KDSource que:
+%     \begin{itemize}
+%         \item reproduzca adecuadamente las correlaciones $E$-$x$-$y$-$\mu$-$\phi$ en una fuente plana rectangular perpendicular al eje $z$;
+%         \item conserve las discontinuidades espectrales y espaciales propias de interfaces o colimadores;
+%         \item ofrezca un control explícito del compromiso resolución/estadística.
+%     \end{itemize}
+    
+%     \item Integrar y optimizar el flujo de trabajo en \texttt{OpenMC}:
+%     \begin{itemize}
+%         \item Generar, en modo off-line, un archivo intermedio (XML + HDF5) que contiene los histogramas y metadatos de la distribución.
+%         \item Construir un módulo en C que, utilizando esa información, produzca una partícula a la vez.
+%         \item Integrar el muestreo directamente en el código fuente de OpenMC (modo on-the-fly), de forma que sólo se mantenga en RAM la información de los histogramas y se evite la creación y carga de listas voluminosas.
+%     \end{itemize}
+    
+%     \item Validar la herramienta en dos etapas de dificultad creciente:
+%     \begin{itemize}
+%         \item un caso simplificado: haz colimado que ingresa en un paralelepípedo
+%         de agua atravesado por un canal de vacío; la fuente en la entrada
+%         del conducto es definida y muestreada libremente, lo que permite
+%         comparar los resultados con una simulación directa sin reducción
+%         de varianza;
+%         \item un caso condicionado por la fuente: propagación, a lo largo del
+%         conducto N.º 5 del RA‑6, de la lista de partículas obtenida por el
+%         Grupo de Física de Neutrones a partir de una simulación de núcleo;
+%         aquí la estadística está limitada por la lista original y se
+%         evalúa el desempeño del método bajo esa restricción.
+%     \end{itemize}
+% \end{itemize}

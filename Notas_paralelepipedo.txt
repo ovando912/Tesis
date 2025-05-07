@@ -1,0 +1,31 @@
+Te he adjuntado el estado actual de la tesis. Quiero que lo leas primero. Por haora he escrito poco debido a que estoy comenzando. 
+
+Ahora mismo estoy trabajando en la seccion de Aplicación al Caso del Canal de
+Vacío en Agua. Estoy trabajando en redactar el trabajo que he realizado en esta parte del proyecto. Este fue el caso que utilice a la par de desarrolar el metodo. Aqui presento las dificultades que aparecieron y como las resolvi. 
+
+Por ahora he escrito esto:
+---------------------------------------------------------
+
+En este capitulo vamos a trabajar con un problema similar a una guia de transporte de neutrones.Salvo que simplificado. La geometria modelada es un paralelepipedo de agua a lo largo del eje z. El mismo posee un paralelepipedo interno de vacio a lo largo. Las dimensiones del paralelepipedo de agua son 15cm x 15cm, y el largo 100cm. El tubo de vacio interno posee seccion de 3cm x 3cm. (Aca iria una figura con el modelo con cotas del paralelepipedo). 
+
+Como fuente de neutrones se ha utilizado una fuente de neutrones monoenergeticos de E = 1 MeV y perfectamente monodireccionales mu = 1. Este caso presenta la caracteristica que rapidamente se forman 2 grupos de neutrones viajando por el haz que poseen comportamiento muy diferenciado. Por un lado estan los neutrones que no han colisionado. Estos son la mayoria en el canal de vacio, y decaen exponencialmente a traves del agua. Por otro lado esta el grupo de neutrones que viaja por el agua y se termaliza. Estos poseen una distribucion de energia lejos de monoenergetica y viajan en cualqueir direccion. Lo que provoca esto es que por ejemplo la distribucion de mu va a tener un valor en todo el rango relacionado a los neutrones que han colisionado, junto con una delta de neutrones acumulados en mu = 1 correspondiente a lo que no han colisionado. Por lo tanto es necesario poder separar estos neutrones previamente en las otras variables para evitar que esta informacion se diluya. La idea es que los neutrones que vna por el vacio con direccion mu = 1 deben respetar ese valor al ser resampleadas. En caso de no hacerlo estas particulas cambian de direccion e ingresan al agua. Esto provoca que se pierda la corriente en el tubo de vacio producto a la dilucion de la correlacion. 
+
+En esta geometria se registra el flujo a lo largo del haz de modo de tener un flujo contra el cual comparar. Tambien se registra en una superficie perpendicular al eje z los neutrones que la atraviesan. Luego se procesa este trackfile y se continua la simulacion desde la superficie de registro, dejando de simular el resto de la geometria. 
+
+Este caso al principio se intento resolver utilizando histogramas de ancho uniforme para los macrogrupos y los microgrupos. Sin embargo lo que sucede en la practica es que un macrogrupo queda con la interfaz agua/vacio en su interior, acoplando neutrones que viajaban por el agua y neutrones que viajaban por el vacio en el mismo macrogrupo. A partir de alli lo que sucede es que las siguientes variables se mezclan para las siguientes variables a procesar, provocando que se pierda informacion en la correlacion de las variables. (creo que esto podria ser como una subseccion donde presento el esquema utilizado y luego los resultados donde se muestran estas cosas que dije).
+
+Para solucionar esto se decidio agregar bordes de macrogrupo de forma manual como input del usuario. Esto permite utilizar menos macrogrupos y no tener el problema de la dilucion de la correlacion. Realizar esto requiere mas interaccion por parte del usuario, por lo que no es mejor la solucion pero brindo los siguientes resultados. Ahora la correlacion mejoro de forma importante en la interfaz de los materiales, y se logra que el grafico del flujo tenga menor error relativo. (Esto podria ser otra seccion donde muestro el input que doy asignandole el borde de las variables x, y, letargia y mu. Con esto pude separar la delta de neutrones que viajan por el tubo de vacio del resto de neutrones.) (tambien probe de solo asignar bordes en x e y, o solo asignar en letargia y mu. estos 3 casos podrian ser 3 subsubseccion)
+
+Luego lo que hice fue trabajar con el esquema adaptativo. Se obtiene que los resultados son buenos y mostrar el caso del flujo. (todavia no trabaje este caso por lo que no se bien que va a dar.)
+
+Creo que en los tres casos vamos a agregar graficos del las distribuciones 1D, 2D y calculo de la divergencia KL. Por lo tanto podriamos ahcer un tabla comparando las divergencias en cada caso y comentarios.
+
+Tal vez podria comentar un poco aca que incorpore el weightwindows reduccion de varianza en openMC para que en la superficie de registro me llegue mejor estadistica en el agua, aunque con menos peso. Hay que ver como da eso en el flujo del agua. 
+
+Otra cosa que no te comente todavia es que es exactamente lo que registro de las corridas del paralelepipedo para verificar que obtenemos algo coherente. Lo que medimos es el flujo a lo largo del tubo, para el caso del flujo en toda la seccion, el flujo solo en el agua y el flujo solo en el vacio. Tambien medimos el espectro que llega a una determinada superficie. Y tal vez midamos la corriente tambien.
+
+---------------------------------------------------
+
+Quiero que me ayudes a redactarlo mejor, basandote en la forma de escribir de las otras tesis sin hacer plagio. A su vez indicame que figuras podria agregar para obtener una explicacion mejor y ademas hacer espacio debido a que necesito escribir varias paginas.
+
+A su vez dame consejos que te parezcan.

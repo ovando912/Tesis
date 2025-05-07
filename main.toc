@@ -1,6 +1,0 @@
-\babel@toc {spanish}{}\relax 
-\beamer@sectionintoc {1}{Introducción}{3}{0}{1}
-\beamer@sectionintoc {2}{Estado actual}{12}{0}{2}
-\beamer@sectionintoc {3}{Resultados preliminares}{18}{0}{3}
-\beamer@sectionintoc {4}{Conclusiones preliminares}{22}{0}{4}
-\beamer@sectionintoc {5}{Trabajo futuro}{24}{0}{5}

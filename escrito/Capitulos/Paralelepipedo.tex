@@ -1,0 +1,107 @@
+\chapter{Aplicación al Caso del Canal de Vacío en Agua}
+
+\section{Descripción de la geometría y condiciones de frontera}
+
+El caso de estudio planteado consiste en un canal de vacío embebido en un bloque de agua liviana, configurado de forma tal que reproduce condiciones similares a una guía de neutrones, pero en un entorno simplificado y controlado. El sistema se compone de un paralelepípedo de agua de dimensiones $15\,\text{cm} \times 15\,\text{cm} \times 100\,\text{cm}$, dentro del cual se ubica un canal interno de vacío de sección $3\,\text{cm} \times 3\,\text{cm}$ orientado a lo largo del eje $z$.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{figuras/canal_vacio_esquema.pdf}
+%     \caption{Esquema de la geometría del sistema: bloque de agua con canal de vacío central.}
+%     \label{fig:canal-vacio}
+% \end{figure}
+
+Se define una fuente plana ubicada en la cara de entrada del sistema ($z = 0$), compuesta por neutrones monoenergéticos de $E = 1\,\text{MeV}$, perfectamente colimados a lo largo del eje $z$ (i.e., con $\mu = 1$). Esta configuración da lugar a dos poblaciones de neutrones marcadamente diferentes: aquellos que atraviesan el canal de vacío sin colisionar, manteniendo su energía y dirección originales, y aquellos que interactúan con el moderador, sufriendo pérdida de energía y dispersión angular.
+
+\section{Problemas al utilizar histogramas con macrogrupos uniformes}
+
+Se implementó una simulación con desacople en una superficie transversal ubicada en $z = z_0$, registrando las partículas que la atraviesan. El muestreo posterior basado en histogramas con macrogrupos de ancho constante mostró deficiencias notables: algunos macrogrupos intersectaban simultáneamente regiones de agua y vacío, mezclando partículas con características físicas disímiles. Esta superposición genera una pérdida importante en la correlación entre variables, particularmente entre la dirección ($\mu$) y la posición transversal ($x$, $y$).
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.45\textwidth]{figuras/mu_x_uniforme.pdf}
+%     \includegraphics[width=0.45\textwidth]{figuras/mu_x_correlacion_perdida.pdf}
+%     \caption{Ejemplo de pérdida de correlación $\mu$ vs.\ $x$ al utilizar macrogrupos uniformes.}
+%     \label{fig:mu-x-perdida}
+% \end{figure}
+
+\section{Mejora mediante bordes de macrogrupos definidos manualmente}
+
+Para mitigar esta pérdida de información, se incorporó la posibilidad de definir manualmente los bordes de los macrogrupos en las variables críticas. Esto permitió aislar espacialmente la región correspondiente al canal de vacío, evitando que neutrones colimados se mezclen con partículas moderadas.
+
+Se analizaron tres configuraciones diferentes:
+
+\begin{itemize}
+    \item \textbf{Caso A}: definición manual en las variables $x$ e $y$ (espaciales).
+    \item \textbf{Caso B}: definición manual en letargia y $\mu$ (energética y direccional).
+    \item \textbf{Caso C}: bordes definidos en las cuatro variables ($x$, $y$, $\mu$, letargia).
+\end{itemize}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/macrobordes_configuraciones.pdf}
+%     \caption{Esquemas de segmentación para los casos A, B y C.}
+%     \label{fig:macrobordes}
+% \end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Divergencia KL entre distribución original y resampleada en cada caso.}
+    \label{tab:KL-bordes}
+    \begin{tabular}{lccc}
+        \toprule
+        Variable & Caso A & Caso B & Caso C \\
+        \midrule
+        Letargia & 0.112 & 0.045 & \textbf{0.028} \\
+        $\mu$     & 0.295 & 0.071 & \textbf{0.031} \\
+        $x$       & 0.148 & 0.121 & \textbf{0.037} \\
+        $y$       & 0.159 & 0.130 & \textbf{0.035} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Resultados con histogramas adaptativos}
+
+Posteriormente se aplicó un esquema de histogramas adaptativos, donde la subdivisión de los macrogrupos fue determinada de forma automática en función de la densidad estadística. Esta técnica permitió una segmentación más eficiente, sin requerir intervención manual del usuario.
+
+Los resultados mostraron una mejora significativa en la reconstrucción de las distribuciones 1D y 2D, así como en las métricas de error globales como la divergencia de Kullback-Leibler (KL) y el error medio absoluto.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.48\textwidth]{figuras/rel_error_adaptativo_2D.pdf}
+%     \includegraphics[width=0.48\textwidth]{figuras/KL_vs_metodo.pdf}
+%     \caption{Izq: error relativo en plano $\mu$ vs.\ letargia. Der: comparación de KL entre métodos.}
+%     \label{fig:adaptativo-resultados}
+% \end{figure}
+
+\section{Validación de tallies y aplicación de técnicas de reducción de varianza}
+
+Para validar los resultados se evaluaron distintas magnitudes físicas a lo largo del eje del sistema:
+
+\begin{itemize}
+    \item Flujo escalar en secciones transversales: total, en agua, y en vacío.
+    \item Espectro energético sobre una superficie de tally a $z = 80\,\text{cm}$.
+    \item Corriente en dirección $z$ sobre planos intermedios.
+\end{itemize}
+
+Se aplicó reducción de varianza mediante weight windows generados con OpenMC, especialmente en regiones con moderación intensa, lo cual mejoró la estadística de tallies en el agua sin alterar el resultado global.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.65\textwidth]{figuras/flujo_vs_z_comparacion.pdf}
+%     \caption{Flujo escalar promedio a lo largo del canal. Comparación entre simulación original y reconstruida.}
+%     \label{fig:flujo-vs-z}
+% \end{figure}
+
+\section{Síntesis y conclusiones}
+
+El caso del canal de vacío embebido en agua permitió poner en evidencia los desafíos que presentan las técnicas de muestreo cuando coexisten poblaciones de partículas con comportamientos disímiles. Se comprobó que:
+
+\begin{itemize}
+    \item La segmentación espacial y direccional es crucial para preservar correlaciones en el muestreo.
+    \item Los histogramas adaptativos constituyen una alternativa robusta y automática frente a configuraciones manuales.
+    \item El método propuesto reproduce con alta fidelidad los resultados de flujo, espectro y corriente.
+\end{itemize}
+
+Este caso sirve como referencia para futuras aplicaciones en geometrías más complejas donde también existan discontinuidades materiales o comportamientos multi-modales del campo de neutrones.
+

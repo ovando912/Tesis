@@ -1,0 +1,35 @@
+Resumen
+    Produccion de neutrones y/o fotones a partir de las distribuciones originales.
+
+    Geometria implementada: fuente plana rectangular.
+
+    Para demostrar funcionamiento de la herramienta se realizo...
+
+1. Introduccion
+    1.1 Objetivos y motivaciones
+        Anisotropia de los campos de radiacion -> Dificultad de emplear codigos deterministicos
+
+        Se debe registrar una cantidad apropiada de partículas en puntos donde justamente se busca
+        que haya una baja presencia de partículas.
+
+        Reduccion de varianza: metodos para propagar preferencialmente la radiacion hacia la zona de interes.
+
+    1.2 Desarrollo de fuente de distribuciones
+        Cada utilización de una fuente de distribuciones consta de dos etapas, una de detección y otra de producción.
+        En la etapa de detección, las partículas que atraviesan el
+        plano de la fuente son clasificadas según sus variables E, x, y, µ y φ, donde x e y forman
+        el plano transversal a la dirección z de propagación de los neutrones. Dicha clasificación
+        consiste en la creación de histogramas para cada variable, basados en una estructura
+        de discretizaciones dada, es decir que para cada partícula detectada se determina a qué
+        grupo o bin de cada histograma pertenece y se suma su peso estadístico allí. Pero debido
+        a que la distribución en función de cada variable tiene una dependencia con el valor de
+        las otras, es necesaria una técnica para capturar dicha correlación entre variables. Ésta
+        consistió en la implementación de histogramas anidados, de modo que, por ejemplo,
+        no se cuenta con una única distribución para la variable x, sino una por cada grupo de
+        energía. Del mismo modo, las histogramas para y, µ y φ están anidados sucesivamente,
+        es decir que la cantidad de distribuciones en función de φ es igual al producto de la
+        cantidad de grupos de E, x, y y µ. Para conservar una estadística apropiada en todos
+        los histogramas, y a la vez contar con curvas de probabilidad relativamente suaves en
+        función de cada variable, se empleó un esquema de grupos gruesos y finos, denominados
+        macro y micro grupos, o macro y micro zonas. Las grillas gruesas se emplean para las
+        variables de correlación, mientras que las finas se usan en las distribuciones finales.

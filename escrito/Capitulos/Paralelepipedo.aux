@@ -1,18 +1,52 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Aplicación al Caso del Canal de Vacío en Agua}{17}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Aplicación: Canal de vacío rodeado por Agua}{21}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Descripción de la geometría y condiciones de frontera}{17}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Problemas al utilizar histogramas con macrogrupos uniformes}{17}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Mejora mediante bordes de macrogrupos definidos manualmente}{17}{section.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Divergencia KL entre distribución original y resampleada en cada caso.}}{18}{table.caption.25}\protected@file@percent }
-\newlabel{tab:KL-bordes}{{4.1}{18}{Divergencia KL entre distribución original y resampleada en cada caso}{table.caption.25}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Resultados con histogramas adaptativos}{18}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Validación de tallies y aplicación de técnicas de reducción de varianza}{18}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Síntesis y conclusiones}{18}{section.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Descripción del modelo simulado en OpenMC}{21}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Procesamiento del trackfile}{22}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Metodología del análisis}{22}{subsection.4.2.1}\protected@file@percent }
+\newlabel{sec:metodologia-analisis}{{4.2.1}{22}{Metodología del análisis}{subsection.4.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Descripción del trackfile}{23}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Distribuciones de $x$ vs $y$ para el \emph  {trackfile} registrado en la primera corrida del tubo de vacío.}}{24}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:trackfile1_x_y}{{4.1}{24}{Distribuciones de $x$ vs $y$ para el \emph {trackfile} registrado en la primera corrida del tubo de vacío}{figure.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Distribuciones de letargia y $\mu $ para el \emph  {trackfile} registrado en la primera corrida del tubo de vacío, con escala logaritmica en el eje y. Se observa la presencia de dos poblaciones: una concentrada en $\mu = 1$ y letargia mínima, montada sobre una distribución continua de neutrones colisionados.}}{24}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:trackfile1_letargia_mu}{{4.2}{24}{Distribuciones de letargia y $\mu $ para el \emph {trackfile} registrado en la primera corrida del tubo de vacío, con escala logaritmica en el eje y. Se observa la presencia de dos poblaciones: una concentrada en $\mu = 1$ y letargia mínima, montada sobre una distribución continua de neutrones colisionados}{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Distribuciones de letargia vs $\mu $ para el \emph  {trackfile} registrado en la primera corrida del tubo de vacío. Se observa la presencia de un conjunto de neutrones graficados como un pixel en $\mu = 1$ y letargia mínima, indicando la naturaleza discreta de la fuente original. A su vez se observa la presencia de un segundo conjunto de neutrones colisionados, que se distribuyen en el plano de forma continua, con un agrupamiento sobre letargia = 20, indicando la termalización de los neutrones.}}{25}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:trackfile1_letargia_mu_2}{{4.3}{25}{Distribuciones de letargia vs $\mu $ para el \emph {trackfile} registrado en la primera corrida del tubo de vacío. Se observa la presencia de un conjunto de neutrones graficados como un pixel en $\mu = 1$ y letargia mínima, indicando la naturaleza discreta de la fuente original. A su vez se observa la presencia de un segundo conjunto de neutrones colisionados, que se distribuyen en el plano de forma continua, con un agrupamiento sobre letargia = 20, indicando la termalización de los neutrones}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Bineado uniforme de microgrupos y macrogrupos}{25}{subsection.4.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparación de la distribución de letargia entre el trackfile original y el trackfile remuestreado. Se observa el efecto de la discretización uniforme en la distribución de letargia.}}{26}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:trackfile1_config1_letargia}{{4.4}{26}{Comparación de la distribución de letargia entre el trackfile original y el trackfile remuestreado. Se observa el efecto de la discretización uniforme en la distribución de letargia}{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Comparación de la distribución de $\mu $ entre el trackfile original y el trackfile remuestreado. Se observa el efecto de la discretización uniforme en la distribución de $\mu $.}}{26}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:trackfile1_config1_mu}{{4.5}{26}{Comparación de la distribución de $\mu $ entre el trackfile original y el trackfile remuestreado. Se observa el efecto de la discretización uniforme en la distribución de $\mu $}{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Distribuciones de $x$ vs $y$ para el \emph  {trackfile} remuestreado utilizando discretizacion uniforme tanto para macrogrupos como para microgrupos.}}{27}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:trackfile1_x_y_uniforme}{{4.6}{27}{Distribuciones de $x$ vs $y$ para el \emph {trackfile} remuestreado utilizando discretizacion uniforme tanto para macrogrupos como para microgrupos}{figure.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt  {Equal / Equal}.}}{28}{table.caption.29}\protected@file@percent }
+\newlabel{tab:KL_parciales_equal_columns}{{4.1}{28}{Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}}{table.caption.29}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Bineado uniforme de microgrupos y macrogrupos con bordes manuales}{28}{subsection.4.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Comparación de la distribución de letargia entre el trackfile original y el trackfile remuestreado. Se observa el efecto de separar manualmente los neutrones con letargia minima.}}{29}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:trackfile1_config1_letargia_manual}{{4.7}{29}{Comparación de la distribución de letargia entre el trackfile original y el trackfile remuestreado. Se observa el efecto de separar manualmente los neutrones con letargia minima}{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Comparación de la distribución de $\mu $ entre el trackfile original y el trackfile remuestreado. Se observa el efecto de separar manualmente los neutrones con $\mu = 1$.}}{30}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:trackfile1_config1_mu_manual}{{4.8}{30}{Comparación de la distribución de $\mu $ entre el trackfile original y el trackfile remuestreado. Se observa el efecto de separar manualmente los neutrones con $\mu = 1$}{figure.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Distribuciones de $x$ vs $y$ para el \emph  {trackfile} remuestreado utilizando bordes manuales para separar el canal de vacio explicitamente.}}{31}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:trackfile1_x_y_uniforme_manual}{{4.9}{31}{Distribuciones de $x$ vs $y$ para el \emph {trackfile} remuestreado utilizando bordes manuales para separar el canal de vacio explicitamente}{figure.caption.32}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt  {Equal / Equal}.}}{32}{table.caption.33}\protected@file@percent }
+\newlabel{tab:KL_KL_parciales_equal_columns_manual}{{4.2}{32}{Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}}{table.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.5}Bineado adaptativo de microgrupos y macrogrupos}{32}{subsection.4.2.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Comparación de la distribución de letargia entre el trackfile original y el trackfile remuestreado.}}{33}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:trackfile1_config1_letargia_adaptativo}{{4.10}{33}{Comparación de la distribución de letargia entre el trackfile original y el trackfile remuestreado}{figure.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Comparación de la distribución de $\mu $ entre el trackfile original y el trackfile remuestreado.}}{33}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:trackfile1_config1_mu_adaptativo}{{4.11}{33}{Comparación de la distribución de $\mu $ entre el trackfile original y el trackfile remuestreado}{figure.caption.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Distribuciones de $x$ vs $y$ para el \emph  {trackfile} remuestreado.}}{34}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:trackfile1_x_y_uniforme_adaptativo}{{4.12}{34}{Distribuciones de $x$ vs $y$ para el \emph {trackfile} remuestreado}{figure.caption.36}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt  {Equal / Equal}.}}{35}{table.caption.37}\protected@file@percent }
+\newlabel{tab:KL_parciales_adaptativo}{{4.3}{35}{Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.6}Bineado adaptativo de microgrupos y macrogrupos optimizado}{35}{subsection.4.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Resultados de la simulación comparativa}{36}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Validación de tallies y aplicación de técnicas de reducción de varianza}{36}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Síntesis y conclusiones}{36}{subsection.4.3.2}\protected@file@percent }
 \@setckpt{Capitulos/Paralelepipedo}{
-\setcounter{page}{20}
+\setcounter{page}{37}
 \setcounter{equation}{0}
 \setcounter{enumi}{3}
 \setcounter{enumii}{0}
@@ -22,21 +56,21 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{4}
-\setcounter{section}{6}
-\setcounter{subsection}{0}
+\setcounter{section}{3}
+\setcounter{subsection}{2}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{0}
-\setcounter{table}{1}
+\setcounter{figure}{12}
+\setcounter{table}{3}
 \setcounter{caption@flags}{2}
 \setcounter{continuedfloat}{0}
 \setcounter{parentequation}{0}
 \setcounter{cp@cntr}{0}
-\setcounter{section@level}{1}
-\setcounter{Item}{5}
-\setcounter{Hfootnote}{1}
-\setcounter{bookmark@seq@number}{34}
+\setcounter{section@level}{2}
+\setcounter{Item}{3}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{37}
 \setcounter{NAT@ctr}{0}
 \setcounter{float@type}{4}
 }

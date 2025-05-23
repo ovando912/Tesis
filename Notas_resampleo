@@ -182,7 +182,12 @@ x e y
 Exceso de microbines. Capta bien el corte abrupto.
 
 -----------------------------------------------
-config 1 
+config 2 
 -----------------------------------------------
 Ahora voy a probar obtener una mejor representacion utilizando menos micros bines.
+
+-----------------------------------------------
+config 3 
+-----------------------------------------------
+En este caso trabajo con pocos microbines pero aumente la cantidad de macrogupos. Quiero ver de obtener algo mas lindo en los plots 2D. El problema es que la estadistica cae en el vacio, por lo que cuesta obtener una estadistica convergida en los plots 2D.
 

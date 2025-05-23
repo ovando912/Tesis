@@ -11,47 +11,47 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Contexto y motivación}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Fuentes distribucionales – base conceptual}{1}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Aportes específicos de este trabajo}{2}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Metodología para la Generación de Fuentes Monte Carlo Mediante Histogramas Multidimensionales}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Introducción general al método}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Definición del espacio de fases $(\mathbf {E}$--$\mathbf {r}$--$\bm {\Omega })$}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Procesamiento del \emph {trackfile} original}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Aproximación de distribuciones mediante histogramas}{6}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Mantenimiento de correlaciones mediante macrogrupos}{6}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Implementación computacional}{7}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Remuestreo de partículas en simulaciones Monte Carlo subsecuentes}{7}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Conexión con la implementación computacional}{8}{section.2.8}%
-\contentsline {chapter}{\numberline {3}Evaluación del Método mediante Resampleo en \emph {Trackfiles}}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Metodología del análisis}{9}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Análisis del Trackfile 1: haz colimado en tubo de vacío}{10}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Configuración 1: bineado micro y macro uniforme}{11}{subsection.3.2.1}%
-\contentsline {paragraph}{Configuración 2: binning adaptativo (adaptive/adaptive).}{12}{section*.20}%
-\contentsline {paragraph}{Configuración 3: macrobinning adaptativo, microbinning uniforme.}{13}{section*.21}%
-\contentsline {paragraph}{Configuración 4: macrobinning uniforme, microbinning adaptativo.}{13}{section*.22}%
-\contentsline {section}{\numberline {3.3}Resultados con Trackfile 1}{13}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Comparación entre esquema adaptativo y de ancho constante}{14}{subsection.3.3.1}%
-\contentsline {section}{\numberline {3.4}Resultados con Trackfile 2}{14}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Resultados con Trackfile 3}{15}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Aplicación al Caso del Canal de Vacío en Agua}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descripción de la geometría y condiciones de frontera}{17}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Problemas al utilizar histogramas con macrogrupos uniformes}{17}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Mejora mediante bordes de macrogrupos definidos manualmente}{17}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Resultados con histogramas adaptativos}{18}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Validación de tallies y aplicación de técnicas de reducción de varianza}{18}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Síntesis y conclusiones}{18}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Validación Experimental: Conducto Número 5 del Reactor RA-6}{21}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Descripción del caso experimental del RA-6}{21}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Optimización del resampleo para la fuente experimental}{21}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Resultados de simulación en OpenMC y comparación experimental}{21}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Distribución espacial del flujo en detectores}{21}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Comparación \textsuperscript {3}He: simulación vs.\ experimento}{21}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Discusión sobre resultados y validación}{21}{section.5.4}%
-\contentsline {chapter}{\numberline {A}Implementación Computacional del Método}{23}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Código detallado en Python/C++}{23}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Pseudocódigo y comentarios}{23}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Archivos de configuración XML}{23}{section.Alph1.3}%
-\contentsline {section}{\numberline {A.4}Flujo de trabajo práctico}{23}{section.Alph1.4}%
-\contentsline {chapter}{Bibliograf{\'{\i }}a}{25}{section*.26}%
-\contentsline {chapter}{Publicaciones asociadas}{27}{section*.28}%
-\contentsline {chapter}{Agradecimientos}{29}{section*.30}%
+\contentsline {section}{\numberline {1.2}Trabajos relacionados}{5}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Aportes específicos de este trabajo}{6}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Herramientas utilizadas}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}\texttt {OpenMC}}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}\texttt {KDSource}}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Formatos de listas de partículas: \texttt {MCPL} y \texttt {HDF5}}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Formato \texttt {XML}}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Lenguajes de programación: \texttt {Python}, \texttt {C} y \texttt {C++}}{9}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Metodología para la generación de fuentes Monte Carlo mediante histogramas multidimensionales}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introducción general al método}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Definición del espacio de fases $(\mathbf {E}$--$\mathbf {r}$--$\bm {\Omega })$}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Procesamiento del archivo de partículas original}{14}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Preprocesamiento del archivo de partículas}{14}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Utilización de histogramas macro y micro}{14}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Métodos de discretización aplicados a histogramas macro y micro}{16}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Remuestreo de partículas en simulaciones Monte Carlo subsecuentes}{17}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Implementación computacional}{18}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Aplicación: Canal de vacío rodeado por Agua}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descripción del modelo simulado en OpenMC}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Procesamiento del trackfile}{22}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Metodología del análisis}{22}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Descripción del trackfile}{23}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Bineado uniforme de microgrupos y macrogrupos}{25}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Bineado uniforme de microgrupos y macrogrupos con bordes manuales}{28}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Bineado adaptativo de microgrupos y macrogrupos}{32}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Bineado adaptativo de microgrupos y macrogrupos optimizado}{35}{subsection.4.2.6}%
+\contentsline {section}{\numberline {4.3}Resultados de la simulación comparativa}{36}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Validación de tallies y aplicación de técnicas de reducción de varianza}{36}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Síntesis y conclusiones}{36}{subsection.4.3.2}%
+\contentsline {chapter}{\numberline {5}Validación Experimental: Conducto Número 5 del Reactor RA-6}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descripción del caso experimental del RA-6}{37}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Optimización del resampleo para la fuente experimental}{37}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Resultados de simulación en OpenMC y comparación experimental}{37}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Distribución espacial del flujo en detectores}{37}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Comparación \textsuperscript {3}He: simulación vs.\ experimento}{37}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Discusión sobre resultados y validación}{37}{section.5.4}%
+\contentsline {chapter}{\numberline {A}Implementación Computacional del Método}{39}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Código detallado en Python/C++}{39}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Pseudocódigo y comentarios}{39}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Archivos de configuración XML}{39}{section.Alph1.3}%
+\contentsline {section}{\numberline {A.4}Flujo de trabajo práctico}{39}{section.Alph1.4}%
+\contentsline {chapter}{Bibliograf{\'{\i }}a}{41}{section*.38}%
+\contentsline {chapter}{Publicaciones asociadas}{43}{section*.40}%
+\contentsline {chapter}{Agradecimientos}{45}{section*.42}%

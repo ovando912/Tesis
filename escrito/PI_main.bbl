@@ -1,5 +1,65 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
+
+\bibitem{Fairhurst2017Hist}
+Fairhurst~Agosta, R.
+\newblock Cálculo neutrónico detallado de haces y guías de neutrones del reactor RA-10.
+\newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2017.
+
+\bibitem{Ayala2019Hist}
+Ayala, J.~E.
+\newblock Implementación de una línea de cálculo basada en el código TRIPOLI a problemas de blindaje del reactor RA-10.
+\newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2019.
+
+\bibitem{Abbate2020Hist}
+Abbate, O.~I.
+\newblock Cálculo de blindajes mediante fuentes de distribución en McStas y Tripoli.
+\newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2020.
+
+\bibitem{Abbate2021KDSource}
+Abbate, O.~I.
+\newblock KDSource: Desarrollo de una herramienta computacional para el cálculo de blindajes.
+\newblock Tesis de maestría, Instituto Balseiro, Centro Atómico Bariloche, 2021.
+
+\bibitem{Schmidt2022KDSourcePaper}
+Schmidt, N., Abbate, O.~I., Prieto, Z.~M., Robledo, J.~I., Márquez, J.~I., Márquez, A.~A., \emph{et~al.}
+\newblock Kdsource, a tool for the generation of monte carlo particle sources using kernel density estimation.
+\newblock \emph{Annals of Nuclear Energy}, \textbf{177}, 109309, 2022.
+
+\bibitem{Fox2022KDE}
+Fox, F.
+\newblock Optimización de algoritmos de estimación de densidades para el cálculo de haces de neutrones y fotones.
+\newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2022.
+
+\bibitem{Gimenez2024KDSourceOpenMC}
+Giménez, M.~A.
+\newblock Implementación de muestreo on-the-fly en el código KDSource.
+\newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2024.
+
+\bibitem{OpenMC2024}
+{OpenMC}: Monte carlo code for nuclear simulation.
+\newblock \url{https://openmc.org/}, 2025.
+\newblock Último acceso: mayo de 2025.
+
+\bibitem{KDSource2024}
+Documentación oficial de {KDSource}.
+\newblock \url{https://kdsource.readthedocs.io/en/latest/index.html}, 2024.
+\newblock Último acceso: mayo de 2025.
+
+\bibitem{HDF5_2025}
+Hdf5®: The hierarchical data format.
+\newblock \url{https://docs.hdfgroup.org/archive/support/HDF5/doc/index.html}, 2025.
+\newblock Último acceso: mayo de 2025.
+
+\bibitem{MCPL2024}
+{MCPL}: Monte carlo particle lists.
+\newblock \url{https://mctools.github.io/mcpl/}, 2025.
+\newblock Último acceso: mayo de 2025.
+
+\bibitem{XML2025}
+Extensible markup language (xml) 1.0 (fifth edition).
+\newblock \url{https://www.w3.org/TR/xml/}, 2008.
+\newblock Último acceso: mayo de 2025.
 
 \end{thebibliography}

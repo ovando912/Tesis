@@ -6,10 +6,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}.}}{12}{table.caption.19}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Divergencia KL para distintas configuraciones en Trackfile 2.}}{14}{table.caption.23}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Divergencia KL en Trackfile 3 para diferentes combinaciones.}}{15}{table.caption.24}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Ejemplo ilustrativo de la estructura típica de un archivo de partículas. El archivo original suele contener cientos de miles de partículas.}}{15}{table.caption.20}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Divergencia KL entre distribución original y resampleada en cada caso.}}{18}{table.caption.25}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}.}}{28}{table.caption.29}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}.}}{32}{table.caption.33}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Divergencia KL parcial y total para la configuración \texttt {Equal / Equal}.}}{35}{table.caption.37}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,0 +1,18 @@
+\chapter{Conclusiones}
+\label{chap:conclusiones}
+
+En este trabajo se desarrolló e implementó un método para generar fuentes distribucionales para simulaciones Monte Carlo basado en el uso de histogramas multidimensionales. La implementación se realizó dentro del código \texttt{KDSource}.
+
+La metodología desarrollada fue validada mediante pruebas analíticas y contra mediciones experimentales, confirmando su capacidad para reproducir distribuciones en el espacio de fases. En particular, se mostró que la estructura de histogramas multidimensionales empleada logra preservar satisfactoriamente las correlaciones de las variables del espacio de fases de las partículas.
+
+Adicionalmente, se implementó un esquema de bineado adaptativo, el cual permitió captar con precisión regiones donde las distribuciones exhiben cambios bruscos, deltas o bordes definidos, incrementando la resolución local del histograma de manera autónoma. Este esquema resultó especialmente útil en situaciones donde las distribuciones presentan estructuras complejas difíciles de caracterizar mediante discretizaciones uniformes.
+
+Por otro lado, se realizó una implementación específica de remuestreo \textit{on-the-fly} dentro del código fuente de \texttt{OpenMC}. Esta modificación permitió el remuestreo de partículas durante la ejecución de la simulación, sin la necesidad de generar listas intermedias de partículas. La técnica se aplicó en el caso del conducto Nº5 del reactor RA-6, obteniendo resultados en concordancia con datos experimentales disponibles, validando así el método desarrollado.
+
+\subsection*{Trabajo futuro}
+
+A partir de los resultados obtenidos y las capacidades mostradas por el método implementado, se identifican diversas líneas futuras de investigación que podrían extender su alcance y utilidad práctica. Una primera línea consiste en la generalización del método hacia otras geometrías más complejas y variadas, más allá de las superficies planas consideradas en este trabajo. Esto incluiría, por ejemplo, fuentes distribuidas sobre superficies curvas o laterales de un conducto.
+
+Adicionalmente, sería valioso incorporar técnicas que permitan un refinamiento local dirigido por el usuario. En particular, podría implementarse la capacidad de especificar manualmente un mayor número de bines en rangos específicos para ciertas variables, mejorando selectivamente la resolución de la distribución sin afectar la estructura general de macrogrupos utilizada. Esta capacidad permitiría a los usuarios optimizar el detalle local en la generación de fuentes, adaptándose de manera flexible a distintos escenarios y necesidades de simulación.
+
+Finalmente, dado que el método desarrollado ha sido implementado únicamente para neutrones, sería relevante extender su aplicación a otras partículas, como fotones, ampliando así sus posibles aplicaciones en simulaciones Monte Carlo.

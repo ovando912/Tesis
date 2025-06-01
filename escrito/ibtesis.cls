@@ -99,7 +99,7 @@
 
 % Algunas definiciones
 \newcommand\directorname {Director}
-\newcommand\codirectorname {Co-director}
+\newcommand\codirectorname {Co-directora}
 \newcommand\juradoname {Miembros del Jurado}
 \newcommand\jurado[2][1]{\gdef\@njurado{#1} \gdef\@jurado{#2}}
 \def\grado#1{\gdef\@grado{#1}}

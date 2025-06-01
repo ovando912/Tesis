@@ -14,6 +14,8 @@
 \usepackage{ibextra}
 \usepackage{booktabs}
 \usepackage{float}
+\usepackage{subcaption}
+% \usepackage{subfigure}
 \usepackage[utf8]{inputenc}
 
 %\usepackage{hyphen-spanis}
@@ -29,8 +31,8 @@ simulación de fuentes de Monte Carlo KDSource}
 \laboratorio{Departamento de Fisica de Reactores y Radiaciones}
 \jurado{Dr. Edmundo Lopasso \\ 
 Mg. Norberto Schmidt}
-\palabrasclave{formato de Tesis, Lineamientos de escritura, Instituto Balseiro}
-\keywords{Thesis format, Templates, Instituto Balseiro}
+\palabrasclave{Monte Carlo, Histogramas multidimensionales, OpenMC, KDSource, RA-6, Instituto Balseiro}
+\keywords{Monte Carlo, Multidimensional histograms, OpenMC, KDSource, RA-6, Instituto Balseiro}
 % Si queremos poner la fecha manualmente:
 % \date{Diciembre de 2099}
 
@@ -56,7 +58,18 @@ A todos por igual
 %%% \'{I}ndices %%%%
 
 \begin{abreviaturas}
-                                %Abreviaturas
+\begin{itemize}
+    \item API: Application Programming Interface
+    \item RAM: Random Access Memory.
+    \item KDE: Kernel Density Estimation.
+    \item OpenMC: código Monte Carlo de transporte de partículas.
+    \item KDSource: herramienta para generar fuentes distribucionales para simulaciones Monte Carlo.
+    \item MCPL: formato de listas de partículas (Monte Carlo Particle List).
+    \item XML: formato de archivo utilizado para definir fuentes en OpenMC/KDSource.
+    \item On-the-fly: muestreo realizado dinámicamente durante la ejecución de una simulación.
+    \item Bin: intervalo en el que se discretiza una variable para construir un histograma.
+    \item Espacio de fases: conjunto de variables que definen el estado de una partícula.
+\end{itemize}                            
 \end{abreviaturas}
 
 \tableofcontents                %\'{I}ndice
@@ -77,8 +90,12 @@ A todos por igual
 \include{Capitulos/Paralelepipedo}
 \include{Capitulos/Conducto}
 
+\include{Capitulos/Conclusiones}
+
 \appendix
 \include{Capitulos/Ap_A}
+
+\include{Capitulos/Ap_B}
 
 \begin{biblio}
 \bibliography{mibib}
@@ -87,15 +104,15 @@ A todos por igual
 
 \begin{postliminary}
 
-\begin{seccion}{Publicaciones asociadas}
-  \begin{enumerate}
-  \item Mi primer aviso en la revista \textbf{ABC}, 1996
-  \item Mi segunda publicaci\'{o}n en la revista \textbf{ABC}, 1997
-  \end{enumerate}
-\end{seccion}
+% \begin{seccion}{Publicaciones asociadas}
+%   \begin{enumerate}
+%   \item Mi primer aviso en la revista \textbf{ABC}, 1996
+%   \item Mi segunda publicaci\'{o}n en la revista \textbf{ABC}, 1997
+%   \end{enumerate}
+% \end{seccion}
 
 \begin{seccion}{Agradecimientos}
-A todos los que se lo merecen, por merecerlo
+A todos los que se lo merecen, por merecerlo.
 \end{seccion}
 
 \end{postliminary}

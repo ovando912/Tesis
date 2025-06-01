@@ -108,30 +108,33 @@ A lo largo del desarrollo del proyecto, se utilizaron principalmente tres lengua
 
 El desarrollo realizado en este trabajo implementa un flujo computacional para el uso de fuentes distribucionales en simulaciones Monte Carlo. Este flujo se compone de tres etapas principales: detección, procesamiento y producción, y aprovecha las capacidades de los lenguajes \texttt{Python}, \texttt{C} y \texttt{C++}.
 
-\textbf{Detección}: se realiza mediante una simulación inicial en \texttt{OpenMC}, en la cual se registra un archivo de partículas sobre una superficie. Este archivo puede guardarse en formato \texttt{HDF5}, que es el formato nativo de \texttt{OpenMC}, y luego ser convertido al formato \texttt{MCPL} si se desea continuar con el procesamiento. Alternativamente, si \texttt{OpenMC} fue compilado con soporte para \texttt{MCPL}, puede generarse directamente en dicho formato. El archivo resultante se almacena en disco para su uso posterior.
+\textbf{Detección}: se realiza mediante una simulación inicial en \texttt{OpenMC}, en la cual se registra un archivo de partículas sobre una superficie. Este archivo puede guardarse en formato \texttt{HDF5}, que es el formato nativo de \texttt{OpenMC}, y luego ser convertido al formato \texttt{MCPL} si se desea continuar con el procesamiento. Alternativamente, si \texttt{OpenMC} fue compilado con soporte para \texttt{MCPL}, puede generarse directamente en dicho formato. El archivo resultante se almacena en disco para su uso posterior. Este procedimiento se ilustra en la Figura \ref{fig:flujo_deteccion}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{flujo_codigos-Deteccion.png}
     \caption{Etapa de detección: registro de partículas en formato \texttt{MCPL} a partir de una simulación en \texttt{OpenMC}.}
+    \label{fig:flujo_deteccion}
 \end{figure}
 
-\textbf{Procesamiento}: esta etapa se lleva a cabo en \texttt{Python} utilizando la implementación desarrollada para procesar mediante histogramas multidimensionales. A partir del archivo \texttt{.MCPL}, se construye una fuente distribucional que representa la densidad de probabilidad estimada en el espacio de fases. El resultado de esta etapa es un archivo \texttt{XML}, que contiene la parametrización de la fuente y se almacena en disco como entrada para la etapa de producción.
+\textbf{Procesamiento}: esta etapa se lleva a cabo en \texttt{Python} utilizando la implementación desarrollada para procesar mediante histogramas multidimensionales. A partir del archivo \texttt{.MCPL}, se construye una fuente distribucional que representa la densidad de probabilidad estimada en el espacio de fases. El resultado de esta etapa es un archivo \texttt{XML}, que contiene la parametrización de la fuente y se almacena en disco como entrada para la etapa de producción. La Figura \ref{fig:flujo_procesamiento} muestra un esquema de esta etapa.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{flujo_codigos-Procesamiento.png}
     \caption{Etapa de procesamiento: construcción de una fuente distribucional a partir de un archivo \texttt{MCPL}.}
+    \label{fig:flujo_procesamiento}
 \end{figure}
 
-\textbf{Producción}: esta etapa puede abordarse de dos maneras, implementada en código \texttt{C}. En la modalidad \textit{offline}, el archivo \texttt{XML} es utilizado para generar una nueva lista de partículas en formato \texttt{MCPL}, que luego puede emplearse directamente como fuente en \texttt{OpenMC} si se cuenta con soporte para este formato. En caso contrario, puede convertirse nuevamente a \texttt{HDF5}. En la modalidad \textit{on-the-fly}, se evita por completo el uso de listas intermedias: \texttt{OpenMC} accede directamente al archivo \texttt{XML} y realiza el remuestreo dinámicamente durante la simulación, gracias a una extensión \emph{ad-hoc} incorporada en este trabajo.
+\textbf{Producción}: esta etapa puede abordarse de dos maneras, implementada en código \texttt{C}. En la modalidad \textit{offline}, el archivo \texttt{XML} es utilizado para generar una nueva lista de partículas en formato \texttt{MCPL}, que luego puede emplearse directamente como fuente en \texttt{OpenMC} si se cuenta con soporte para este formato. En caso contrario, puede convertirse nuevamente a \texttt{HDF5}. En la modalidad \textit{on-the-fly}, se evita por completo el uso de listas intermedias: \texttt{OpenMC} accede directamente al archivo \texttt{XML} y realiza el remuestreo dinámicamente durante la simulación, gracias a una extensión \emph{ad-hoc} incorporada en este trabajo. Ambas modalidades se ilustran en la Figura \ref{fig:flujo_produccion}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{flujo_codigos-Remuestreo.png}
     \caption{Etapa de producción: uso del archivo \texttt{XML} para generar nuevas partículas de forma offline o on-the-fly.}
+    \label{fig:flujo_produccion}
 \end{figure}
 
-En los diagramas anteriores, los bloques con esquinas redondeadas representan procesos computacionales, mientras que los bloques rectangulares indican archivos que se registran o leen desde disco.
+En las Figuras \ref{fig:flujo_deteccion}, \ref{fig:flujo_procesamiento} y \ref{fig:flujo_produccion}, los bloques con esquinas redondeadas representan procesos computacionales, mientras que los bloques rectangulares indican archivos que se registran o leen desde disco.
 
 

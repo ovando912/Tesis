@@ -8,46 +8,48 @@ A level-1 auxiliary file: Capitulos/Herramientas.aux
 A level-1 auxiliary file: Capitulos/Metodologia.aux
 A level-1 auxiliary file: Capitulos/Paralelepipedo.aux
 A level-1 auxiliary file: Capitulos/Conducto.aux
+A level-1 auxiliary file: Capitulos/Conclusiones.aux
 A level-1 auxiliary file: Capitulos/Ap_A.aux
+A level-1 auxiliary file: Capitulos/Ap_B.aux
 Database file #1: mibib.bib
-You've used 12 entries,
+You've used 14 entries,
             2634 wiz_defined-function locations,
-            1096 strings with 11199 characters,
-and the built_in function-call counts, 2704 in all, are:
-= -- 193
-> -- 57
+            1110 strings with 11681 characters,
+and the built_in function-call counts, 3290 in all, are:
+= -- 231
+> -- 73
 < -- 0
-+ -- 31
-- -- 13
-* -- 72
-:= -- 316
-add.period$ -- 36
-call.type$ -- 12
-change.case$ -- 17
++ -- 39
+- -- 17
+* -- 100
+:= -- 380
+add.period$ -- 41
+call.type$ -- 14
+change.case$ -- 19
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 296
-empty$ -- 287
-format.name$ -- 14
-if$ -- 599
+cite$ -- 14
+duplicate$ -- 352
+empty$ -- 351
+format.name$ -- 19
+if$ -- 725
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 82
-newline$ -- 65
-num.names$ -- 7
-pop$ -- 143
+int.to.str$ -- 14
+missing$ -- 98
+newline$ -- 74
+num.names$ -- 9
+pop$ -- 171
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 63
+skip$ -- 80
 stack$ -- 0
-substring$ -- 28
-swap$ -- 189
+substring$ -- 59
+swap$ -- 226
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 8
-width$ -- 14
-write$ -- 137
+while$ -- 12
+width$ -- 16
+write$ -- 155

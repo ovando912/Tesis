@@ -1,10 +1,10 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {chapter}{\'{I}ndice de s{\'{\i }}mbolos}{\es@scroman {v}}{section*.1}%
 \contentsline {chapter}{\'{I}ndice de contenidos}{\es@scroman {vii}}{section*.3}%
-\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {ix}}{section*.5}%
-\contentsline {chapter}{\'{I}ndice de tablas}{\es@scroman {xi}}{section*.7}%
-\contentsline {chapter}{Resumen}{\es@scroman {xiii}}{section*.9}%
-\contentsline {chapter}{Abstract}{\es@scroman {xv}}{section*.11}%
+\contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {xi}}{section*.5}%
+\contentsline {chapter}{\'{I}ndice de tablas}{\es@scroman {xv}}{section*.7}%
+\contentsline {chapter}{Resumen}{\es@scroman {xvii}}{section*.9}%
+\contentsline {chapter}{Abstract}{\es@scroman {xix}}{section*.11}%
 \babel@toc {english}{}\relax 
 \babel@toc {spanish}{}\relax 
 \babel@toc {english}{}\relax 
@@ -28,30 +28,36 @@
 \contentsline {subsection}{\numberline {3.3.3}Métodos de discretización aplicados a histogramas macro y micro}{16}{subsection.3.3.3}%
 \contentsline {section}{\numberline {3.4}Remuestreo de partículas en simulaciones Monte Carlo subsecuentes}{17}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Implementación computacional}{18}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Aplicación: Canal de vacío rodeado por Agua}{21}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descripción del modelo simulado en OpenMC}{21}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Procesamiento del trackfile}{22}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Metodología del análisis}{22}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Descripción del trackfile}{23}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Bineado uniforme de microgrupos y macrogrupos}{25}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Bineado uniforme de microgrupos y macrogrupos con bordes manuales}{28}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Bineado adaptativo de microgrupos y macrogrupos}{32}{subsection.4.2.5}%
-\contentsline {subsection}{\numberline {4.2.6}Bineado adaptativo de microgrupos y macrogrupos optimizado}{35}{subsection.4.2.6}%
-\contentsline {section}{\numberline {4.3}Resultados de la simulación comparativa}{36}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Validación de tallies y aplicación de técnicas de reducción de varianza}{36}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Síntesis y conclusiones}{36}{subsection.4.3.2}%
-\contentsline {chapter}{\numberline {5}Validación Experimental: Conducto Número 5 del Reactor RA-6}{37}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Descripción del caso experimental del RA-6}{37}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Optimización del resampleo para la fuente experimental}{37}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Resultados de simulación en OpenMC y comparación experimental}{37}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Distribución espacial del flujo en detectores}{37}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Comparación \textsuperscript {3}He: simulación vs.\ experimento}{37}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Discusión sobre resultados y validación}{37}{section.5.4}%
-\contentsline {chapter}{\numberline {A}Implementación Computacional del Método}{39}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Código detallado en Python/C++}{39}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Pseudocódigo y comentarios}{39}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Archivos de configuración XML}{39}{section.Alph1.3}%
-\contentsline {section}{\numberline {A.4}Flujo de trabajo práctico}{39}{section.Alph1.4}%
-\contentsline {chapter}{Bibliograf{\'{\i }}a}{41}{section*.38}%
-\contentsline {chapter}{Publicaciones asociadas}{43}{section*.40}%
-\contentsline {chapter}{Agradecimientos}{45}{section*.42}%
+\contentsline {chapter}{\numberline {4}Validación del metodo implementado: canal de vacío rodeado por agua}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descripción del modelo simulado en \texttt {OpenMC}}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Descripción del archivo de partículas original}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Procesamiento preliminar del archivo de partículas}{24}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Metodología del análisis}{24}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Distribuciones de letargía}{25}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Distribuciones de $\mu $}{28}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Distribuciones espaciales $X$–$Y$}{31}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Análisis preliminar de los resultados}{33}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Procesamiento optimizado del archivo de partículas}{34}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Resultados de la simulación comparativa}{36}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Comparación del perfil de flujo a lo largo del canal}{36}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Comparación del espectro en la salida del canal}{38}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Comparación de la corriente}{39}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Conclusiones preliminares}{39}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Validación experimental: Conducto Nº5 del reactor RA-6}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descripción del reactor RA-6 y instalación experimental del conducto Nº5}{42}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Procesamiento del archivo de partículas}{44}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Resultados de simulación en \texttt {OpenMC} y comparación experimental}{47}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Distribución espacial del flujo}{47}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Comparación con la medición experimental}{48}{subsection.5.3.2}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{51}{chapter.6}%
+\contentsline {chapter}{\numberline {A}Implementación computacional del método}{53}{appendix.Alph1}%
+\contentsline {chapter}{\numberline {B}Ejemplificación del bineado adaptativo}{55}{appendix.Alph2}%
+\contentsline {section}{Caso con 1 bin}{56}{section*.57}%
+\contentsline {section}{Caso con 2 bines}{57}{section*.60}%
+\contentsline {section}{Caso con 3 bines}{58}{section*.63}%
+\contentsline {section}{Caso con 5 bines}{59}{section*.66}%
+\contentsline {section}{Caso con 10 bines}{60}{section*.69}%
+\contentsline {section}{Caso con 25 bines}{61}{section*.72}%
+\contentsline {section}{Caso con 100 bines}{62}{section*.75}%
+\contentsline {chapter}{Bibliograf{\'{\i }}a}{65}{section*.78}%
+\contentsline {chapter}{Agradecimientos}{67}{section*.80}%

@@ -2,6 +2,10 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
+\bibitem{DeptoNeutronesCAB2025}
+{Departamento de Neutrones, Centro Atómico Bariloche}.
+\newblock Figura provista por el departamento de neutrones del centro atómico bariloche.
+
 \bibitem{Fairhurst2017Hist}
 Fairhurst~Agosta, R.
 \newblock Cálculo neutrónico detallado de haces y guías de neutrones del reactor RA-10.
@@ -61,5 +65,10 @@ Hdf5®: The hierarchical data format.
 Extensible markup language (xml) 1.0 (fifth edition).
 \newblock \url{https://www.w3.org/TR/xml/}, 2008.
 \newblock Último acceso: mayo de 2025.
+
+\bibitem{Mishra2006PULSTAR}
+Mishra, K.~K., Hawari, A.~I., Gillette, V.~H.
+\newblock Design and performance of a thermal neutron imaging facility at the north carolina state university pulstar reactor.
+\newblock \emph{IEEE Transactions on Nuclear Science}, \textbf{53}~(6), 3904--3911, 2006.
 
 \end{thebibliography}

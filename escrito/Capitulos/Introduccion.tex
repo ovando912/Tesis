@@ -4,7 +4,7 @@
 
 Las simulaciones Monte Carlo son la herramienta estándar cuando la complejidad geométrica o la marcada anisotropía angular del flujo neutrónico dificultan la aplicación de métodos determinísticos. Sin embargo, cuando las partículas atraviesan blindajes o regiones altamente absorbentes, la estadística disponible en la zona de interés se reduce considerablemente, lo que incrementa la incertidumbre en magnitudes físicas clave como el flujo escalar o la dosis equivalente ambiental, e incluso puede imposibilitar su cálculo si no llega ninguna partícula. 
 
-\emph{La incertidumbre estadística de estos resultados, por lo general, decrece lentamente con el número de historias simuladas, incrementando el costo computacional de forma prohibitiva.}
+% \emph{La incertidumbre estadística de estos resultados, por lo general, decrece lentamente con el número de historias simuladas, incrementando el costo computacional de forma prohibitiva.}
 
 En este trabajo abordaremos la temática de la obtención de resultados a la salida de canales de extracción de neutrones en reactores de investigación tipo pileta. En estos sistemas, los neutrones generados en el núcleo deben atravesar el agua de la pileta antes de alcanzar la entrada del canal de extracción. Durante una simulación desde el núcleo, la mayoría de los neutrones permanecen dentro del mismo y aquellos que logran salir al agua son en gran medida absorbidos a medida que penetran en esta. En consecuencia, son escasos los neutrones que finalmente alcanzan la entrada del canal, haciendo que resulte computacionalmente costoso obtener estadística suficiente a la salida del canal, en el ambiente circundante o en dispositivos experimentales.
 
@@ -29,7 +29,7 @@ Para mitigar esta problemática, se suelen emplear técnicas de reducción de va
     
     \item \textbf{Ruleta rusa}: se utiliza para descartar partículas con bajo peso estadístico, preservando el valor esperado del cálculo. Cada partícula tiene una probabilidad de ser eliminada o de continuar con su peso ajustado en consecuencia.
     
-    \item \textbf{Sesgo por supervivencia}: en lugar de eliminar partículas cuando son absorbidas, se les reduce su peso estadístico de acuerdo a la probabilidad de absorción, permitiendo que las partículas sobrevivan y continúen su historia.
+    \item \textbf{Absorción implícita}: en lugar de eliminar partículas cuando son absorbidas, se les reduce su peso estadístico de acuerdo a la probabilidad de absorción, permitiendo que las partículas sobrevivan y continúen su historia.
 \end{itemize}
 
 % En este trabajo se desarrolló una técnica basada en la separación geométrica del problema, con el objetivo de restringir la simulación a la región de interés. Para ello, se establece una superficie de acople ubicada estratégicamente dentro del modelo, sobre la cual se registran un archivo de partícula generado durante una simulación inicial que abarca el núcleo del reactor. Este archivo permite construir una fuente distribucional que reproduce de forma estadísticamente equivalente las distribuciones originales en el espacio de fases ($\mathbf{E}$–$\mathbf{r}$–$\boldsymbol{\Omega}$), incluyendo también el peso estadístico de cada partícula.
@@ -56,7 +56,7 @@ A partir de esta lista de partículas, se estima la distribución multidimension
 
 En la segunda etapa, esta fuente distribucional se utiliza como fuente de entrada para una nueva simulación, que consiste únicamente en la región de interés, excluyendo el núcleo y sus alrededores. Al concentrar el esfuerzo computacional en esta zona, se incrementa la eficiencia, ya que las partículas simuladas poseen una mayor probabilidad de contribuir a las magnitudes físicas relevantes de estudio.
 
-\emph{A su vez, además del método mencionado, en este trabajo también se hace uso del método de \textbf{ventanas de peso} como técnica complementaria de reducción de varianza.}
+% \emph{A su vez, además del método mencionado, en este trabajo también se hace uso del método de \textbf{ventanas de peso} como técnica complementaria de reducción de varianza.}
 
 % El método consiste en dividir el problema en una sucesión de etapas consecutivas, delimitadas por superficies de acople, ubicadas estratégicamente a lo largo de la geometría simulada. En la primera etapa, las partículas se simulan desde la fuente original hasta la primer superficie, donde se registran sus propiedades en el espacio de fases ($\mathbf{E}$–$\mathbf{r}$–$\boldsymbol{\Omega}$) en un archivo denominado \textit{trackfile}. A partir de esta lista de partículas, se aproxima la distribución multidimensional preservando las correlaciones entre las variables, y se utiliza para generar una fuente secundaria en dicha superficie. Esta fuente es entonces utilizada en la siguiente etapa. El proceso se repite, trasladando progresivamente la fuente hacia la región de interés. 
 
@@ -69,7 +69,7 @@ En la Figura \ref{fig:nucleo4} se ejemplifica el proceso desarrollado para una s
     \label{fig:nucleo4}
 \end{figure}
 
-\emph{Este enfoque permite alcanzar una buena precisión en zonas alejadas o poco accesibles, con un número considerablemente menor de historias simuladas en comparación con una simulación completa desde la fuente original.}
+% \emph{Este enfoque permite alcanzar una buena precisión en zonas alejadas o poco accesibles, con un número considerablemente menor de historias simuladas en comparación con una simulación completa desde la fuente original.}
 
 En resumen, el procedimiento consta de tres etapas fundamentales:
 

@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.2.12)  23 MAY 2025 03:24
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.2.12)  1 JUN 2025 08:12
  system commands enabled.
  file:line:error style messages enabled.
 **/home/lucas/Documents/Proyecto_Integrador/Tesis/escrito/PI_main.tex
@@ -488,6 +488,12 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box53
 \@float@everytoks=\toks27
 \@floatcapt=\box54
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count302
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count303
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks28
@@ -498,7 +504,7 @@ Package inputenc Warning: inputenc package ignored with utf8 based engines.
 
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-luatex.def
 File: l3backend-luatex.def 2024-01-04 L3 backend support: PDF output (LuaTeX)
-\l__color_backend_stack_int=\count302
+\l__color_backend_stack_int=\count304
 Inserting `l3color' in `luaotfload.parse_color'.
 \l__pdf_internal_box=\box55
 )
@@ -515,35 +521,35 @@ LaTeX Info: Redefining \% on input line 6.
 ) (./Capitulos/Introduccion.aux
 LaTeX Info: Redefining \. on input line 4.
 LaTeX Info: Redefining \% on input line 4.
-) (./Capitulos/Herramientas.aux) (./Capitulos/Metodologia.aux) (./Capitulos/Paralelepipedo.aux) (./Capitulos/Conducto.aux) (./Capitulos/Ap_A.aux))
+) (./Capitulos/Herramientas.aux) (./Capitulos/Metodologia.aux) (./Capitulos/Paralelepipedo.aux) (./Capitulos/Conducto.aux) (./Capitulos/Conclusiones.aux) (./Capitulos/Ap_A.aux) (./Capitulos/Ap_B.aux))
 \openout1 = PI_main.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 46.
  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Info: Redefining \. on input line 44.
-LaTeX Info: Redefining \% on input line 44.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Info: Redefining \. on input line 46.
+LaTeX Info: Redefining \% on input line 46.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: changepage package is loaded.
 \caption@adjustwidth@hsize=\dimen187
@@ -553,16 +559,16 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count303
+\scratchcounter=\count305
 \scratchdimen=\dimen189
 \scratchbox=\box56
-\nofMPsegments=\count304
-\nofMParguments=\count305
+\nofMPsegments=\count306
+\nofMParguments=\count307
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count306
+\MPscratchCnt=\count308
 \MPscratchDim=\dimen190
-\MPnumerator=\count307
-\makeMPintoPDFobject=\count308
+\MPnumerator=\count309
+\makeMPintoPDFobject=\count310
 \everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -611,8 +617,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package backref Info: ** backref set up for natbib ** on input line 44.
-Package hyperref Info: Link coloring ON on input line 44.
+Package backref Info: ** backref set up for natbib ** on input line 46.
+Package hyperref Info: Link coloring ON on input line 46.
 (./PI_main.out) (./PI_main.out)
 \@outlinefile=\write3
 
@@ -640,29 +646,39 @@ LaTeX Info: Redefining \% on input line 11.
  [7
 
 
-])
+]
+LaTeX Info: Redefining \. on input line 63.
+LaTeX Info: Redefining \% on input line 63.
+ [8])
 \tf@toc=\write4
 
 \openout4 = PI_main.toc
-LaTeX Info: Redefining \. on input line 64.
-LaTeX Info: Redefining \% on input line 64.
- [8] (./PI_main.lof
+LaTeX Info: Redefining \. on input line 77.
+LaTeX Info: Redefining \% on input line 77.
+ [9] [10
+
+] (./PI_main.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Info: Redefining \. on input line 3.
 LaTeX Info: Redefining \% on input line 3.
 LaTeX Info: Redefining \. on input line 5.
 LaTeX Info: Redefining \% on input line 5.
- [9
+ [11
 
-
-])
+]
+LaTeX Info: Redefining \. on input line 36.
+LaTeX Info: Redefining \% on input line 36.
+ [12]
+LaTeX Info: Redefining \. on input line 58.
+LaTeX Info: Redefining \% on input line 58.
+ [13])
 \tf@lof=\write5
 
 \openout5 = PI_main.lof
-LaTeX Info: Redefining \. on input line 66.
-LaTeX Info: Redefining \% on input line 66.
- [10] (./PI_main.lot
+LaTeX Info: Redefining \. on input line 79.
+LaTeX Info: Redefining \% on input line 79.
+ [14] (./PI_main.lot
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Info: Redefining \. on input line 3.
@@ -673,33 +689,43 @@ LaTeX Info: Redefining \% on input line 5.
 \tf@lot=\write6
 
 \openout6 = PI_main.lot
- [11
+ [15
 
 
 ]
 \openout2 = Capitulos/Abstract.aux
- (./Capitulos/Abstract.tex [12
+ (./Capitulos/Abstract.tex [16
 
-
-] [13
-
-] [14
 
 ]
-LaTeX Info: Redefining \. on input line 9.
-LaTeX Info: Redefining \% on input line 9.
- [15
+Overfull \hbox (37.68358pt too wide) in paragraph at lines 6--6
+\TU/lmr/bx/n/12 Pa-la-bras cla-ve: \TU/lmr/m/n/12 MON-TE CAR-LO, HIS-TO-GRA-MAS MUL-TI-DI-MEN-SIO-NA-LES, OPENMC,
+ []
 
+[17
 
-] [16
+] [18
 
 ]
-LaTeX Info: Redefining \. on input line 9.
-LaTeX Info: Redefining \% on input line 9.
+LaTeX Info: Redefining \. on input line 13.
+LaTeX Info: Redefining \% on input line 13.
+ [19
+
+
+] [20
+
+]
+LaTeX Info: Redefining \. on input line 13.
+LaTeX Info: Redefining \% on input line 13.
 )
 \openout2 = Capitulos/Introduccion.aux
  (./Capitulos/Introduccion.tex
 Capítulo 1.
+<figs/nucleo2.png, id=602, 1018.80624pt x 513.92pt>
+File: figs/nucleo2.png Graphic file (type png)
+<use figs/nucleo2.png>
+Package luatex.def Info: figs/nucleo2.png  used on input line 15.
+(luatex.def)             Requested size: 352.8155pt x 177.96913pt.
 [1
 
 
@@ -708,25 +734,25 @@ Capítulo 1.
 
 
 ]
-<figs/nucleo2.png, id=456, 1018.80624pt x 513.92pt>
-File: figs/nucleo2.png Graphic file (type png)
-<use figs/nucleo2.png>
-Package luatex.def Info: figs/nucleo2.png  used on input line 15.
-(luatex.def)             Requested size: 352.8155pt x 177.96913pt.
 LaTeX Info: Redefining \. on input line 52.
 LaTeX Info: Redefining \% on input line 52.
  [2<./figs/nucleo2.png>]
-<figs/nucleo4.png, id=466, 1042.89626pt x 356.33125pt>
+<figs/nucleo4.png, id=619, 1042.89626pt x 356.33125pt>
 File: figs/nucleo4.png Graphic file (type png)
 <use figs/nucleo4.png>
 Package luatex.def Info: figs/nucleo4.png  used on input line 67.
 (luatex.def)             Requested size: 441.01772pt x 150.68571pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Info: Redefining \. on input line 71.
 LaTeX Info: Redefining \% on input line 71.
  [3]
-LaTeX Info: Redefining \. on input line 87.
-LaTeX Info: Redefining \% on input line 87.
+LaTeX Info: Redefining \. on input line 88.
+LaTeX Info: Redefining \% on input line 88.
  [4<./figs/nucleo4.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Info: Redefining \. on input line 118.
 LaTeX Info: Redefining \% on input line 118.
  [5]
@@ -735,8 +761,8 @@ Overfull \hbox (13.41837pt too wide) in paragraph at lines 131--132
  []
 
 )
-LaTeX Info: Redefining \. on input line 73.
-LaTeX Info: Redefining \% on input line 73.
+LaTeX Info: Redefining \. on input line 86.
+LaTeX Info: Redefining \% on input line 86.
  [6]
 \openout2 = Capitulos/Herramientas.aux
  (./Capitulos/Herramientas.tex
@@ -754,7 +780,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 70.
-<figs/mcpl_support_diagram.png, id=509, 1679.27374pt x 976.64874pt>
+<figs/mcpl_support_diagram.png, id=659, 1679.27374pt x 976.64874pt>
 File: figs/mcpl_support_diagram.png Graphic file (type png)
 <use figs/mcpl_support_diagram.png>
 Package luatex.def Info: figs/mcpl_support_diagram.png  used on input line 76.
@@ -768,28 +794,28 @@ LaTeX Info: Redefining \% on input line 80.
 LaTeX Info: Redefining \. on input line 103.
 LaTeX Info: Redefining \% on input line 103.
  [9<./figs/mcpl_support_diagram.png>]
-<figs/flujo_codigos-Deteccion.png, id=527, 703.62875pt x 119.44624pt>
+<figs/flujo_codigos-Deteccion.png, id=679, 703.62875pt x 119.44624pt>
 File: figs/flujo_codigos-Deteccion.png Graphic file (type png)
 <use figs/flujo_codigos-Deteccion.png>
 Package luatex.def Info: figs/flujo_codigos-Deteccion.png  used on input line 115.
 (luatex.def)             Requested size: 330.76328pt x 56.14885pt.
-<figs/flujo_codigos-Procesamiento.png, id=528, 472.76625pt x 61.22874pt>
+<figs/flujo_codigos-Procesamiento.png, id=681, 472.76625pt x 61.22874pt>
 File: figs/flujo_codigos-Procesamiento.png Graphic file (type png)
 <use figs/flujo_codigos-Procesamiento.png>
-Package luatex.def Info: figs/flujo_codigos-Procesamiento.png  used on input line 123.
+Package luatex.def Info: figs/flujo_codigos-Procesamiento.png  used on input line 124.
 (luatex.def)             Requested size: 242.56108pt x 31.41495pt.
 LaTeX Info: Redefining \. on input line 128.
 LaTeX Info: Redefining \% on input line 128.
- [10<./figs/flujo_codigos-Deteccion.png><./figs/flujo_codigos-Procesamiento.png>]
-<figs/flujo_codigos-Remuestreo.png, id=535, 1062.97125pt x 221.82875pt>
+ [10<./figs/flujo_codigos-Deteccion.png>]
+<figs/flujo_codigos-Remuestreo.png, id=689, 1062.97125pt x 221.82875pt>
 File: figs/flujo_codigos-Remuestreo.png Graphic file (type png)
 <use figs/flujo_codigos-Remuestreo.png>
-Package luatex.def Info: figs/flujo_codigos-Remuestreo.png  used on input line 131.
+Package luatex.def Info: figs/flujo_codigos-Remuestreo.png  used on input line 133.
 (luatex.def)             Requested size: 441.01772pt x 92.0369pt.
 )
-LaTeX Info: Redefining \. on input line 74.
-LaTeX Info: Redefining \% on input line 74.
- [11<./figs/flujo_codigos-Remuestreo.png>]
+LaTeX Info: Redefining \. on input line 87.
+LaTeX Info: Redefining \% on input line 87.
+ [11<./figs/flujo_codigos-Procesamiento.png><./figs/flujo_codigos-Remuestreo.png>]
 \openout2 = Capitulos/Metodologia.aux
  (./Capitulos/Metodologia.tex [12
 
@@ -798,7 +824,7 @@ LaTeX Info: Redefining \% on input line 74.
 
 ]
 Capítulo 3.
-<figs/terna.png, id=546, 574.145pt x 452.69125pt>
+<figs/terna.png, id=706, 574.145pt x 452.69125pt>
 File: figs/terna.png Graphic file (type png)
 <use figs/terna.png>
 Package luatex.def Info: figs/terna.png  used on input line 11.
@@ -823,7 +849,7 @@ Package fancyhdr Warning: \headheight is too small (15.6pt):
 (fancyhdr)                \addtolength{\topmargin}{-11.72203pt}.
 
 [14<./figs/terna.png>]
-<figs/grupos.png, id=564, 542.025pt x 253.94875pt>
+<figs/grupos.png, id=724, 542.025pt x 253.94875pt>
 File: figs/grupos.png Graphic file (type png)
 <use figs/grupos.png>
 Package luatex.def Info: figs/grupos.png  used on input line 46.
@@ -831,8 +857,8 @@ Package luatex.def Info: figs/grupos.png  used on input line 46.
 LaTeX Info: Redefining \. on input line 53.
 LaTeX Info: Redefining \% on input line 53.
  [15<./figs/grupos.png>]
-LaTeX Info: Redefining \. on input line 67.
-LaTeX Info: Redefining \% on input line 67.
+LaTeX Info: Redefining \. on input line 66.
+LaTeX Info: Redefining \% on input line 66.
 
 
 Package fancyhdr Warning: \headheight is too small (15.6pt): 
@@ -842,27 +868,26 @@ Package fancyhdr Warning: \headheight is too small (15.6pt):
 (fancyhdr)                \addtolength{\topmargin}{-11.72203pt}.
 
 [16]
-Overfull \hbox (2.07605pt too wide) in paragraph at lines 123--123
+Overfull \hbox (2.07605pt too wide) in paragraph at lines 121--121
 []\TU/lmr/bx/n/17.28 Re-mues-treo de par-tí-cu-las en si-mu-la-cio-nes Mon-
  []
 
-<figs/esquema5.png, id=577, 739.76375pt x 186.6975pt>
+<figs/esquema5.png, id=737, 739.76375pt x 186.6975pt>
 File: figs/esquema5.png Graphic file (type png)
 <use figs/esquema5.png>
-Package luatex.def Info: figs/esquema5.png  used on input line 135.
+Package luatex.def Info: figs/esquema5.png  used on input line 133.
 (luatex.def)             Requested size: 441.01772pt x 111.30147pt.
-
-Underfull \vbox (badness 7944) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 139.
-LaTeX Info: Redefining \% on input line 139.
- [17]
-Overfull \hbox (24.6463pt too wide) in paragraph at lines 149--150
+LaTeX Info: Redefining \. on input line 143.
+LaTeX Info: Redefining \% on input line 143.
+[17<./figs/esquema5.png>]
+Overfull \hbox (24.6463pt too wide) in paragraph at lines 147--148
 []\TU/lmr/m/n/12 Al-ter-na-ti-va-men-te, se pue-de eje-cu-tar \TU/lmtt/m/n/12 OpenMC \TU/lmr/m/n/12 con una fuen-te del ti-po \TU/lmtt/m/n/12 HistogramSource\TU/lmr/m/n/12 ,
  []
 
-LaTeX Info: Redefining \. on input line 160.
-LaTeX Info: Redefining \% on input line 160.
+)
+LaTeX Info: Redefining \. on input line 88.
+LaTeX Info: Redefining \% on input line 88.
+
 
 Package fancyhdr Warning: \headheight is too small (15.6pt): 
 (fancyhdr)                Make it at least 27.32204pt, for example:
@@ -870,181 +895,528 @@ Package fancyhdr Warning: \headheight is too small (15.6pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-11.72203pt}.
 
-[18<./figs/esquema5.png>])
-LaTeX Info: Redefining \. on input line 75.
-LaTeX Info: Redefining \% on input line 75.
- [19]
+[18]
 \openout2 = Capitulos/Paralelepipedo.aux
- (./Capitulos/Paralelepipedo.tex [20
+ (./Capitulos/Paralelepipedo.tex
+Capítulo 4.
+
+Underfull \vbox (badness 1163) has occurred while \output is active []
+
+ [19
 
 
 
 
 ]
-Capítulo 4.
-[21]
-LaTeX Info: Redefining \. on input line 36.
-LaTeX Info: Redefining \% on input line 36.
- [22]
-Overfull \hbox (16.64081pt too wide) in paragraph at lines 37--38
-\OT1/cmr/m/n/12 [8\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 8\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 8\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 8]$\TU/lmr/m/n/12 , $\OT1/cmr/m/n/12 [6\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 6\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 6\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 6]$\TU/lmr/m/n/12 ) y es-que-mas cre-cien-tes o de-cre-cien-tes (co-mo $\OT1/cmr/m/n/12 [9\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 8\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 7\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 6]$\TU/lmr/m/n/12 , $\OT1/cmr/m/n/12 [6\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 7\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 8\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 9]$\TU/lmr/m/n/12 ).
- []
+<figs/esquema_paralelepipedo.png, id=756, 487.0998pt x 265.9536pt>
+File: figs/esquema_paralelepipedo.png Graphic file (type png)
+<use figs/esquema_paralelepipedo.png>
+Package luatex.def Info: figs/esquema_paralelepipedo.png  used on input line 13.
+(luatex.def)             Requested size: 441.01772pt x 240.79259pt.
+<figs/paralelepipedo_3.png, id=758, 2960.1792pt x 1201.30807pt>
+File: figs/paralelepipedo_3.png Graphic file (type png)
+<use figs/paralelepipedo_3.png>
+Package luatex.def Info: figs/paralelepipedo_3.png  used on input line 24.
+(luatex.def)             Requested size: 441.01772pt x 178.9603pt.
 
-<figs/fig4_1.png, id=610, 497.4585pt x 462.528pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 32.
+LaTeX Info: Redefining \% on input line 32.
+[20<./figs/esquema_paralelepipedo.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 58.
+LaTeX Info: Redefining \% on input line 58.
+ [21<./figs/paralelepipedo_3.png>]
+<figs/fig4_1.png, id=774, 497.4585pt x 462.528pt>
 File: figs/fig4_1.png Graphic file (type png)
 <use figs/fig4_1.png>
-Package luatex.def Info: figs/fig4_1.png  used on input line 59.
+Package luatex.def Info: figs/fig4_1.png  used on input line 61.
 (luatex.def)             Requested size: 330.76328pt x 307.54901pt.
-LaTeX Info: Redefining \. on input line 63.
-LaTeX Info: Redefining \% on input line 63.
-[23]
-<figs/fig4_2.png, id=617, 898.43655pt x 254.26994pt>
+LaTeX Info: Redefining \. on input line 68.
+LaTeX Info: Redefining \% on input line 68.
+ [22<./figs/fig4_1.png>]
+<figs/fig4_2.png, id=782, 898.43655pt x 254.26994pt>
 File: figs/fig4_2.png Graphic file (type png)
 <use figs/fig4_2.png>
-Package luatex.def Info: figs/fig4_2.png  used on input line 68.
+Package luatex.def Info: figs/fig4_2.png  used on input line 72.
 (luatex.def)             Requested size: 441.01772pt x 124.8145pt.
-LaTeX Info: Redefining \. on input line 74.
-LaTeX Info: Redefining \% on input line 74.
- [24<./figs/fig4_1.png><./figs/fig4_2.png>]
-<figs/fig4_3.png, id=627, 683.6742pt x 382.91055pt>
+<figs/fig4_3.png, id=786, 5697.285pt x 3190.92125pt>
 File: figs/fig4_3.png Graphic file (type png)
 <use figs/fig4_3.png>
-Package luatex.def Info: figs/fig4_3.png  used on input line 77.
-(luatex.def)             Requested size: 396.91324pt x 222.30444pt.
-LaTeX Info: Redefining \. on input line 88.
-LaTeX Info: Redefining \% on input line 88.
- [25<./figs/fig4_3.png>]
-<figs/fig4_4.png, id=639, 730.4088pt x 379.05615pt>
-File: figs/fig4_4.png Graphic file (type png)
-<use figs/fig4_4.png>
-Package luatex.def Info: figs/fig4_4.png  used on input line 91.
+Package luatex.def Info: figs/fig4_3.png  used on input line 85.
+(luatex.def)             Requested size: 396.91324pt x 222.26746pt.
+LaTeX Info: Redefining \. on input line 89.
+LaTeX Info: Redefining \% on input line 89.
+ [23<./figs/fig4_2.png>]
+LaTeX Info: Redefining \. on input line 105.
+LaTeX Info: Redefining \% on input line 105.
+ [24<./figs/fig4_3.png>]
+LaTeX Info: Redefining \. on input line 121.
+LaTeX Info: Redefining \% on input line 121.
+ [25]
+<figs/let_1.png, id=804, 730.4088pt x 379.05615pt>
+File: figs/let_1.png Graphic file (type png)
+<use figs/let_1.png>
+Package luatex.def Info: figs/let_1.png  used on input line 124.
 (luatex.def)             Requested size: 441.01772pt x 228.86986pt.
-<figs/fig4_5.png, id=640, 730.4088pt x 379.4175pt>
-File: figs/fig4_5.png Graphic file (type png)
-<use figs/fig4_5.png>
-Package luatex.def Info: figs/fig4_5.png  used on input line 98.
+<figs/let_2.png, id=807, 730.4088pt x 379.05615pt>
+File: figs/let_2.png Graphic file (type png)
+<use figs/let_2.png>
+Package luatex.def Info: figs/let_2.png  used on input line 135.
+(luatex.def)             Requested size: 441.01772pt x 228.86986pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 139.
+LaTeX Info: Redefining \% on input line 139.
+ [26<./figs/let_1.png>]
+<figs/let_3.png, id=815, 730.4088pt x 379.05615pt>
+File: figs/let_3.png Graphic file (type png)
+<use figs/let_3.png>
+Package luatex.def Info: figs/let_3.png  used on input line 144.
+(luatex.def)             Requested size: 441.01772pt x 228.86986pt.
+<figs/let_4.png, id=816, 730.4088pt x 379.05615pt>
+File: figs/let_4.png Graphic file (type png)
+<use figs/let_4.png>
+Package luatex.def Info: figs/let_4.png  used on input line 151.
+(luatex.def)             Requested size: 441.01772pt x 228.86986pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 155.
+LaTeX Info: Redefining \% on input line 155.
+ [27<./figs/let_2.png><./figs/let_3.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 156.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mu' on input line 156.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 156.
+
+<figs/mu_1.png, id=826, 730.4088pt x 379.4175pt>
+File: figs/mu_1.png Graphic file (type png)
+<use figs/mu_1.png>
+Package luatex.def Info: figs/mu_1.png  used on input line 165.
 (luatex.def)             Requested size: 441.01772pt x 229.08803pt.
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
- [26<./figs/fig4_4.png><./figs/fig4_5.png>]
-<figs/fig4_6.png, id=652, 497.4585pt x 462.528pt>
-File: figs/fig4_6.png Graphic file (type png)
-<use figs/fig4_6.png>
-Package luatex.def Info: figs/fig4_6.png  used on input line 120.
-(luatex.def)             Requested size: 330.76328pt x 307.54901pt.
-LaTeX Info: Redefining \. on input line 154.
-LaTeX Info: Redefining \% on input line 154.
- [27<./figs/fig4_6.png>]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 169.
+LaTeX Info: Redefining \% on input line 169.
+ [28<./figs/let_4.png>]
+<figs/mu_2.png, id=834, 730.4088pt x 379.4175pt>
+File: figs/mu_2.png Graphic file (type png)
+<use figs/mu_2.png>
+Package luatex.def Info: figs/mu_2.png  used on input line 172.
+(luatex.def)             Requested size: 441.01772pt x 229.08803pt.
+<figs/mu_3.png, id=836, 730.4088pt x 379.4175pt>
+File: figs/mu_3.png Graphic file (type png)
+<use figs/mu_3.png>
+Package luatex.def Info: figs/mu_3.png  used on input line 181.
+(luatex.def)             Requested size: 441.01772pt x 229.08803pt.
+LaTeX Info: Redefining \. on input line 184.
+LaTeX Info: Redefining \% on input line 184.
+ [29<./figs/mu_1.png><./figs/mu_2.png>]
+<figs/mu_4.png, id=845, 730.4088pt x 379.4175pt>
+File: figs/mu_4.png Graphic file (type png)
+<use figs/mu_4.png>
+Package luatex.def Info: figs/mu_4.png  used on input line 190.
+(luatex.def)             Requested size: 441.01772pt x 229.08803pt.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 195.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 195.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 195.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 195.
+
+
+Underfull \vbox (badness 2818) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 198.
+LaTeX Info: Redefining \% on input line 198.
+ [30<./figs/mu_3.png><./figs/mu_4.png>]
+<figs/xy_1.png, id=854, 497.4585pt x 462.528pt>
+File: figs/xy_1.png Graphic file (type png)
+<use figs/xy_1.png>
+Package luatex.def Info: figs/xy_1.png  used on input line 203.
+(luatex.def)             Requested size: 264.61331pt x 246.04204pt.
+<figs/xy_2.png, id=856, 497.4585pt x 462.528pt>
+File: figs/xy_2.png Graphic file (type png)
+<use figs/xy_2.png>
+Package luatex.def Info: figs/xy_2.png  used on input line 212.
+(luatex.def)             Requested size: 264.61331pt x 246.04204pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 216.
+LaTeX Info: Redefining \% on input line 216.
+ [31<./figs/xy_1.png>]
+<figs/xy_3.png, id=866, 497.4585pt x 462.528pt>
+File: figs/xy_3.png Graphic file (type png)
+<use figs/xy_3.png>
+Package luatex.def Info: figs/xy_3.png  used on input line 221.
+(luatex.def)             Requested size: 264.61331pt x 246.04204pt.
+LaTeX Info: Redefining \. on input line 227.
+LaTeX Info: Redefining \% on input line 227.
+ [32<./figs/xy_2.png><./figs/xy_3.png>]
+<figs/xy_4.png, id=875, 497.4585pt x 462.528pt>
+File: figs/xy_4.png Graphic file (type png)
+<use figs/xy_4.png>
+Package luatex.def Info: figs/xy_4.png  used on input line 230.
+(luatex.def)             Requested size: 264.61331pt x 246.04204pt.
+LaTeX Info: Redefining \. on input line 244.
+LaTeX Info: Redefining \% on input line 244.
+ [33<./figs/xy_4.png>]
+<figs/let_5.png, id=883, 730.4088pt x 379.05615pt>
+File: figs/let_5.png Graphic file (type png)
+<use figs/let_5.png>
+Package luatex.def Info: figs/let_5.png  used on input line 268.
+(luatex.def)             Requested size: 441.01772pt x 228.86986pt.
+
+Underfull \vbox (badness 3098) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 272.
+LaTeX Info: Redefining \% on input line 272.
+ [34]
+<figs/mu_5.png, id=891, 730.4088pt x 379.4175pt>
+File: figs/mu_5.png Graphic file (type png)
+<use figs/mu_5.png>
+Package luatex.def Info: figs/mu_5.png  used on input line 277.
+(luatex.def)             Requested size: 441.01772pt x 229.08803pt.
+<figs/xy_5.png, id=893, 497.4585pt x 462.528pt>
+File: figs/xy_5.png Graphic file (type png)
+<use figs/xy_5.png>
+Package luatex.def Info: figs/xy_5.png  used on input line 286.
+(luatex.def)             Requested size: 264.61331pt x 246.04204pt.
+LaTeX Info: Redefining \. on input line 289.
+LaTeX Info: Redefining \% on input line 289.
+ [35<./figs/let_5.png><./figs/mu_5.png>]
+LaTeX Info: Redefining \. on input line 309.
+LaTeX Info: Redefining \% on input line 309.
+ [36<./figs/xy_5.png>]
+<figs/flujo_agua.png, id=910, 645.41125pt x 683.55376pt>
+File: figs/flujo_agua.png Graphic file (type png)
+<use figs/flujo_agua.png>
+Package luatex.def Info: figs/flujo_agua.png  used on input line 318.
+(luatex.def)             Requested size: 211.68661pt x 224.19666pt.
+<figs/flujo_vacio.png, id=911, 645.41125pt x 683.55376pt>
+File: figs/flujo_vacio.png Graphic file (type png)
+<use figs/flujo_vacio.png>
+Package luatex.def Info: figs/flujo_vacio.png  used on input line 325.
+(luatex.def)             Requested size: 211.68661pt x 224.19666pt.
+LaTeX Info: Redefining \. on input line 342.
+LaTeX Info: Redefining \% on input line 342.
+ [37<./figs/flujo_agua.png><./figs/flujo_vacio.png>]
+<figs/espectro_agua.png, id=926, 497.9403pt x 426.393pt>
+File: figs/espectro_agua.png Graphic file (type png)
+<use figs/espectro_agua.png>
+Package luatex.def Info: figs/espectro_agua.png  used on input line 355.
+(luatex.def)             Requested size: 211.68661pt x 181.26993pt.
+<figs/espectro_vacio.png, id=927, 497.9403pt x 426.393pt>
+File: figs/espectro_vacio.png Graphic file (type png)
+<use figs/espectro_vacio.png>
+Package luatex.def Info: figs/espectro_vacio.png  used on input line 362.
+(luatex.def)             Requested size: 211.68661pt x 181.26993pt.
+
+Underfull \vbox (badness 5147) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 378.
+LaTeX Info: Redefining \% on input line 378.
+ [38<./figs/espectro_agua.png><./figs/espectro_vacio.png>])
+LaTeX Info: Redefining \. on input line 90.
+LaTeX Info: Redefining \% on input line 90.
+ [39]
+\openout2 = Capitulos/Conducto.aux
+ (./Capitulos/Conducto.tex [40
+
+
+
+
+]
+Capítulo 5.
+[41]
+<figs/ra6.png, id=949, 4843.09375pt x 3801.20125pt>
+File: figs/ra6.png Graphic file (type png)
+<use figs/ra6.png>
+Package luatex.def Info: figs/ra6.png  used on input line 24.
+(luatex.def)             Requested size: 330.76328pt x 259.5571pt.
+LaTeX Info: Redefining \. on input line 30.
+LaTeX Info: Redefining \% on input line 30.
+ [42<./figs/ra6.png>]
+<figs/conducto.png, id=960, 5060.9075pt x 2609.75pt>
+File: figs/conducto.png Graphic file (type png)
+<use figs/conducto.png>
+Package luatex.def Info: figs/conducto.png  used on input line 35.
+(luatex.def)             Requested size: 396.91324pt x 204.64282pt.
+<figs/DISCO_CHOPPER.png, id=964, 335.00156pt x 280.04625pt>
+File: figs/DISCO_CHOPPER.png Graphic file (type png)
+<use figs/DISCO_CHOPPER.png>
+Package luatex.def Info: figs/DISCO_CHOPPER.png  used on input line 44.
+(luatex.def)             Requested size: 220.50885pt x 184.33539pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 50.
+LaTeX Info: Redefining \% on input line 50.
+[43<./figs/conducto.png>]
+LaTeX Info: Redefining \. on input line 118.
+LaTeX Info: Redefining \% on input line 118.
+ [44<./figs/DISCO_CHOPPER.png>]
+<figs/conducto_XY.png, id=983, 501.91515pt x 462.528pt>
+File: figs/conducto_XY.png Graphic file (type png)
+<use figs/conducto_XY.png>
+Package luatex.def Info: figs/conducto_XY.png  used on input line 122.
+(luatex.def)             Requested size: 330.76328pt x 304.81067pt.
+<figs/conducto_let.png, id=985, 902.77275pt x 184.2885pt>
+File: figs/conducto_let.png Graphic file (type png)
+<use figs/conducto_let.png>
+Package luatex.def Info: figs/conducto_let.png  used on input line 131.
+(luatex.def)             Requested size: 441.01772pt x 90.02937pt.
+LaTeX Info: Redefining \. on input line 140.
+LaTeX Info: Redefining \% on input line 140.
+ [45<./figs/conducto_XY.png><./figs/conducto_let.png>]
+<figs/conducto_comparacion_XY.png, id=995, 596.2275pt x 572.1375pt>
+File: figs/conducto_comparacion_XY.png Graphic file (type png)
+<use figs/conducto_comparacion_XY.png>
+Package luatex.def Info: figs/conducto_comparacion_XY.png  used on input line 150.
+(luatex.def)             Requested size: 330.76328pt x 317.40038pt.
+<figs/conducto_comparacion_let.png, id=997, 1204.5pt x 602.25pt>
+File: figs/conducto_comparacion_let.png Graphic file (type png)
+<use figs/conducto_comparacion_let.png>
+Package luatex.def Info: figs/conducto_comparacion_let.png  used on input line 159.
+(luatex.def)             Requested size: 441.01772pt x 220.51323pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 200.
+LaTeX Info: Redefining \% on input line 200.
+[46<./figs/conducto_comparacion_XY.png>]
+<figs/conducto_flujo.png, id=1005, 580.1675pt x 685.56125pt>
+File: figs/conducto_flujo.png Graphic file (type png)
+<use figs/conducto_flujo.png>
+Package luatex.def Info: figs/conducto_flujo.png  used on input line 209.
+(luatex.def)             Requested size: 308.71104pt x 364.78932pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 215.
+LaTeX Info: Redefining \% on input line 215.
+[47<./figs/conducto_comparacion_let.png>]
+<figs/conducto_espectro.png, id=1013, 642.4pt x 481.8pt>
+File: figs/conducto_espectro.png Graphic file (type png)
+<use figs/conducto_espectro.png>
+Package luatex.def Info: figs/conducto_espectro.png  used on input line 222.
+(luatex.def)             Requested size: 441.01772pt x 330.77351pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 231.
+LaTeX Info: Redefining \% on input line 231.
+[48<./figs/conducto_flujo.png>]
+LaTeX Info: Redefining \. on input line 233.
+LaTeX Info: Redefining \% on input line 233.
+ [49<./figs/conducto_espectro.png>])
+LaTeX Info: Redefining \. on input line 91.
+LaTeX Info: Redefining \% on input line 91.
+ [50]
+\openout2 = Capitulos/Conclusiones.aux
+ (./Capitulos/Conclusiones.tex
+Capítulo 6.
+[51
+
+
+
+
+])
+LaTeX Info: Redefining \. on input line 93.
+LaTeX Info: Redefining \% on input line 93.
+ [52]
+\openout2 = Capitulos/Ap_A.aux
+ (./Capitulos/Ap_A.tex
+Apéndice A.
+) [53
+
+
+
+
+]
+\openout2 = Capitulos/Ap_B.aux
+ (./Capitulos/Ap_B.tex [54
+
+
+
+
+]
+Apéndice B.
+<figs/B_letargia.png, id=1053, 619.3539pt x 239.9364pt>
+File: figs/B_letargia.png Graphic file (type png)
+<use figs/B_letargia.png>
+Package luatex.def Info: figs/B_letargia.png  used on input line 9.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+[55<./figs/B_letargia.png>]
+<figs/B_letargia_1.png, id=1063, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_1.png Graphic file (type png)
+<use figs/B_letargia_1.png>
+Package luatex.def Info: figs/B_letargia_1.png  used on input line 37.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_1.png, id=1064, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_1.png Graphic file (type png)
+<use figs/B_FDC_1.png>
+Package luatex.def Info: figs/B_FDC_1.png  used on input line 45.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_1.png, id=1065, 308.5929pt x 239.9364pt>
+File: figs/B_FDCdiff_1.png Graphic file (type png)
+<use figs/B_FDCdiff_1.png>
+Package luatex.def Info: figs/B_FDCdiff_1.png  used on input line 51.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+
+Underfull \vbox (badness 2293) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 58.
+LaTeX Info: Redefining \% on input line 58.
+ [56<./figs/B_letargia_1.png>]
+<figs/B_letargia_2.png, id=1076, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_2.png Graphic file (type png)
+<use figs/B_letargia_2.png>
+Package luatex.def Info: figs/B_letargia_2.png  used on input line 66.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_2.png, id=1077, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_2.png Graphic file (type png)
+<use figs/B_FDC_2.png>
+Package luatex.def Info: figs/B_FDC_2.png  used on input line 74.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_2.png, id=1078, 315.0972pt x 239.9364pt>
+File: figs/B_FDCdiff_2.png Graphic file (type png)
+<use figs/B_FDCdiff_2.png>
+Package luatex.def Info: figs/B_FDCdiff_2.png  used on input line 80.
+(luatex.def)             Requested size: 202.87111pt x 154.4777pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [57<./figs/B_FDC_1.png><./figs/B_FDCdiff_1.png><./figs/B_letargia_2.png>]
+<figs/B_letargia_3.png, id=1090, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_3.png Graphic file (type png)
+<use figs/B_letargia_3.png>
+Package luatex.def Info: figs/B_letargia_3.png  used on input line 95.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_3.png, id=1091, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_3.png Graphic file (type png)
+<use figs/B_FDC_3.png>
+Package luatex.def Info: figs/B_FDC_3.png  used on input line 103.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_3.png, id=1092, 321.6015pt x 239.9364pt>
+File: figs/B_FDCdiff_3.png Graphic file (type png)
+<use figs/B_FDCdiff_3.png>
+Package luatex.def Info: figs/B_FDCdiff_3.png  used on input line 109.
+(luatex.def)             Requested size: 202.87111pt x 151.35843pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 116.
+LaTeX Info: Redefining \% on input line 116.
+ [58<./figs/B_FDC_2.png><./figs/B_FDCdiff_2.png><./figs/B_letargia_3.png>]
+<figs/B_letargia_5.png, id=1104, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_5.png Graphic file (type png)
+<use figs/B_letargia_5.png>
+Package luatex.def Info: figs/B_letargia_5.png  used on input line 124.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_5.png, id=1105, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_5.png Graphic file (type png)
+<use figs/B_FDC_5.png>
+Package luatex.def Info: figs/B_FDC_5.png  used on input line 132.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_5.png, id=1106, 321.6015pt x 239.9364pt>
+File: figs/B_FDCdiff_5.png Graphic file (type png)
+<use figs/B_FDCdiff_5.png>
+Package luatex.def Info: figs/B_FDCdiff_5.png  used on input line 138.
+(luatex.def)             Requested size: 202.87111pt x 151.35843pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [59<./figs/B_FDC_3.png><./figs/B_FDCdiff_3.png><./figs/B_letargia_5.png>]
+<figs/B_letargia_10.png, id=1119, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_10.png Graphic file (type png)
+<use figs/B_letargia_10.png>
+Package luatex.def Info: figs/B_letargia_10.png  used on input line 153.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_10.png, id=1120, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_10.png Graphic file (type png)
+<use figs/B_FDC_10.png>
+Package luatex.def Info: figs/B_FDC_10.png  used on input line 161.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_10.png, id=1121, 321.6015pt x 239.9364pt>
+File: figs/B_FDCdiff_10.png Graphic file (type png)
+<use figs/B_FDCdiff_10.png>
+Package luatex.def Info: figs/B_FDCdiff_10.png  used on input line 167.
+(luatex.def)             Requested size: 202.87111pt x 151.35843pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Info: Redefining \. on input line 174.
 LaTeX Info: Redefining \% on input line 174.
- [28]
-<figs/fig4_7.png, id=666, 730.4088pt x 379.05615pt>
-File: figs/fig4_7.png Graphic file (type png)
-<use figs/fig4_7.png>
-Package luatex.def Info: figs/fig4_7.png  used on input line 182.
-(luatex.def)             Requested size: 441.01772pt x 228.86986pt.
-<figs/fig4_8.png, id=667, 730.4088pt x 379.4175pt>
-File: figs/fig4_8.png Graphic file (type png)
-<use figs/fig4_8.png>
-Package luatex.def Info: figs/fig4_8.png  used on input line 189.
-(luatex.def)             Requested size: 441.01772pt x 229.08803pt.
+ [60<./figs/B_FDC_5.png><./figs/B_FDCdiff_5.png><./figs/B_letargia_10.png>]
+<figs/B_letargia_25.png, id=1133, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_25.png Graphic file (type png)
+<use figs/B_letargia_25.png>
+Package luatex.def Info: figs/B_letargia_25.png  used on input line 182.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_25.png, id=1134, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_25.png Graphic file (type png)
+<use figs/B_FDC_25.png>
+Package luatex.def Info: figs/B_FDC_25.png  used on input line 190.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_25.png, id=1135, 328.1058pt x 239.9364pt>
+File: figs/B_FDCdiff_25.png Graphic file (type png)
+<use figs/B_FDCdiff_25.png>
+Package luatex.def Info: figs/B_FDCdiff_25.png  used on input line 196.
+(luatex.def)             Requested size: 202.87111pt x 148.35995pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 193.
-LaTeX Info: Redefining \% on input line 193.
- [29<./figs/fig4_7.png>]
-<figs/fig4_9.png, id=675, 497.4585pt x 466.74374pt>
-File: figs/fig4_9.png Graphic file (type png)
-<use figs/fig4_9.png>
-Package luatex.def Info: figs/fig4_9.png  used on input line 198.
-(luatex.def)             Requested size: 330.76328pt x 310.3522pt.
+ [61<./figs/B_FDC_10.png><./figs/B_FDCdiff_10.png><./figs/B_letargia_25.png>]
+<figs/B_letargia_100.png, id=1148, 619.3539pt x 239.9364pt>
+File: figs/B_letargia_100.png Graphic file (type png)
+<use figs/B_letargia_100.png>
+Package luatex.def Info: figs/B_letargia_100.png  used on input line 212.
+(luatex.def)             Requested size: 441.01772pt x 170.85028pt.
+<figs/B_FDC_100.png, id=1149, 308.5929pt x 239.9364pt>
+File: figs/B_FDC_100.png Graphic file (type png)
+<use figs/B_FDC_100.png>
+Package luatex.def Info: figs/B_FDC_100.png  used on input line 220.
+(luatex.def)             Requested size: 202.87111pt x 157.73978pt.
+<figs/B_FDCdiff_100.png, id=1150, 333.8874pt x 239.9364pt>
+File: figs/B_FDCdiff_100.png Graphic file (type png)
+<use figs/B_FDCdiff_100.png>
+Package luatex.def Info: figs/B_FDCdiff_100.png  used on input line 226.
+(luatex.def)             Requested size: 202.87111pt x 145.78984pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 202.
-LaTeX Info: Redefining \% on input line 202.
- [30<./figs/fig4_8.png>]
-
-LaTeX Warning: Reference `tab:KL_parciales_equal_columns_manual' on page 31 undefined on input line 210.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 240.
-LaTeX Info: Redefining \% on input line 240.
- [31<./figs/fig4_9.png>]
-<figs/fig4_10.png, id=691, 730.4088pt x 379.05615pt>
-File: figs/fig4_10.png Graphic file (type png)
-<use figs/fig4_10.png>
-Package luatex.def Info: figs/fig4_10.png  used on input line 251.
-(luatex.def)             Requested size: 441.01772pt x 228.86986pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 255.
-LaTeX Info: Redefining \% on input line 255.
- [32]
-<figs/fig4_11.png, id=697, 730.4088pt x 379.4175pt>
-File: figs/fig4_11.png Graphic file (type png)
-<use figs/fig4_11.png>
-Package luatex.def Info: figs/fig4_11.png  used on input line 258.
-(luatex.def)             Requested size: 441.01772pt x 229.08803pt.
-<figs/fig4_12.png, id=699, 497.4585pt x 462.528pt>
-File: figs/fig4_12.png Graphic file (type png)
-<use figs/fig4_12.png>
-Package luatex.def Info: figs/fig4_12.png  used on input line 267.
-(luatex.def)             Requested size: 330.76328pt x 307.54901pt.
-LaTeX Info: Redefining \. on input line 271.
-LaTeX Info: Redefining \% on input line 271.
- [33<./figs/fig4_10.png><./figs/fig4_11.png>]
-
-LaTeX Warning: Reference `tab:KL_parciales_equal_columns_manual' on page 34 undefined on input line 272.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 302.
-LaTeX Info: Redefining \% on input line 302.
- [34<./figs/fig4_12.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 330.
-LaTeX Info: Redefining \% on input line 330.
- [35])
-LaTeX Info: Redefining \. on input line 77.
-LaTeX Info: Redefining \% on input line 77.
- [36]
-\openout2 = Capitulos/Conducto.aux
- (./Capitulos/Conducto.tex
-Capítulo 5.
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathsurround' on input line 15.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 15.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 15.
-
-) [37
-
-
-
-
-]
-\openout2 = Capitulos/Ap_A.aux
- (./Capitulos/Ap_A.tex [38
-
-
-
-
-]
-Apéndice A.
-) [39] [40
+LaTeX Info: Redefining \. on input line 233.
+LaTeX Info: Redefining \% on input line 233.
+ [62<./figs/B_FDC_25.png><./figs/B_FDCdiff_25.png><./figs/B_letargia_100.png>]) [63<./figs/B_FDC_100.png><./figs/B_FDCdiff_100.png>] [64
 
 
 
@@ -1052,22 +1424,17 @@ Apéndice A.
 \tf@brf=\write7
 
 \openout7 = PI_main.brf
- [41
+ [65
 
 ])
-LaTeX Info: Redefining \. on input line 85.
-LaTeX Info: Redefining \% on input line 85.
- [42] [43
+LaTeX Info: Redefining \. on input line 102.
+LaTeX Info: Redefining \% on input line 102.
+ [66] [67
 
 
 
 
-] [44
-
-] [45
-
-
-] [46
+] [68
 
 ] (./PI_main.aux
 LaTeX Info: Redefining \. on input line 12.
@@ -1078,35 +1445,33 @@ LaTeX Info: Redefining \% on input line 6.
 ) (./Capitulos/Introduccion.aux
 LaTeX Info: Redefining \. on input line 4.
 LaTeX Info: Redefining \% on input line 4.
-) (./Capitulos/Herramientas.aux) (./Capitulos/Metodologia.aux) (./Capitulos/Paralelepipedo.aux) (./Capitulos/Conducto.aux) (./Capitulos/Ap_A.aux))
+) (./Capitulos/Herramientas.aux) (./Capitulos/Metodologia.aux) (./Capitulos/Paralelepipedo.aux) (./Capitulos/Conducto.aux) (./Capitulos/Conclusiones.aux) (./Capitulos/Ap_A.aux) (./Capitulos/Ap_B.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `PI_main.out' has not changed.
-(rerunfilecheck)             Checksum: EEBCAF21E8C625F66CE025D59493973E;12623.
+(rerunfilecheck)             Checksum: 4761426F3A7ABF62FBFB034CC6C5673B;13267.
 Package rerunfilecheck Info: File `PI_main.brf' has not changed.
-(rerunfilecheck)             Checksum: EA597768DF058E7C711508A399E8B586;444.
+(rerunfilecheck)             Checksum: 719EC6D5E149A5695674F07A9F5BA55F;935.
 )
 
 Here is how much of LuaTeX's memory you used:
- 15341 strings out of 476553
+ 16228 strings out of 476553
  125027,1977958 words of node,token memory allocated
- 879 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 4 glue, 4 kern, 1 glyph, 62 attribute, 62 glue_spec, 33 attribute_list, 1 write, 26 pdf_action nodes
-   avail lists: 2:1048,3:314,4:212,5:376,6:71,7:8509,8:61,9:517,10:25,11:1297
- 36619 multiletter control sequences out of 65536+600000
+ 1184 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 4 glue, 4 kern, 1 glyph, 118 attribute, 63 glue_spec, 61 attribute_list, 1 write, 48 pdf_action nodes
+   avail lists: 1:1,2:1045,3:367,4:254,5:408,6:66,7:7535,8:61,9:582,10:25,11:1157
+ 37264 multiletter control sequences out of 65536+600000
  94 fonts using 7210047 bytes
- 102i,12n,101p,1248b,811s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-bolditalic.otf></usr/share/texmf/fonts/opentype/public/lm/lmsans12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman8-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmsans10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman17-regular.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on PI_main.pdf (62 pages, 6705204 bytes).
+ 102i,12n,101p,1287b,946s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-PDF statistics: 914 PDF objects out of 1000 (max. 8388607)
- 750 compressed objects within 8 object streams
- 166 named destinations out of 1000 (max. 131072)
- 417 words of extra memory for PDF output out of 10000 (max. 100000000)
+warning  (pdf backend): unreferenced destination with name 'page.\\protect\040xiii'
+</usr/share/texmf/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman8-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-bolditalic.otf></usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmsans12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmsans10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman17-regular.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on PI_main.pdf (88 pages, 15082560 bytes).
+
+PDF statistics: 1347 PDF objects out of 1440 (max. 8388607)
+ 1063 compressed objects within 11 object streams
+ 232 named destinations out of 1000 (max. 131072)
+ 465 words of extra memory for PDF output out of 10000 (max. 100000000)
 

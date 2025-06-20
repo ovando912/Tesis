@@ -1,0 +1,103 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{TreeNode}\PYG{p}{:}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Nodo elemental de un árbol jerárquico de histogramas multidimensionales.}
+
+\PYG{l+s+sd}{    Cada nodo contiene:}
+\PYG{l+s+sd}{    \PYGZhy{} **distribucion\PYGZus{}acumulada** – Vector CDF (incluye un 0 inicial) para muestreo.}
+\PYG{l+s+sd}{    \PYGZhy{} **bordes\PYGZus{}micro** – Bordes del histograma fino (bins “micro”).}
+\PYG{l+s+sd}{    \PYGZhy{} **bordes\PYGZus{}macro** – Bordes del histograma grueso (bins “macro”).}
+\PYG{l+s+sd}{    \PYGZhy{} **hijos** – Lista de subnodos.}
+
+\PYG{l+s+sd}{    Atributos}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{    distribucion\PYGZus{}acumulada : Optional[np.ndarray]}
+\PYG{l+s+sd}{        Vector de la distribución acumulada (CDF). None en hojas sin datos.}
+\PYG{l+s+sd}{    bordes\PYGZus{}micro : Optional[np.ndarray]}
+\PYG{l+s+sd}{        Bordes de bins finos. None en hojas sin datos.}
+\PYG{l+s+sd}{    bordes\PYGZus{}macro : Optional[np.ndarray]}
+\PYG{l+s+sd}{        Bordes de bins gruesos para particionar en hijos.}
+\PYG{l+s+sd}{        None si es última dimensión.}
+\PYG{l+s+sd}{    hijos : List[TreeNode]}
+\PYG{l+s+sd}{        Lista de nodos hijos (subárboles) en orden de bins\PYGZus{}macro.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{c+c1}{\PYGZsh{} Constructor: convertimos a `np.ndarray` sólo si los vectores existen.}
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}
+        \PYG{n+nb+bp}{self}\PYG{p}{,}
+        \PYG{n}{distribucion\PYGZus{}acumulada}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]],}
+        \PYG{n}{bordes\PYGZus{}micro}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]],}
+        \PYG{n}{bordes\PYGZus{}macro}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]],}
+    \PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Inicializamos lista de hijos vacía}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{hijos}\PYG{p}{:} \PYG{n}{List}\PYG{p}{[}\PYG{n}{TreeNode}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[]}
+
+        \PYG{c+c1}{\PYGZsh{} Convertimos secuencias a np.ndarray si existen, manteniendo dtype float}
+        \PYG{k}{if} \PYG{n}{distribucion\PYGZus{}acumulada} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{distribucion\PYGZus{}acumulada}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{asarray}\PYG{p}{(}
+                \PYG{n}{distribucion\PYGZus{}acumulada}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{float}
+            \PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{distribucion\PYGZus{}acumulada} \PYG{o}{=} \PYG{k+kc}{None}
+
+        \PYG{k}{if} \PYG{n}{bordes\PYGZus{}micro} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{bordes\PYGZus{}micro}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{asarray}\PYG{p}{(}
+                \PYG{n}{bordes\PYGZus{}micro}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{float}
+            \PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{bordes\PYGZus{}micro} \PYG{o}{=} \PYG{k+kc}{None}
+
+        \PYG{k}{if} \PYG{n}{bordes\PYGZus{}macro} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{bordes\PYGZus{}macro}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{asarray}\PYG{p}{(}
+                \PYG{n}{bordes\PYGZus{}macro}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{float}
+            \PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{bordes\PYGZus{}macro} \PYG{o}{=} \PYG{k+kc}{None}
+
+    \PYG{k}{def} \PYG{n+nf}{add\PYGZus{}child}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{hijo}\PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}TreeNode\PYGZdq{}}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+\PYG{+w}{        }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Añade un nodo hijo al final de la lista de hijos.}
+
+\PYG{l+s+sd}{        Args:}
+\PYG{l+s+sd}{            hijo (TreeNode): Nodo que se desea incorporar como subárbol.}
+\PYG{l+s+sd}{        \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{hijos}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{hijo}\PYG{p}{)}
+
+    \PYG{k}{def} \PYG{n+nf}{to\PYGZus{}xml}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{ET}\PYG{o}{.}\PYG{n}{Element}\PYG{p}{:}
+\PYG{+w}{        }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Serializa el nodo (y recursivamente sus hijos) a un elemento XML.}
+
+\PYG{l+s+sd}{        Cada nodo se representa como:}
+\PYG{l+s+sd}{        \PYGZlt{}node\PYGZgt{}}
+\PYG{l+s+sd}{          \PYGZlt{}cumul\PYGZgt{}...valores separados por comas o \PYGZdq{}None\PYGZdq{}\PYGZlt{}/cumul\PYGZgt{}}
+\PYG{l+s+sd}{          \PYGZlt{}micro\PYGZgt{}...bordes\PYGZus{}micro separados por comas o \PYGZdq{}None\PYGZdq{}\PYGZlt{}/micro\PYGZgt{}}
+\PYG{l+s+sd}{          \PYGZlt{}macro\PYGZgt{}...bordes\PYGZus{}macro separados por comas o \PYGZdq{}None\PYGZdq{}\PYGZlt{}/macro\PYGZgt{}}
+\PYG{l+s+sd}{          \PYGZlt{}!\PYGZhy{}\PYGZhy{} subnodos aquí \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{l+s+sd}{        \PYGZlt{}/node\PYGZgt{}}
+
+\PYG{l+s+sd}{        Returns:}
+\PYG{l+s+sd}{            ET.Element: Elemento \PYGZlt{}node\PYGZgt{} con sus etiquetas internas y subnodos.}
+\PYG{l+s+sd}{        \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+        \PYG{n}{nodo\PYGZus{}elem} \PYG{o}{=} \PYG{n}{ET}\PYG{o}{.}\PYG{n}{Element}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}node\PYGZdq{}}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Convertimos cada vector a texto CSV; si es None, escribimos \PYGZdq{}None\PYGZdq{}}
+        \PYG{n}{etiquetas} \PYG{o}{=} \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}cumul\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}micro\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}macro\PYGZdq{}}\PYG{p}{)}
+        \PYG{n}{vectores} \PYG{o}{=} \PYG{p}{(}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{distribucion\PYGZus{}acumulada}\PYG{p}{,}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{bordes\PYGZus{}micro}\PYG{p}{,}
+            \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{bordes\PYGZus{}macro}\PYG{p}{,}
+        \PYG{p}{)}
+
+        \PYG{k}{for} \PYG{n}{etiqueta}\PYG{p}{,} \PYG{n}{vector} \PYG{o+ow}{in} \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n}{etiquetas}\PYG{p}{,} \PYG{n}{vectores}\PYG{p}{):}
+            \PYG{n}{subelem} \PYG{o}{=} \PYG{n}{ET}\PYG{o}{.}\PYG{n}{SubElement}\PYG{p}{(}\PYG{n}{nodo\PYGZus{}elem}\PYG{p}{,} \PYG{n}{etiqueta}\PYG{p}{)}
+            \PYG{k}{if} \PYG{n}{vector} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+                \PYG{n}{subelem}\PYG{o}{.}\PYG{n}{text} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}None\PYGZdq{}}
+            \PYG{k}{else}\PYG{p}{:}
+                \PYG{c+c1}{\PYGZsh{} .tolist() asegura que sea iterable de Python puro}
+                \PYG{n}{subelem}\PYG{o}{.}\PYG{n}{text} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{},\PYGZdq{}}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{n+nb}{str}\PYG{p}{,} \PYG{n}{vector}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{()))}
+
+        \PYG{c+c1}{\PYGZsh{} Añadimos los hijos de forma recursiva}
+        \PYG{k}{for} \PYG{n}{hijo} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{hijos}\PYG{p}{:}
+            \PYG{n}{nodo\PYGZus{}elem}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{hijo}\PYG{o}{.}\PYG{n}{to\PYGZus{}xml}\PYG{p}{())}
+
+        \PYG{k}{return} \PYG{n}{nodo\PYGZus{}elem}
+\end{Verbatim}

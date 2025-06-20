@@ -1,0 +1,189 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{build\PYGZus{}node}\PYG{p}{(}
+    \PYG{n}{df}\PYG{p}{:} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{,}
+    \PYG{n}{columns}\PYG{p}{:} \PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{str}\PYG{p}{],}
+    \PYG{n}{micro\PYGZus{}bins}\PYG{p}{:} \PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{],}
+    \PYG{n}{macro\PYGZus{}bins}\PYG{p}{:} \PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{],}
+    \PYG{n}{micro\PYGZus{}initial\PYGZus{}bins}\PYG{p}{:} \PYG{n}{Sequence}\PYG{p}{[}\PYG{n}{Optional}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]],}
+    \PYG{n}{macro\PYGZus{}initial\PYGZus{}bins}\PYG{p}{:} \PYG{n}{Sequence}\PYG{p}{[}\PYG{n}{Optional}\PYG{p}{[}\PYG{n+nb}{int}\PYG{p}{]],}
+    \PYG{n}{micro\PYGZus{}binning}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{,}
+    \PYG{n}{macro\PYGZus{}binning}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{,}
+    \PYG{n}{user\PYGZus{}edges}\PYG{p}{:} \PYG{n}{Sequence}\PYG{p}{[}\PYG{n}{Optional}\PYG{p}{[}\PYG{n}{List}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]]],}
+\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{TreeNode}\PYG{p}{:}
+\PYG{+w}{    }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Construye recursivamente un TreeNode a partir de un DataFrame, discretizando}
+\PYG{l+s+sd}{    sucesivamente según la lista de `columns` en dimensiones jerárquicas.}
+
+\PYG{l+s+sd}{    Cada nivel crea:}
+\PYG{l+s+sd}{        \PYGZhy{} macro\PYGZus{}edges: bordes de macro\PYGZhy{}bins (si hay más dimensiones por procesar),}
+\PYG{l+s+sd}{        \PYGZhy{} micro\PYGZus{}edges + cumul: bordes de micro\PYGZhy{}bins y su CDF correspondiente.}
+
+\PYG{l+s+sd}{    Parámetros}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{    df : pd.DataFrame}
+\PYG{l+s+sd}{        Subconjunto de tracks (cada fila es un evento), que debe contener:}
+\PYG{l+s+sd}{            \PYGZhy{} Columnas numéricas en `columns`.}
+\PYG{l+s+sd}{            \PYGZhy{} Columna \PYGZdq{}wgt\PYGZdq{} con pesos para cada fila.}
+\PYG{l+s+sd}{    columns : Sequence[str]}
+\PYG{l+s+sd}{        Lista de nombres de columnas que se discretizarán en orden jerárquico.}
+\PYG{l+s+sd}{    micro\PYGZus{}bins : Sequence[int]}
+\PYG{l+s+sd}{        Número de micro\PYGZhy{}bins a generar para cada dimensión (paralelo a `columns`).}
+\PYG{l+s+sd}{    macro\PYGZus{}bins : Sequence[int]}
+\PYG{l+s+sd}{        Número de macro\PYGZhy{}bins a generar para cada dimensión (paralelo a `columns`).}
+\PYG{l+s+sd}{    micro\PYGZus{}initial\PYGZus{}bins : Sequence[Optional[int]]}
+\PYG{l+s+sd}{        Parámetros initial\PYGZus{}bins para binning adaptativo en micro\PYGZhy{}bins por dimensión.}
+\PYG{l+s+sd}{        Debe tener la misma longitud que `columns`.}
+\PYG{l+s+sd}{    macro\PYGZus{}initial\PYGZus{}bins : Sequence[Optional[int]]}
+\PYG{l+s+sd}{        Parámetros initial\PYGZus{}bins para binning adaptativo en macro\PYGZhy{}bins por dimensión.}
+\PYG{l+s+sd}{        Debe tener la misma longitud que `columns`.}
+\PYG{l+s+sd}{    micro\PYGZus{}binning : str}
+\PYG{l+s+sd}{        Estrategia de micro\PYGZhy{}binning: \PYGZsq{}equal\PYGZus{}bins\PYGZsq{} o \PYGZsq{}adaptive\PYGZsq{}.}
+\PYG{l+s+sd}{    macro\PYGZus{}binning : str}
+\PYG{l+s+sd}{        Estrategia de macro\PYGZhy{}binning: \PYGZsq{}equal\PYGZus{}bins\PYGZsq{} o \PYGZsq{}adaptive\PYGZsq{}.}
+\PYG{l+s+sd}{    user\PYGZus{}edges : Sequence[Optional[List[float]]]}
+\PYG{l+s+sd}{        Lista de listas de bordes de usuario para cada dimensión.}
+\PYG{l+s+sd}{        Cada elemento puede ser None (no hay bordes forzados) o una lista de floats.}
+
+\PYG{l+s+sd}{    Retorna}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{    TreeNode}
+\PYG{l+s+sd}{        Nodo raíz que contiene:}
+\PYG{l+s+sd}{            \PYGZhy{} cumul: CDF de la primera dimensión (o None si no aplica).}
+\PYG{l+s+sd}{            \PYGZhy{} micro\PYGZus{}edges: bordes de micro\PYGZhy{}bins en la primera dimensión.}
+\PYG{l+s+sd}{            \PYGZhy{} macro\PYGZus{}edges: bordes de macro\PYGZhy{}bins en la primera dimensión.}
+\PYG{l+s+sd}{        Y sus hijos correspondientes para las siguientes dimensiones.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{c+c1}{\PYGZsh{} 1. Caso base: si no hay eventos, devolvemos un nodo “vacío” sin bordes.}
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{k}{if} \PYG{n}{df}\PYG{o}{.}\PYG{n}{empty}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} TreeNode acepta (cumul, micro\PYGZus{}edges, macro\PYGZus{}edges).}
+        \PYG{c+c1}{\PYGZsh{} Pasamos None para indicar vacío.}
+        \PYG{k}{return} \PYG{n}{TreeNode}\PYG{p}{(}\PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Nombre de la columna actual sobre la que estamos trabajando}
+    \PYG{n}{col} \PYG{o}{=} \PYG{n}{columns}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{c+c1}{\PYGZsh{} 2. Manejo de la “especialidad”: todos los eventos en esta dimensión}
+    \PYG{c+c1}{\PYGZsh{} son idénticos}
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{c+c1}{\PYGZsh{} Si todos los valores en df[col] son iguales, no tiene sentido calcular}
+    \PYG{c+c1}{\PYGZsh{} múltiples bines.}
+    \PYG{c+c1}{\PYGZsh{} Definimos micro\PYGZus{}edges triviales y, si hay más dimensiones, generamos}
+    \PYG{c+c1}{\PYGZsh{} macro\PYGZus{}edges minimal.}
+    \PYG{k}{if} \PYG{n}{df}\PYG{p}{[}\PYG{n}{col}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{==} \PYG{n}{df}\PYG{p}{[}\PYG{n}{col}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{():}
+        \PYG{n}{valor\PYGZus{}constante} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{col}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{())}
+
+        \PYG{c+c1}{\PYGZsh{} Si es la última dimensión, no necesitamos macro\PYGZus{}edges}
+        \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{columns}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
+            \PYG{n}{macro\PYGZus{}edges}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{None}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} Para asegurar que haya al menos dos extremos y no crashear}
+            \PYG{c+c1}{\PYGZsh{} np.digitize, generamos un rango [valor\PYGZhy{}1, valor+1] (o cualquier}
+            \PYG{c+c1}{\PYGZsh{} delta pequeño).}
+            \PYG{n}{macro\PYGZus{}edges} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}
+                \PYG{p}{[}\PYG{n}{valor\PYGZus{}constante} \PYG{o}{\PYGZhy{}} \PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{n}{valor\PYGZus{}constante} \PYG{o}{+} \PYG{l+m+mf}{1.0}\PYG{p}{]}
+            \PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} micro\PYGZus{}edges queda en un único punto (el valor constante)}
+        \PYG{n}{micro\PYGZus{}edges} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{valor\PYGZus{}constante}\PYG{p}{],} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{float}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{} La CDF acumulada es trivial: toda la probabilidad en ese único punto}
+        \PYG{n}{cumul} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mf}{1.0}\PYG{p}{],} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{float}\PYG{p}{)}
+
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+        \PYG{c+c1}{\PYGZsh{} 3. Cálculo de macro\PYGZus{}edges (si corresponde) en esta dimensión}
+        \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+        \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{columns}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} Última dimensión: no necesitamos macro\PYGZus{}edges}
+            \PYG{n}{macro\PYGZus{}edges} \PYG{o}{=} \PYG{k+kc}{None}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} Llamamos a la función refactorizada `determine\PYGZus{}macro\PYGZus{}edges`}
+            \PYG{n}{macro\PYGZus{}edges} \PYG{o}{=} \PYG{n}{determine\PYGZus{}macro\PYGZus{}edges}\PYG{p}{(}
+                \PYG{n}{df}\PYG{p}{,}
+                \PYG{n}{col}\PYG{p}{,}
+                \PYG{n}{macro\PYGZus{}bins}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}
+                \PYG{n}{macro\PYGZus{}binning}\PYG{p}{,}
+                \PYG{n}{user\PYGZus{}edges}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}
+                \PYG{n}{initial\PYGZus{}bins}\PYG{o}{=}\PYG{n}{macro\PYGZus{}initial\PYGZus{}bins}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}
+            \PYG{p}{)}
+            \PYG{k}{if} \PYG{n}{macro\PYGZus{}edges} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+                \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}macro\PYGZus{}edges is None\PYGZdq{}}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+        \PYG{c+c1}{\PYGZsh{} 4. Cálculo de micro\PYGZus{}edges y su CDF (cumul) en esta dimensión}
+        \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+        \PYG{n}{micro\PYGZus{}edges}\PYG{p}{,} \PYG{n}{cumul} \PYG{o}{=} \PYG{n}{compute\PYGZus{}micro\PYGZus{}edges\PYGZus{}and\PYGZus{}cumul}\PYG{p}{(}
+            \PYG{n}{df}\PYG{p}{,}
+            \PYG{n}{col}\PYG{p}{,}
+            \PYG{n}{micro\PYGZus{}bins}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}
+            \PYG{n}{micro\PYGZus{}binning}\PYG{p}{,}
+            \PYG{n}{macro\PYGZus{}edges}\PYG{p}{,}
+            \PYG{n}{initial\PYGZus{}bins}\PYG{o}{=}\PYG{n}{micro\PYGZus{}initial\PYGZus{}bins}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}
+        \PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} Creamos el nodo actual con los resultados en esta dimensión}
+    \PYG{n}{node} \PYG{o}{=} \PYG{n}{TreeNode}\PYG{p}{(}\PYG{n}{cumul}\PYG{p}{,} \PYG{n}{micro\PYGZus{}edges}\PYG{p}{,} \PYG{n}{macro\PYGZus{}edges}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{c+c1}{\PYGZsh{} 5. Caso recursivo: si hay más columnas, creamos hijos para cada macro\PYGZhy{}bin}
+    \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{columns}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Si no hay macro\PYGZus{}edges (por ser última dimensión), no hay recursión}
+        \PYG{k}{if} \PYG{n}{macro\PYGZus{}edges} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{node}
+
+        \PYG{c+c1}{\PYGZsh{} 5.1 Calculamos el índice de macro\PYGZhy{}bin para cada fila en df}
+        \PYG{c+c1}{\PYGZsh{} np.digitize devuelve índices de bin (1\PYGZhy{}based) para cada valor en df[col].}
+        \PYG{c+c1}{\PYGZsh{} Restamos 1 para pasar a 0\PYGZhy{}based.}
+        \PYG{n}{idx} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{digitize}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{col}\PYG{p}{]}\PYG{o}{.}\PYG{n}{to\PYGZus{}numpy}\PYG{p}{(),} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{macro\PYGZus{}edges}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}
+
+        \PYG{n}{total\PYGZus{}macro\PYGZus{}bins} \PYG{o}{=} \PYG{p}{(}
+            \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{macro\PYGZus{}edges}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}
+        \PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} Cantidad de intervalos macrobins}
+
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{total\PYGZus{}macro\PYGZus{}bins}\PYG{p}{):}
+            \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+            \PYG{c+c1}{\PYGZsh{} 5.2 Construcción de la máscara para extraer sub\PYGZhy{}DataFrame en el bin i}
+            \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+            \PYG{c+c1}{\PYGZsh{} Truco de KDSource: en el penúltimo bin (i == total\PYGZus{}macro\PYGZus{}bins \PYGZhy{} 2),}
+            \PYG{c+c1}{\PYGZsh{} incluimos también los que quedaron en el último bin (i+1)}
+            \PYG{c+c1}{\PYGZsh{} para abarcar el rango abierto derecho.}
+            \PYG{c+c1}{\PYGZsh{} if total\PYGZus{}macro\PYGZus{}bins \PYGZgt{} 1 and i == total\PYGZus{}macro\PYGZus{}bins \PYGZhy{} 2:}
+            \PYG{c+c1}{\PYGZsh{}     mask = (idx == i) | (idx == i + 1)}
+            \PYG{c+c1}{\PYGZsh{} else:}
+            \PYG{c+c1}{\PYGZsh{}     mask = idx == i}
+
+            \PYG{n}{mask} \PYG{o}{=} \PYG{p}{(}
+                \PYG{p}{(}\PYG{n}{idx} \PYG{o}{==} \PYG{n}{i}\PYG{p}{)} \PYG{o}{|} \PYG{p}{((}\PYG{n}{i} \PYG{o}{==} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{macro\PYGZus{}edges}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{\PYGZam{}} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{==} \PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{))}
+                \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{macro\PYGZus{}edges}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}
+                \PYG{k}{else} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{==} \PYG{n}{i}\PYG{p}{)}
+            \PYG{p}{)}
+
+            \PYG{c+c1}{\PYGZsh{} df filtrado de eventos cuya coordenada col cae en el macro\PYGZhy{}bin i}
+            \PYG{n}{child\PYGZus{}df} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{n}{mask}\PYG{p}{]}
+
+            \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+            \PYG{c+c1}{\PYGZsh{} 5.3 Llamada recursiva: descartamos la primera columna y avanzamos}
+            \PYG{c+c1}{\PYGZsh{} \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+            \PYG{n}{child\PYGZus{}node} \PYG{o}{=} \PYG{n}{build\PYGZus{}node}\PYG{p}{(}
+                \PYG{n}{child\PYGZus{}df}\PYG{p}{,}
+                \PYG{n}{columns}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],}  \PYG{c+c1}{\PYGZsh{} Quitamos la primera dimension}
+                \PYG{n}{micro\PYGZus{}bins}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],}  \PYG{c+c1}{\PYGZsh{} Micro\PYGZhy{}bins de las dimensiones restantes}
+                \PYG{n}{macro\PYGZus{}bins}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],}  \PYG{c+c1}{\PYGZsh{} Macro\PYGZhy{}bins de las dimensiones restantes}
+                \PYG{n}{micro\PYGZus{}initial\PYGZus{}bins}\PYG{p}{[}
+                    \PYG{l+m+mi}{1}\PYG{p}{:}
+                \PYG{p}{],}  \PYG{c+c1}{\PYGZsh{} Parámetros initial\PYGZus{}bins para micro\PYGZhy{}bins}
+                \PYG{n}{macro\PYGZus{}initial\PYGZus{}bins}\PYG{p}{[}
+                    \PYG{l+m+mi}{1}\PYG{p}{:}
+                \PYG{p}{],}  \PYG{c+c1}{\PYGZsh{} Parámetros initial\PYGZus{}bins para macro\PYGZhy{}bins}
+                \PYG{n}{micro\PYGZus{}binning}\PYG{p}{,}  \PYG{c+c1}{\PYGZsh{} Misma estrategia para todas las dimensiones}
+                \PYG{n}{macro\PYGZus{}binning}\PYG{p}{,}  \PYG{c+c1}{\PYGZsh{} Misma estrategia para todas las dimensiones}
+                \PYG{n}{user\PYGZus{}edges}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{:],}  \PYG{c+c1}{\PYGZsh{} Bordes de usuario para dimensiones restantes}
+            \PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{} Agregamos el nodo hijo a la lista de hijos del nodo actual}
+            \PYG{n}{node}\PYG{o}{.}\PYG{n}{add\PYGZus{}child}\PYG{p}{(}\PYG{n}{child\PYGZus{}node}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{node}
+\end{Verbatim}

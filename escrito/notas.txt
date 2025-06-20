@@ -1,0 +1,7 @@
+En la pagina 37 hay que ver la unidad del grafico. Hay que aclarar en algun lado como se realizo el grafico y de donde sale esa unidad.* (puse en el texto que esta normalizado pro neutron de fuente. Sin embargo las unidades son las de flujo convencional, salvo que le falta n/s. Si se multiplica por s0 las unidades dan.)
+
+Hay que agregar, por ejemplo en el capitulo 3, que cuando se hace el xml no se necesita mas el archivo de particulas original, como si necesita kdsource. Y puede ser muy pesado. (pagina 10)
+
+En la pagina 46 hay que ajustar el colorbar.
+
+En la pagina 48 hay que revisar las unidades del grafico.

@@ -2,14 +2,25 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
-\bibitem{DeptoNeutronesCAB2025}
-{Departamento de Neutrones, Centro Atómico Bariloche}.
-\newblock Figura provista por el departamento de neutrones del centro atómico bariloche.
+\bibitem{McStas2020Manual}
+McStas User Manual, 2020.
+\newblock Último acceso: junio de 2025.
+
+\bibitem{Schmidt2022KDSourcePaper}
+Schmidt, N., Abbate, O.~I., Prieto, Z.~M., Robledo, J.~I., Márquez, J.~I., Márquez, A.~A., \emph{et~al.}
+\newblock Kdsource, a tool for the generation of monte carlo particle sources using kernel density estimation.
+\newblock \emph{Annals of Nuclear Energy}, \textbf{177}, 109309, 2022.
 
 \bibitem{Fairhurst2017Hist}
 Fairhurst~Agosta, R.
 \newblock Cálculo neutrónico detallado de haces y guías de neutrones del reactor RA-10.
 \newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2017.
+
+\bibitem{DeptoReactoresNeutronesCAB2025}
+{Centro Atómico Bariloche}.
+\newblock Centro atómico bariloche.
+\newblock \url{https://www.argentina.gob.ar/cnea/cab}.
+\newblock Último acceso: mayo de 2025.
 
 \bibitem{Ayala2019Hist}
 Ayala, J.~E.
@@ -21,15 +32,22 @@ Abbate, O.~I.
 \newblock Cálculo de blindajes mediante fuentes de distribución en McStas y Tripoli.
 \newblock Proyecto integrador de ingeniería nuclear, Instituto Balseiro, Centro Atómico Bariloche, 2020.
 
+\bibitem{CNEA2025}
+{Comisión Nacional de Energía Atómica}.
+\newblock Comisión nacional de energía atómica.
+\newblock \url{https://www.cnea.gob.ar/}.
+\newblock Último acceso: mayo de 2025.
+
+\bibitem{IB2025}
+{Instituto Balseiro}.
+\newblock Instituto balseiro.
+\newblock \url{https://www.ib.edu.ar/}.
+\newblock Último acceso: mayo de 2025.
+
 \bibitem{Abbate2021KDSource}
 Abbate, O.~I.
 \newblock KDSource: Desarrollo de una herramienta computacional para el cálculo de blindajes.
 \newblock Tesis de maestría, Instituto Balseiro, Centro Atómico Bariloche, 2021.
-
-\bibitem{Schmidt2022KDSourcePaper}
-Schmidt, N., Abbate, O.~I., Prieto, Z.~M., Robledo, J.~I., Márquez, J.~I., Márquez, A.~A., \emph{et~al.}
-\newblock Kdsource, a tool for the generation of monte carlo particle sources using kernel density estimation.
-\newblock \emph{Annals of Nuclear Energy}, \textbf{177}, 109309, 2022.
 
 \bibitem{Fox2022KDE}
 Fox, F.
@@ -46,11 +64,6 @@ Giménez, M.~A.
 \newblock \url{https://openmc.org/}, 2025.
 \newblock Último acceso: mayo de 2025.
 
-\bibitem{KDSource2024}
-Documentación oficial de {KDSource}.
-\newblock \url{https://kdsource.readthedocs.io/en/latest/index.html}, 2024.
-\newblock Último acceso: mayo de 2025.
-
 \bibitem{HDF5_2025}
 Hdf5®: The hierarchical data format.
 \newblock \url{https://docs.hdfgroup.org/archive/support/HDF5/doc/index.html}, 2025.
@@ -61,10 +74,36 @@ Hdf5®: The hierarchical data format.
 \newblock \url{https://mctools.github.io/mcpl/}, 2025.
 \newblock Último acceso: mayo de 2025.
 
+\bibitem{KDSource2024}
+Documentación oficial de {KDSource}.
+\newblock \url{https://kdsource.readthedocs.io/en/latest/index.html}, 2024.
+\newblock Último acceso: mayo de 2025.
+
 \bibitem{XML2025}
 Extensible markup language (xml) 1.0 (fifth edition).
 \newblock \url{https://www.w3.org/TR/xml/}, 2008.
 \newblock Último acceso: mayo de 2025.
+
+\bibitem{RepositorioKDSource2025}
+Ovando, L.
+\newblock Repositorio del proyecto de tesis - kdsource- generación de fuentes monte carlo mediante histogramas multidimensionales.
+\newblock \url{https://github.com/ovando912/KDSource}, 2025.
+\newblock Último acceso: junio de 2025.
+
+\bibitem{RepositorioOpenMCSource2025}
+Ovando, L.
+\newblock Repositorio del proyecto de tesis - openmc- generación de fuentes monte carlo mediante histogramas multidimensionales.
+\newblock \url{https://github.com/ovando912/OpenMC}, 2025.
+\newblock Último acceso: junio de 2025.
+
+\bibitem{Schmidt2021Chopper}
+Schmidt, N.~S.
+\newblock Desarrollo de un obturador neutrónico para la realización de espectrometría por tiempo de vuelo en el reactor RA-6.
+\newblock Tesis de maestría en ingeniería, Instituto Balseiro, Centro Atómico Bariloche, 2021.
+
+\bibitem{DeptoNeutronesCAB2025}
+{Departamento de Neutrones, Centro Atómico Bariloche}.
+\newblock Figura provista por el departamento de neutrones del centro atómico bariloche.
 
 \bibitem{Mishra2006PULSTAR}
 Mishra, K.~K., Hawari, A.~I., Gillette, V.~H.

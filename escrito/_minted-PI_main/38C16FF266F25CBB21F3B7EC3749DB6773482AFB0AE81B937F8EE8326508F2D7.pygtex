@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{\PYGZlt{}HistogramSource\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}J\PYGZgt{}}\PYG{+w}{ }\PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Corriente escalar \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{+w}{    }1.2345e\PYGZhy{}3
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}/J\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}ParticleType\PYGZgt{}}\PYG{+w}{ }neutron\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/ParticleType\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}z\PYGZgt{}}\PYG{+w}{ }15.0\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/z\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}VariableOrder\PYGZgt{}}\PYG{+w}{ }ln(E0/E),x,y,mu,phi\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/VariableOrder\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}SurfaceGeometry\PYGZgt{}}\PYG{+w}{ }rectangular\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/SurfaceGeometry\PYGZgt{}}
+\PYG{+w}{  }\PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Si SurfaceGeometry == circular, incluir \PYGZlt{}Radius\PYGZgt{} R \PYGZlt{}/Radius\PYGZgt{} \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{+w}{  }\PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} A continuación, se anidan los nodos \PYGZlt{}node\PYGZgt{} del árbol de histogramas \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}node\PYGZgt{}}
+\PYG{+w}{    }\PYG{n+nt}{\PYGZlt{}cumul\PYGZgt{}}0.000,0.200,0.450,0.700,0.900,1.000\PYG{n+nt}{\PYGZlt{}/cumul\PYGZgt{}}
+\PYG{+w}{    }\PYG{n+nt}{\PYGZlt{}micro\PYGZgt{}}\PYG{+w}{ }...\PYG{+w}{ }valores\PYG{+w}{ }separados\PYG{+w}{ }por\PYG{+w}{ }comas\PYG{+w}{ }...\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/micro\PYGZgt{}}
+\PYG{+w}{    }\PYG{n+nt}{\PYGZlt{}macro\PYGZgt{}}\PYG{+w}{ }...\PYG{+w}{ }valores\PYG{+w}{ }separados\PYG{+w}{ }por\PYG{+w}{ }comas\PYG{+w}{ }...\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/macro\PYGZgt{}}
+\PYG{+w}{    }\PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Subnodos \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{+w}{    }\PYG{n+nt}{\PYGZlt{}node\PYGZgt{}}
+\PYG{+w}{        }\PYG{n+nt}{\PYGZlt{}cumul\PYGZgt{}}\PYG{+w}{ }...\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/cumul\PYGZgt{}}
+\PYG{+w}{        }\PYG{n+nt}{\PYGZlt{}micro\PYGZgt{}}\PYG{+w}{ }...\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/micro\PYGZgt{}}
+\PYG{+w}{        }\PYG{n+nt}{\PYGZlt{}macro\PYGZgt{}}\PYG{+w}{ }...\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/macro\PYGZgt{}}
+\PYG{+w}{        }\PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Y así sucesivamente \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{+w}{    }\PYG{n+nt}{\PYGZlt{}/node\PYGZgt{}}
+\PYG{+w}{    }\PYG{n+nt}{\PYGZlt{}node\PYGZgt{}}\PYG{+w}{ }...\PYG{+w}{ }\PYG{n+nt}{\PYGZlt{}/node\PYGZgt{}}
+\PYG{+w}{    }\PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} ... \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+\PYG{+w}{  }\PYG{n+nt}{\PYGZlt{}/node\PYGZgt{}}
+\PYG{n+nt}{\PYGZlt{}/HistogramSource\PYGZgt{}}
+\end{Verbatim}

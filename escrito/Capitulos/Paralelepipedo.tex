@@ -1,12 +1,12 @@
-\chapter{Validación del metodo implementado: canal de vacío rodeado por agua}
+\chapter{Validación del método implementado: canal de vacío rodeado por agua}
 
-En el presente capítulo se verifica la implementación del método desarrollado para la generación de fuentes Monte Carlo mediante histogramas multidimensionales. El caso de estudio seleccionado consiste en un canal de vacío rodeado lateralmente por un bloque de agua liviana. El modelo implementado se detallará en la siguiente sección. El objetivo principal de esta sección es analizar el desempeño del método propuesto en términos de conservación del flujo escalar a lo largo del modelo, así como evaluar la preservación del espectro energético y la corriente neutrónica en diferentes regiones del canal. Se ha seleccionado este modelo debido a que es un problema sensible ante perturbaciones de la fuente, lo que permite evaluar la eficacia del método de remuestreo implementado.
+En el presente capítulo se verifica la implementación del método desarrollado para la generación de fuentes Monte Carlo mediante histogramas multidimensionales. El caso de estudio seleccionado consiste en un canal de vacío rodeado por agua liviana. El modelo implementado se detallará en la siguiente sección. El objetivo principal de este capítulo es analizar el desempeño del método propuesto en términos de conservación del flujo escalar a lo largo del modelo, así como evaluar la preservación del espectro energético y la corriente neutrónica en diferentes regiones del canal. Se ha seleccionado este modelo debido a que es un problema sensible ante perturbaciones de la fuente, lo que permite evaluar la eficacia del método de remuestreo implementado.
 
 Con el objetivo de verificar el método de remuestreo desarrollado, se realizó en primer lugar una simulación desde la entrada del modelo hasta una superficie de registro ubicada en una posición intermedia de la geometría. Esta simulación tuvo como único propósito generar un archivo de partículas, el cual será procesado para construir una fuente distribucional.
 
-Posteriormente, se llevó a cabo una segunda simulación, también iniciada desde la entrada del sistema, pero extendida hasta una superficie ubicada más alejada. A diferencia de la anterior, esta simulación tuvo por objetivo obtener resultados de referencia para uso posterior: en particular, el perfil convergido del flujo escalar a lo largo del canal, así como la corriente y el espectro neutrónico incidente en la superficie más alejada. Estos resultados de referencia son utilizados en etapas posteriores del trabajo como base para la validación del método de remuestreo propuesto.
+Posteriormente, se llevó a cabo una segunda simulación, también iniciada desde la entrada del sistema, pero extendida hasta una superficie ubicada más lejos de la fuente. A diferencia de la anterior, esta simulación tuvo por objetivo obtener resultados de referencia para uso posterior: en particular, el perfil convergido del flujo escalar a lo largo del canal, así como la corriente y el espectro neutrónico incidente en la superficie más alejada de la fuente. Estos resultados de referencia son utilizados en etapas posteriores del trabajo como base para la validación del método de remuestreo propuesto.
 
-Finalmente, se procesó el archivo de partículas grabado en la superficie intermedia de la primera simulación para construir una fuente distribucional basada en histogramas multidimensionales. Esta fuente se utilizó en una tercera simulación iniciada directamente desde la posición intermedia, obteniendo así una estadística suficientemente convergida hasta la superficie más alejada. Esta última simulación permitió realizar una comparación directa con los resultados obtenidos en la segunda simulación, evaluando así el método de generación de fuentes implementado, tal como se resume esquemáticamente en la Figura~\ref{fig:esquema_remuestreo}.
+Finalmente, se procesó el archivo de partículas grabado en la superficie intermedia de la primera simulación para construir una fuente distribucional basada en histogramas multidimensionales. Esta fuente se utilizó en una tercera simulación iniciada directamente desde la posición intermedia, obteniendo así una estadística suficientemente convergida hasta la superficie más alejada de la fuente. Esta última simulación permitió realizar una comparación directa con los resultados obtenidos en la segunda simulación, evaluando así el método de generación de fuentes implementado, tal como se resume esquemáticamente en la Figura~\ref{fig:esquema_remuestreo}.
 
 \begin{figure}[h]
     \centering
@@ -26,9 +26,9 @@ El modelo utilizado en las simulaciones consiste en un canal interno de vacío r
     \label{fig:modelo_simulado_openmc}
 \end{figure}
 
-La fuente de neutrones utilizada se definió sobre la cara de entrada del sistema (ubicada en $z = 0,\text{cm}$) y consistió en neutrones monoenergéticos con energía de $E = 1\,\text{MeV}$ y colimados en dirección del eje $z$ (con coseno direccional $\mu = \cos(\theta) = 1$). Esta configuración genera dos poblaciones de neutrones claramente diferenciadas: la primera, formada por neutrones que atraviesan el canal de vacío sin colisiones y mantienen tanto su energía inicial como su dirección; y la segunda, constituida por neutrones que interactúan con el moderador de agua, sufriendo dispersión angular y pérdida energética.
+La fuente de neutrones utilizada se definió sobre la cara de entrada del sistema (ubicada en $z = 0~\text{cm}$) y consistió en neutrones monoenergéticos con energía de $E = 1\,\text{MeV}$ y colimados en dirección del eje $z$ (con coseno direccional $\mu = \cos(\theta) = 1$). Esta fuente se extiende en toda la superficie transversal al tubo, tanto en la región de agua como en la región de vacío. Esta configuración genera dos poblaciones de neutrones claramente diferenciadas: la primera, formada por neutrones que atraviesan el canal de vacío sin colisiones y mantienen tanto su energía inicial como su dirección; y la segunda, constituida por neutrones que interactúan con el moderador de agua, sufriendo dispersión angular y pérdida energética.
 
-Para el análisis y posterior generación de la fuente, se registró un archivo de partículas sobre una superficie intermedia situada en $z = 15\,\text{cm}$. Este archivo contiene información sobre ambas poblaciones mencionadas, es decir, neutrones no colisionados y neutrones dispersados.
+Para el análisis y posterior generación de la fuente, se registró un archivo de partículas sobre una superficie intermedia situada en $z = 15~\text{cm}$. Este archivo contiene información sobre ambas poblaciones mencionadas, es decir, neutrones no colisionados y neutrones dispersados.
 
 Durante las simulaciones se determinó el flujo escalar neutrónico a lo largo del canal, tanto dentro del canal de vacío como en el moderador circundante.
 
@@ -36,7 +36,42 @@ Para optimizar la estadística en regiones con baja presencia de partículas, pa
 
 \section{Descripción del archivo de partículas original} 
 
-El archivo de partículas fue registrado en una primera simulación del tubo de vacío desde el comienzo de la geometría. Corresponde a partículas registradas en una superficie ubicada a 15cm del inicio de la geometría. La lista contiene tanto neutrones que atraviesan la sección del canal, como neutrones que viajan por el agua. Sin embargo, la mayor proporción de peso estadístico se encuentra dentro del tubo de vacío, lo cual se corrobora tanto en la proyección $X$-$Y$, donde se observa una distribución más intensa contenida en un cuadrado correspondiente a la sección del tubo, como en la Tabla \ref{tab:particulas_pesos}, que presenta la cantidad de partículas y peso estadístico registrado por región. La Figura \ref{fig:trackfile1_x_y} muestra la proyección de los neutrones en el plano $X$-$Y$.
+El archivo de partículas fue registrado en una primera simulación del tubo de vacío desde el comienzo de la geometría. Corresponde a partículas registradas en una superficie ubicada a 15~cm del inicio de la geometría. La lista contiene tanto neutrones que atraviesan la sección del canal, como neutrones que se transportan por el agua. Sin embargo, la mayor proporción de peso estadístico se encuentra dentro del tubo de vacío, lo cual se corrobora tanto en la proyección $X$-$Y$, donde se observa una distribución más intensa contenida en un cuadrado correspondiente a la sección del tubo, como en la Tabla \ref{tab:particulas_pesos}, que presenta la cantidad de partículas y peso estadístico registrado por región. La Figura \ref{fig:trackfile1_x_y} muestra la proyección de los neutrones en el plano $X$–$Y$, donde
+\begin{equation}
+\eta(x,y) = \frac{1}{\Delta x\,\Delta y}
+\int_{0}^{\infty}\mathrm{d}u
+\int_{\Delta x}\mathrm{d}x
+\int_{\Delta y}\mathrm{d}y
+\int_{2\pi^{+}} \mathrm{d}\mathbf{\Omega}\,(\mathbf{\Omega}\cdot \mathbf{n})
+\,\varphi(\mathbf{r},u,\mathbf{\Omega})
+\end{equation}
+representa la corriente de neutrones en $\frac{n}{s \, {cm}^2}$ que atraviesa la superficie definida por el plano $X$–$Y$, en función de las coordenadas $x$ e $y$. En esta variable \eta~se integra en todo el dominio de las variables que no son parametro, para dejar la intensidad de neutrones en función unicamente de las variables parametros con las cuales se discretiza la lista de partículas. A su vez, en esta notacion \Delta~se utiliza para notar el ancho de un bin de una variable. En todos los casos, se informa el valor normalizado por neutrón de fuente, denotado como $S_p$. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/fig4_1.png}
+    \caption{Distribución de $X$ vs $Y$ para el archivo de partículas registrado en la primera simulación del tubo de vacío.}
+    \label{fig:trackfile1_x_y}
+\end{figure}
+
+Este conjunto contiene dos poblaciones de neutrones claramente diferenciadas. La primera corresponde a neutrones que no han sufrido colisiones: todos ellos presentan dirección $\mu = 1$ y una letargía fija correspondiente a una energía de $E = 1$~MeV, donde letargía u $ = ln(E_0/E)$ con $E_0 = 20$~MeV. Estos valores coinciden con la configuración de la fuente original, la cual fue definida como perfectamente colimada y monoenergética. La segunda población está compuesta por neutrones que han interactuado con el medio: en este caso, las distribuciones de $\mu$ y letargía se extienden de forma continua, reflejando los efectos introducidos por las colisiones. Este comportamiento se observa en la Figura~\ref{fig:trackfile1_letargia_mu}, donde se presentan las distribuciones de letargía y $\mu$ correspondientes al archivo de partículas registrado en la primera simulación del tubo de vacío. En dichas figuras, 
+\begin{equation}
+    \eta(u) = \frac{1}{\Delta u}
+    \int_{\Delta u} du
+    \int_{A} dA
+    \int_{2\pi^{+}} d\mathbf{\Omega}\,(\mathbf{\Omega}\cdot \mathbf{n})
+    \,\varphi(\mathbf{r},u,\mathbf{\Omega})
+\end{equation}
+representa la corriente de neutrones en $\frac{n}{s}$ que atraviesa la superficie en funcion de la letargía $u$ y 
+\begin{equation}
+    \eta(\mu) = \frac{1}{\Delta \mu}
+    \int_{0}^{\infty} du \,
+    \int_{A} dA \,
+    \int_{2\pi} d\phi \,
+    \int_{\Delta \mu} d\mu\,(\mathbf{\Omega}\cdot \mathbf{n})\,
+    \varphi(\mathbf{r},u,\mathbf{\Omega})
+\end{equation}
+representa la corriente de neutrones en $\frac{n}{s}$ que atraviesa la superficie en función del coseno direccional $\mu $.
 
 \begin{table}[H]
     \centering
@@ -56,16 +91,6 @@ El archivo de partículas fue registrado en una primera simulación del tubo de 
     \label{tab:particulas_pesos}
 \end{table}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{figs/fig4_1.png}
-    \caption{Distribución de $X$ vs $Y$ para el archivo de partículas registrado en la primera simulación del tubo de vacío.}
-    \label{fig:trackfile1_x_y}
-\end{figure}
-
-Este conjunto contiene dos poblaciones de neutrones claramente diferenciadas. La primera corresponde a neutrones que no han sufrido colisiones: todos ellos presentan dirección $\mu = 1$ y una letargía fija correspondiente a una energía de $E = 1~MeV$, donde $\textit{letargía} = ln(E_0/E)$ con $E_0 = 20~MeV$. Estos valores coinciden con la configuración de la fuente original, la cual fue definida como perfectamente colimada y monoenergética. La segunda población está compuesta por neutrones que han interactuado con el medio: en este caso, las distribuciones de $\mu$ y letargía se extienden de forma continua, reflejando los efectos introducidos por las colisiones. Este comportamiento se observa en la Figura\ref{fig:trackfile1_letargia_mu}, donde se presentan las distribuciones de letargía y $\mu$ correspondientes al archivo de partículas registrado en la primera simulación del tubo de vacío.
-
-Este conjunto contiene dos poblaciones de neutrones claramente diferenciadas. La primera corresponde a neutrones que no han sufrido colisiones: todos ellos poseen dirección $\mu = 1$ y una letargía fija, correspondiente a $E = 1~MeV$, sin dispersión alguna, lo cual concuerda con que la fuente original fue configurada con estos valores de forma determinista. La segunda población incluye neutrones que han colisionado: en este caso, las distribuciones de $\mu$ y letargía son más amplias y continuas, reflejando la dispersión introducida por las interacciones. Este comportamiento se observa en la Figura \ref{fig:trackfile1_letargia_mu}, donde se presentan las distribuciones de letargía y $\mu$ para el archivo de partículas registrado en la primera simulación del tubo de vacío. 
 
 \begin{figure}[H]
     \centering
@@ -74,34 +99,42 @@ Este conjunto contiene dos poblaciones de neutrones claramente diferenciadas. La
     \label{fig:trackfile1_letargia_mu}
 \end{figure}
 
-Esta doble estructura se evidencia particularmente en los gráficos bidimensionales de letargía vs. $\mu$, donde ambas poblaciones aparecen como conjuntos diferenciados. Tal como se muestra en la Figura \ref{fig:trackfile1_letargia_mu_2}, los neutrones no colisionados se concentran en un único punto en $\mu = 1$ y letargía fija correspondiente a una energía de $E = 1~MeV$, mientras que los neutrones colisionados forman una distribución extendida continua, con un agrupamiento en la región de termalización. Este fenómeno plantea un desafío para los métodos de muestreo, al requerir una representación precisa tanto de distribuciones tipo delta como de distribuciones extendidas.
-
+Esta doble estructura se evidencia particularmente en los gráficos bidimensionales de letargía vs. $\mu$, donde ambas poblaciones aparecen como conjuntos diferenciados. Tal como se muestra en la Figura \ref{fig:trackfile1_letargia_mu_2}, la corriente de neutrones no colisionados se concentra en un único punto en $\mu = 1$ y letargía fija correspondiente a una energía de $E = 1$~MeV, mientras que los neutrones colisionados forman una distribución extendida continua, con un agrupamiento en la región de termalización. En dicha figura se presenta la distribución de corriente en $\frac{n}{s}$ en función de $\mu$ y u, definida como
+\begin{equation}
+    \eta(\mu,u) = \frac{1}{\Delta \mu \, \Delta u}
+    \int_{\Delta u} du \,
+    \int_{A} dA \,
+    \int_{2\pi} d\phi \,
+    \int_{\Delta \mu} d\mu\,(\mathbf{\Omega}\cdot \mathbf{n})\,
+    \varphi(\mathbf{r},u,\mathbf{\Omega}).
+\end{equation}
+ Este fenómeno plantea un desafío para los métodos de muestreo, al requerir una representación precisa tanto de distribuciones tipo delta como de distribuciones extendidas.
 
 Tanto en la Figura~\ref{fig:trackfile1_x_y} como en la Figura~\ref{fig:trackfile1_letargia_mu_2} puede observarse que existen regiones del espacio de fases donde no se registran neutrones. Esto se debe a que el archivo de partículas original contiene una cantidad finita de neutrones, lo que limita la cobertura en determinadas regiones del espacio de fases. El objetivo del método propuesto consiste en remuestrear dicho archivo original para generar un nuevo conjunto de partículas que preserve las correlaciones presentes, pero que a su vez mejore la estadística en aquellas regiones originalmente poco representadas.
-
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{figs/fig4_3.png}
-    \caption{Distribuciones de letargía vs $\mu$ para el archivo de partículas original. Se observa la presencia de un conjunto de neutrones graficados como un píxel en $\mu = 1$ y letargía mínima. A su vez se observa la presencia de un segundo conjunto de neutrones colisionados, que se distribuyen en el plano de forma continua, con un agrupamiento sobre letargía = 20, indicando la termalización de los neutrones.}
+    \caption{Distribuciones de letargía vs $\mu$ para el archivo de partículas original. Se observa la presencia de un conjunto de neutrones graficados como un píxel en $\mu = 1$ y letargía correspondiente a $E = 1$~MeV. A su vez se observa la presencia de un segundo conjunto de neutrones colisionados, que se distribuyen en el plano de forma continua, con un agrupamiento sobre letargía = 20, indicando la termalización de los neutrones.}
     \label{fig:trackfile1_letargia_mu_2}
 \end{figure}
-
 \section{Procesamiento preliminar del archivo de partículas}
 \subsection{Metodología del análisis}
 \label{sec:metodologia-analisis}
 
-El análisis realizado en este capítulo se centra en evaluar la influencia del tipo de bineado aplicado, así como la incorporación de bordes manuales en la segmentación del espacio de fases. Los tipos de bineado considerados son:
+El análisis realizado en este capítulo se centra en evaluar la influencia del tipo de \textit{bineado} aplicado, así como la incorporación de bordes manuales en la segmentación del espacio de fases. Estos bordes manuales se definen en la configuración del método y permiten segregar en macro grupos las variables especificadas. Los tipos de \textit{bineado} considerados son:
+
+
 \begin{itemize}
-    \item Caso 1: bineado uniforme sin bordes manuales.
-    \item Caso 2: bineado uniforme con bordes definidos por el usuario.
-    \item Caso 3: bineado adaptativo sin bordes manuales.
-    \item Caso 4: bineado adaptativo con bordes definidos por el usuario.
+    \item Caso 1: \textit{bineado} uniforme sin bordes manuales.
+    \item Caso 2: \textit{bineado} uniforme con bordes definidos por quien utiliza el programa.
+    \item Caso 3: \textit{bineado} adaptativo sin bordes manuales.
+    \item Caso 4: \textit{bineado} adaptativo con bordes definidos por quien utiliza el programa.
 \end{itemize}
 
 Los bordes manuales son establecidos debido al conocimiento previo de la fuente utilizada para diferenciar poblaciones de neutrones. Concretamente, se incorporan bordes en la variable letargía y en la dirección cosenoidal ($\mu$) para distinguir los neutrones que no han colisionado. Adicionalmente, se incluyen bordes espaciales en las coordenadas $X$ e $Y$ para separar los neutrones que atraviesan el tubo de vacío respecto de aquellos que interactúan con el agua circundante.
 
-Con el objetivo de realizar un análisis consistente y evitar sesgos derivados del procedimiento, se mantiene constante en todos los casos el orden de procesamiento de las variables y la configuración de los histogramas. Esta etapa preliminar permite una comparación entre los cuatro métodos de bineado evaluados en esta sección. El orden seleccionado para el procesamiento es \texttt{[letargía, X, Y, $\mu$, $\phi$]}. Esta elección responde a que al inicio del procesamiento, la discretización se aplica sobre el conjunto completo de partículas, mientras que las variables procesadas posteriormente actúan sobre subconjuntos cada vez más reducidos. Por este motivo, se eligió comenzar con la letargía para priorizar describir el comportamiento espectral. A continuación se aplican las variables espaciales (\texttt{X} e \texttt{Y}), con el fin de preservar correctamente la ubicación de las partículas en regiones geométricamente diferenciadas (vacío o agua). Finalmente, se dejó para el último lugar la variable \texttt{$\phi$}, cuya distribución se espera relativamente uniforme, por lo que no requiere un nivel de detalle elevado.
+Con el objetivo de realizar un análisis consistente y evitar sesgos derivados del procedimiento, se mantiene constante en todos los casos el orden de procesamiento de las variables y la configuración de los histogramas. Esta etapa preliminar permite una comparación entre los cuatro métodos de \textit{bineado} evaluados en esta sección. El orden seleccionado para el procesamiento es \texttt{[letargía, X, Y, $\mu$, $\phi$]}. Esta elección responde a que al inicio del procesamiento, la discretización se aplica sobre el conjunto completo de partículas, mientras que las variables procesadas posteriormente actúan sobre subconjuntos cada vez más reducidos. Por este motivo, se eligió comenzar con la letargía para priorizar describir el comportamiento espectral. A continuación se aplican las variables espaciales (\texttt{X} e \texttt{Y}), con el fin de preservar correctamente la ubicación de las partículas en regiones geométricamente diferenciadas (vacío o agua). Finalmente, se dejó para el último lugar la variable \texttt{$\phi$}. Si bien dentro del agua y en el vacío se espera una distribución aproximadamente uniforme en $\phi$, esta isotropía puede alterarse en las cercanías de las interfaces agua–vacío. En esas zonas coexisten neutrones que escapan desde el agua al vacío, generando distribuciones no uniformes en $\phi$. Sin embargo, dado que la mayor parte de las partículas se encuentra en regiones donde la distribución es aproximadamente uniforme, se considera que $\phi$ es la variable con menor variabilidad, y por ello se la procesa en último lugar.
 
 Asimismo, se conservan fijos los números de bines utilizados en los histogramas macro y micro: se emplean \texttt{[5, 5, 5, 5]} bines para los macrogrupos y \texttt{[36, 36, 36, 36, 36]} para los microgrupos, respectivamente. Esta configuración constante garantiza que las comparaciones entre métodos se basen únicamente en el esquema de discretizacion utilizado y no en diferencias en la resolución.
 
@@ -117,23 +150,23 @@ Posteriormente, el análisis se estructura en tres partes:
 \subsection{Distribuciones de letargía}
 A continuación se analizan las distribuciones remuestreadas de letargía obtenidas mediante los 4 casos de configuración analizados.
 
-En la Figura \ref{fig:let_1}, correspondiente al caso 1 de bineado uniforme sin bordes, se observa que esta configuración presenta limitaciones en regiones de alta densidad estadística. En particular, la delta en la zona de letargía correspondiente a una energía de $E = 1~MeV$ —asociada a neutrones no colisionados— es reemplazada por un escalón con el ancho del bin, perdiéndose el comportamiento tipo delta. Asimismo, en la región de termalización, la resolución es insuficiente para capturar adecuadamente los cambios de forma.
+En la Figura \ref{fig:let_1}, correspondiente al caso 1 de \textit{bineado} uniforme sin bordes, se observa que esta configuración presenta limitaciones en regiones de alta densidad estadística. En particular, la delta en la zona de letargía correspondiente a una energía de $E = 1$~MeV —asociada a neutrones no colisionados— es reemplazada por un escalón con el ancho del bin, perdiéndose el comportamiento tipo delta. Asimismo, en la región de termalización, la resolución es insuficiente para capturar adecuadamente los cambios de forma.
+
+La Figura \ref{fig:let_2} muestra el caso 2 en el que se introduce un borde manual para separar la letargía correspondiente a una energía de $E = 1$~MeV. Esta intervención permite mejorar la representación de la delta, capturando con mayor fidelidad los neutrones no colisionados. Sin embargo, el resto de la distribución sigue estando limitada por la resolución uniforme, en particular en la zona de termalización.
+
+En la Figura \ref{fig:let_3}, se presenta el resultado del caso 3 utilizando histogramas adaptativos sin bordes manuales. Este método asigna una mayor densidad de bines en zonas con mayor estadística, lo que permite una mejor representación tanto de la delta en letargía correspondiente a una energía de $E = 1$~MeV como de la región de termalización. Se observa un seguimiento más suave y detallado de la distribución, y una reducción del error relativo en las zonas relevantes.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{let_1.png}
-    \caption{Distribución remuestreada de letargía para el caso de bineado uniforme sin bordes manuales.}
+    \caption{Distribución remuestreada de letargía para el caso de \textit{bineado} uniforme sin bordes manuales.}
     \label{fig:let_1}
 \end{figure}
-
-La Figura \ref{fig:let_2} muestra el caso 2 en el que se introduce un borde manual para separar la letargía correspondiente a una energía de $E = 1~MeV$. Esta intervención permite mejorar la representación de la delta, capturando con mayor fidelidad los neutrones no colisionados. Sin embargo, el resto de la distribución sigue estando limitada por la resolución uniforme, en particular en la zona de termalización.
-
-En la Figura \ref{fig:let_3}, se presenta el resultado del caso 3 utilizando histogramas adaptativos sin bordes manuales. Este método asigna una mayor densidad de bines en zonas con mayor estadística, lo que permite una mejor representación tanto de la delta en letargía correspondiente a una energía de $E = 1~MeV$ como de la región de termalización. Se observa un seguimiento más suave y detallado de la distribución, y una reducción del error relativo en las zonas relevantes.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{let_2.png}
-    \caption{Distribución remuestreada de letargía para el caso de bineado uniforme con borde manual en la zona de letargía correspondiente a una energía de $E = 1~MeV$.}
+    \caption{Distribución remuestreada de letargía para el caso de \textit{bineado} uniforme con borde manual en la zona de letargía correspondiente a una energía de $E = 1$~MeV.}
     \label{fig:let_2}
 \end{figure}
 
@@ -142,44 +175,44 @@ Finalmente, en la Figura \ref{fig:let_4}, se muestra el resultado del caso 4 con
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{let_3.png}
-    \caption{Distribución remuestreada de letargía para el caso de bineado adaptativo sin bordes manuales.}
+    \caption{Distribución remuestreada de letargía para el caso de \textit{bineado} adaptativo sin bordes manuales.}
     \label{fig:let_3}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{let_4.png}
-    \caption{Distribución remuestreada de letargía para el caso de bineado adaptativo con borde manual en la zona de letargía correspondiente a una energía de $E = 1~MeV$.}
+    \caption{Distribución remuestreada de letargía para el caso de \textit{bineado} adaptativo con borde manual en la zona de letargía correspondiente a una energía de $E = 1$~MeV.}
     \label{fig:let_4}
 \end{figure}
 
 \subsection{Distribuciones de $\mu$}
-Se analizan a continuación las distribuciones remuestreadas de la variable direccional $\mu = \cos(\theta)$, obtenidas mediante las 4 configuraciones analizadas. Se evalúa la capacidad de cada método para representar adecuadamente la delta asociada a partículas colimadas ($\mu = 1$) y el comportamiento general de la distribución.
+Se analizan a continuación las distribuciones remuestreadas de la variable direccional $\mu = \cos(\theta)$, obtenidas mediante las cuatro configuraciones analizadas. Se evalúa la capacidad de cada método para representar adecuadamente la delta asociada a partículas colimadas ($\mu = 1$) y el comportamiento general de la distribución.
 
-En la Figura \ref{fig:mu_1}, correspondiente al caso 1 de bineado uniforme sin bordes manuales, se observa que la delta en $\mu = 1$ es reemplazada por un escalón, debido a que el bin abarca toda la región colimada. Este efecto deteriora significativamente la representación en esa zona. Sin embargo, el resto de la distribución es tratada de forma aceptable, suavizando la distribución.
+En la Figura \ref{fig:mu_1}, correspondiente al caso 1 de \textit{bineado} uniforme sin bordes manuales, se observa que la delta en $\mu = 1$ es reemplazada por un escalón, debido a que el bin abarca toda la región colimada. Este efecto deteriora significativamente la representación en esa zona. Sin embargo, el resto de la distribución es tratada de forma aceptable, suavizando la distribución.
 
 En la Figura \ref{fig:mu_2}, se introduce un borde manual para formar un bin de ancho $10^{-9}$ en la zona de $\mu = 1$, lo que permite aislar correctamente la región colimada. Como resultado, se recupera la forma tipo delta en esa zona, y se mantiene una buena representación en el resto de la distribución.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{mu_1.png}
-    \caption{Distribución remuestreada de $\mu$ para el caso 1 de bineado uniforme sin bordes manuales.}
+    \caption{Distribución remuestreada de $\mu$ para el caso 1 de \textit{bineado} uniforme sin bordes manuales.}
     \label{fig:mu_1}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{mu_2.png}
-    \caption{Distribución remuestreada de $\mu$ para el caso 2 de bineado uniforme con borde manual en $\mu \approx 1$.}
-    \label{fig:mu_2}
 \end{figure}
 
 La Figura \ref{fig:mu_3} muestra los resultados del caso 3 obtenidos con histogramas adaptativos sin bordes manuales. En este caso, el método logra seguir de manera precisa la forma original, tanto en la delta como en el resto de la distribución. Sin embargo, este seguimiento resulta excesivo, reproduciendo el ruido estadístico del archivo de partículas original, lo cual no es deseable. Este efecto se debe a la elevada cantidad de bines asignados: como $\mu$ es la cuarta variable en el orden de segmentación, se trabaja sobre subconjuntos reducidos de partículas, lo cual hace que 36 bines resulte una resolución desproporcionada.
 
 \begin{figure}[H]
     \centering
+    \includegraphics[width=\textwidth]{mu_2.png}
+    \caption{Distribución remuestreada de $\mu$ para el caso 2 de \textit{bineado} uniforme con borde manual en $\mu \approx 1$.}
+    \label{fig:mu_2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
     \includegraphics[width=\textwidth]{mu_3.png}
-    \caption{Distribución remuestreada de $\mu$ para el caso 3 de bineado adaptativo sin bordes manuales.}
+    \caption{Distribución remuestreada de $\mu$ para el caso 3 de \textit{bineado} adaptativo sin bordes manuales.}
     \label{fig:mu_3}
 \end{figure}
 
@@ -188,59 +221,59 @@ En la Figura \ref{fig:mu_4}, se incorpora un borde manual en la zona colimada, p
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{mu_4.png}
-    \caption{Distribución remuestreada de $\mu$ para el caso 4 de bineado adaptativo con borde manual en $\mu \approx 1$.}
+    \caption{Distribución remuestreada de $\mu$ para el caso 4 de \textit{bineado} adaptativo con borde manual en $\mu \approx 1$.}
     \label{fig:mu_4}
 \end{figure}
 
 \subsection{Distribuciones espaciales $X$–$Y$}
 
-En esta sección se detallan las distribuciones espaciales en el plano $X$–$Y$ para las 4 configuraciones analizadas. Se evalúa particularmente la capacidad de cada método para representar correctamente la geometría del sistema, especialmente en torno a la interfaz agua–vacío definida por el tubo.
+En esta sección se detallan las distribuciones espaciales en el plano $X$–$Y$ para las cuatro configuraciones analizadas. Se evalúa particularmente la capacidad de cada método para representar correctamente la geometría del sistema, especialmente en torno a la interfaz agua–vacío definida por el tubo.
     
-En la Figura \ref{fig:xy_1}, correspondiente al caso 1 de bineado uniforme sin bordes, se observa un suavizado de la estadística entre regiones físicamente distintas. En particular, aparecen partículas remuestreadas en el agua que originalmente deberían haberse generado dentro del tubo de vacío. Este efecto se debe a que los histogramas uniformes no capturan la interfaz geométrica del sistema: un mismo bin puede contener partículas tanto dentro como fuera del tubo, y al remuestrear, se reparten en ambas regiones.
+En la Figura \ref{fig:xy_1}, correspondiente al caso 1 de \textit{bineado} uniforme sin bordes, se observa un suavizado de la estadística entre regiones físicamente distintas. En particular, aparecen partículas remuestreadas en el agua que originalmente deberían haberse generado dentro del tubo de vacío. Este efecto se debe a que los histogramas uniformes no capturan la interfaz geométrica del sistema: un mismo bin puede contener partículas tanto dentro como fuera del tubo, y al remuestrear, se reparten en ambas regiones.
+
+En la Figura \ref{fig:xy_2}, se incorporan bordes manuales para delimitar la región correspondiente al canal de vacío. Este ajuste mejora la segmentación espacial, concentrando la estadística dentro del tubo y evitando que partículas aparezcan en el agua. Sin embargo, se observa una estructura cuadriculada en el agua, debido a la baja estadística original combinada con la discretización forzada en grupos debido al \textit{bineado} uniforme de los histogramas macro.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{xy_1.png}
-    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 1 de bineado uniforme sin bordes manuales.}
+    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 1 de \textit{bineado} uniforme sin bordes manuales.}
     \label{fig:xy_1}
 \end{figure}
-
-En la Figura \ref{fig:xy_2}, se incorporan bordes manuales para delimitar la región correspondiente al canal de vacío. Este ajuste mejora la segmentación espacial, concentrando la estadística dentro del tubo y evitando que partículas aparezcan en el agua. Sin embargo, se observa una estructura cuadriculada en el agua, debido a la baja estadística original combinada con la discretización forzada en grupos debido al bineado uniforme de los histogramas macro.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{xy_2.png}
-    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 2 de bineado uniforme con bordes manuales en la interfaz agua–vacío.}
+    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 2 de \textit{bineado} uniforme con bordes manuales en la interfaz agua–vacío.}
     \label{fig:xy_2}
 \end{figure}
 
-La Figura \ref{fig:xy_3} presenta el resultado del caso 3 de bineado adaptativo sin bordes definidos por el usuario. En este caso, se observa que el método logra capturar adecuadamente la transición entre regiones, evitando la aparición de partículas en zonas del agua donde no correspondía. La distribución dentro del agua se muestra más homogénea que en el caso anterior, debido a que el algoritmo adaptativo no fuerza la segmentación en regiones con baja estadística.
+La Figura \ref{fig:xy_3} presenta el resultado del caso 3 de \textit{bineado} adaptativo sin bordes definidos por quien utiliza el código. En este caso, se observa que el método logra capturar adecuadamente la transición entre regiones, evitando la aparición de partículas en zonas del agua donde no correspondía. La distribución dentro del agua se muestra más homogénea que en el caso anterior, debido a que el algoritmo adaptativo no fuerza la segmentación en regiones con baja estadística.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{xy_3.png}
-    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 3 de bineado adaptativo sin bordes manuales.}
+    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 3 de \textit{bineado} adaptativo sin bordes manuales.}
     \label{fig:xy_3}
 \end{figure}
 
-En la Figura \ref{fig:xy_4}, se observa el caso 4 de bineado adaptativo con bordes definidos por el usuario en la interfaz. Si bien los resultados son visualmente similares a los del caso sin bordes, puede señalarse que aquí los límites del canal de vacío están representados de forma más precisa, dado que se han especificado explícitamente. No obstante, el método adaptativo sin bordes ya proporciona una aproximación razonable, por lo que la mejora en este caso es leve.
+En la Figura \ref{fig:xy_4}, se observa el caso 4 de \textit{bineado} adaptativo con bordes definidos por quien utiliza el código en la interfaz. Si bien los resultados son visualmente similares a los del caso sin bordes, puede señalarse que aquí los límites del canal de vacío están representados de forma más precisa, dado que se han especificado explícitamente. No obstante, el método adaptativo sin bordes ya proporciona una aproximación razonable, por lo que la mejora en este caso es leve.
+
+\subsection{Análisis preliminar de los resultados}
+
+El análisis realizado en esta sección permitió evaluar las cuatro configuraciones de \textit{bineado}. Se evidenció que los histogramas adaptativos ofrecen una representación más fiel del comportamiento original, incluso en ausencia de bordes manuales, en comparación con los esquemas de \textit{bineado} uniforme.
+
+Sin embargo, también se observó que la incorporación de bordes definidos por quien utiliza el código continúa siendo una herramienta útil cuando se dispone de conocimiento previo de la fuente. Estos bordes permiten guiar al algoritmo, segmentando zonas relevantes, lo que facilita asignar mayor resolución a otras zonas del espacio de fases.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{xy_4.png}
-    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 4 de bineado adaptativo con bordes definidos por el usuario.}
+    \caption{Distribución remuestreada en el plano $X$–$Y$ para el caso 4 de \textit{bineado} adaptativo con bordes definidos por quien utiliza el código.}
     \label{fig:xy_4}
 \end{figure}
 
-\subsection{Análisis preliminar de los resultados}
-
-El análisis realizado en esta sección permitió evaluar las 4 configuraciones de bineado. Se evidenció que los histogramas adaptativos ofrecen una representación más fiel del comportamiento original, incluso en ausencia de bordes manuales, en comparación con los esquemas de bineado uniforme.
-
-Sin embargo, también se observó que la incorporación de bordes definidos por el usuario continúa siendo una herramienta útil cuando se dispone de conocimiento previo de la fuente. Estos bordes permiten guiar al algoritmo, segmentando zonas relevantes, lo que facilita a asignar mayor resolución a otras zonas del espacio de fases.
-
 Por otro lado, se identificaron limitaciones en el esquema adaptativo. En particular, el análisis de la variable direccional $\mu$ —cuarta en el orden de las variables— evidenció un exceso de bines debido a la baja cantidad de partículas en los subconjuntos. Esta excesiva resolución produce la reproducción del ruido estadístico en lugar de su suavizado.
 
-Para mitigar este efecto, se propone reducir progresivamente la cantidad de bines de los histogramas tanto macro como micro a medida que se avanza en el orden de segmentación. Este ajuste permitiría conservar la capacidad de detección fina en las primeras variables, mientras se evita la sobresegmentación en etapas siguientes donde la estadística es más limitada.
+Para mitigar este efecto, se propone continuar con el uso del \textit{bineado} adaptativo con bordes manuales y reducir progresivamente la cantidad de bines de los histogramas tanto macro como micro a medida que se avanza en el orden de segmentación. Este ajuste permitiría conservar la capacidad de detección fina en las primeras variables, mientras se evita la sobresegmentación en etapas siguientes donde la estadística es más limitada.
 
 En la siguiente sección, se aplicará esta estrategia a modo de configuración definitiva: se volverá a procesar el archivo de partículas original empleando un esquema de segmentación jerárquica con reducción progresiva de la cantidad de bines.
 
@@ -279,7 +312,7 @@ En la Figura \ref{fig:mu_5} se muestra la distribución remuestreada de $\mu$. S
     \label{fig:mu_5}
 \end{figure}
 
-La Figura \ref{fig:xy_5} presenta la distribución espacial en el plano $X$-$Y$. Se observa una representación precisa del canal de vacío, sin generación espuria de partículas en el agua. Sin embargo, la resolución en la región del agua es inferior a la alcanzada en configuraciones con mayor cantidad de macrogrupos. Este efecto refleja el compromiso asumido: evitar segmentar en exceso regiones con baja estadística para preservar la calidad aguas abajo.
+La Figura \ref{fig:xy_5} presenta la distribución espacial en el plano $X$-$Y$. Se observa una representación precisa del canal de vacío, sin generación espuria de partículas en el agua. Sin embargo, la resolución en la región del agua es inferior a la alcanzada en configuraciones con mayor cantidad de macrogrupos. Este efecto refleja el compromiso asumido: evitar segmentar en exceso regiones con baja estadística para preservar la calidad en el procesamiento de las variables subsiguientes.
 
 \begin{figure}[H]
     \centering
@@ -305,36 +338,30 @@ A su vez se aplicó el metodo de reducción de varianza de ventanas de peso impl
 
 \subsection{Comparación del perfil de flujo a lo largo del canal}
 
-Con el objetivo de validar la fuente distribucional generada, se realizó una simulación de referencia desde el inicio del conducto, utilizando una cantidad elevada de partículas para asegurar una buena convergencia estadística, según se muestra en la Figura~\ref{fig:esquema_remuestreo}. A partir de esta simulación se obtuvo el perfil de flujo original a lo largo del canal.
+Con el objetivo de validar la fuente distribucional generada, se realizó una simulación de referencia desde el inicio del conducto, utilizando una cantidad elevada de partículas para asegurar una buena convergencia estadística, según se mostró previamente en la Figura~\ref{fig:esquema_remuestreo}. A partir de esta simulación se obtuvo el perfil de flujo original a lo largo del canal.
 
-Posteriormente, se utilizó la fuente distribucional construida en la sección anterior y se ejecutó una nueva simulación iniciando desde la superficie ubicada a $z = 15$cm. Esta corrida fue llevada adelante hasta alcanzar también una buena convergencia, permitiendo así una comparación directa entre ambos resultados.
+Posteriormente, se utilizó la fuente distribucional construida en la sección anterior y se ejecutó una nueva simulación iniciando desde la superficie ubicada a $z = 15$ cm. Esta simulación fue llevada adelante hasta alcanzar también una buena convergencia, permitiendo así una comparación directa entre ambos resultados.
 
-La Figura \ref{fig:flujo_comparacion} muestra los perfiles de flujo escalar obtenidos en ambas regiones del conducto: la región de agua moderadora (\ref{fig:flujo_agua}) y el canal de vacío (\ref{fig:flujo_vacio}), junto con el error relativo porcentual.
+La Figura \ref{fig:flujo_comparacion} muestra los perfiles de flujo escalar normalizados por neutrón de fuente ($S_p$) obtenidos en ambas regiones del conducto: la región de agua moderadora (\ref{fig:flujo_agua}) y el canal de vacío (\ref{fig:flujo_vacio}), junto con el error relativo porcentual. 
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.473\textwidth}
         \centering
         \includegraphics[width=\textwidth]{flujo_agua.png}
         \caption{Región de agua.}
         \label{fig:flujo_agua}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.50\textwidth}
         \centering
         \includegraphics[width=\textwidth]{flujo_vacio.png}
         \caption{Canal de vacío.}
         \label{fig:flujo_vacio}
     \end{subfigure}
-    \caption{Comparación entre los perfiles de flujo escalar obtenidos mediante la fuente original (simulación larga desde el inicio del conducto) y mediante la fuente distribucional (simulación desde la superficie intermedia). En ambas regiones se muestra también el error relativo porcentual.}
+    \caption{Comparación entre los perfiles de flujo escalar obtenidos mediante la fuente original (simulación larga desde el inicio del conducto) y mediante la fuente distribucional (simulación desde la superficie intermedia). En los casos donde no se aprecia las barras de error se debe a que son menores que el tamaño del símbolo. En ambas regiones se muestra también el error relativo porcentual.}
     \label{fig:flujo_comparacion}
 \end{figure}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{flujo_1.png}
-%     \caption{Comparación entre los perfiles de flujo escalar obtenidos mediante la fuente original (simulación larga desde el inicio del conducto) y mediante la fuente distribucional (simulación desde la superficie intermedia). A la izquierda: región de agua; a la derecha: canal de vacío. En ambos casos se muestra el error relativo.}
-%     \label{fig:flujo_comparacion}
-% \end{figure}
 
 En la región de agua (Figura \ref{fig:flujo_agua}), se observa un error relativo que no converge con la distancia al origen de la fuente. Este comportamiento se explica por la escasa densidad de peso estadístico presente originalmente en esta región del archivo de partículas original (ver Tabla~\ref{tab:particulas_pesos}), lo cual dificultó la reconstrucción adecuada de su distribución.
 
@@ -344,7 +371,7 @@ En cambio, en el canal de vacío (Figura \ref{fig:flujo_vacio}), se logra una re
 
 Además del perfil de flujo, se analizó el espectro registrado en la superficie ubicada a $z = 80$~cm. En ambas simulaciones —la original desde el inicio del conducto y la simulación utilizando la fuente distribucional— se registró el espectro de neutrones incidentes sobre dicha superficie. La Figura \ref{fig:espectro_comparacion} muestra los espectros normalizados por neutrón de fuente obtenidos para ambas simulaciones. 
 
-En la Figura \ref{fig:espectro_agua}, correspondiente a la región de agua, se observa que el espectro generado por la fuente distribucional presenta una buena aproximación en las regiones de alta letargía, donde se encuentran los neutrones termalizados. El error relativo en esa zona es bajo, lo que indica que la fuente remuestreada logró capturar adecuadamente la estructura del espectro original.
+En la Figura \ref{fig:espectro_agua}, correspondiente a la región de agua, se observa que la distribución en letargía generada por la fuente distribucional presenta una buena aproximación en las regiones de alta letargía, donde se encuentran los neutrones termalizados. El error relativo en esa zona es bajo, lo que indica que la fuente remuestreada logró capturar adecuadamente la estructura del espectro original.
 
 En la Figura \ref{fig:espectro_vacio} se observa una correcta aproximación en la región de letargía correspondiente a $E = 1~MeV$, donde el error relativo es muy bajo. Esto indica que el remuestreo de los neutrones colimados que se propagan por el canal de vacío se realizó correctamente. Este resultado está en concordancia con lo observado previamente en el perfil de flujo en dicha región (ver Figura \ref{fig:flujo_vacio}), donde el error se mantuvo por debajo del 1\%. En cambio para regiones de mayor letargía, correspondientes a neutrones que han colisionado y se propagan por la región de vacío, se observa un error relativo mayor. 
 
@@ -363,14 +390,9 @@ En la Figura \ref{fig:espectro_vacio} se observa una correcta aproximación en l
         \caption{Canal de vacío.}
         \label{fig:espectro_vacio}
     \end{subfigure}
-    \caption{Comparación del espectro de neutrones en la superficie a $z = 80$~cm para las simulaciones original y remuestreada. En ambos casos se incluye también el error relativo porcentual.}
+    \caption{Comparación de la distribución de letargía normalizada por neutrón de fuente ($S_0$) en la superficie a $z = 80$~cm para las simulaciones original y remuestreada. En ambos casos se incluye también el error relativo porcentual.}
     \label{fig:espectro_comparacion}
 \end{figure}
-
-
-% En cambio, para regiones de mayor letargía, correspondientes a neutrones presentes en el agua, se observa una subestimación en el espectro generado por la fuente distribucional. Este efecto se explica por la baja estadística disponible originalmente en el agua, lo que dificultó capturar adecuadamente dicha contribución. Tal como se mencionó en la sección anterior, el perfil de flujo en la región de agua mostró una atenuación progresiva con la distancia (ver Figura \ref{fig:flujo_comparacion}, izquierda), fenómeno que se reproduce aquí en forma espectral.
-
-% A pesar de esta diferencia en magnitud, se destaca que la forma general del espectro se mantiene coherente entre ambas simulaciones. Esto sugiere que, si bien el contenido total en la región del agua fue subrepresentado, el método logró capturar correctamente la estructura cualitativa del espectro original.
 
 \subsection{Comparación de la corriente}
 
@@ -384,7 +406,55 @@ Por otro lado, la simulación realizada con la fuente remuestreada arrojó un va
 J_{\text{remuestreada}} = (4.037 \pm 0.008) \times 10^{-2} \; \text{neutrones por neutrón fuente}.
 \]
 
-Esto representa un 100.8\% del valor original, lo cual indica una aceptable conservación de la corriente total. 
+Esto representa una diferencia relativa del 0.8\% del valor original, lo cual indica una aceptable conservación de la corriente total. 
+
+A su vez, en la Tabla~\ref{tab:comparacion_corriente} se presenta un análisis de la corriente de neutrones registrada en la superficie ubicada en $z = 80$~cm, subdividida en distintos subconjuntos del archivo de partículas. Para construir esta tabla, se dividió espacialmente el dominio en dos regiones: agua y vacío. Para cada una de estas regiones, se consideró tanto el conjunto total de partículas sin segmentación energética, como también los subconjuntos correspondientes a los intervalos de letargia $[0,,4]$ y $[4,,\infty]$. A su vez, dentro de cada subconjunto energético, se realizó una división adicional en función de $\mu$: se incluyó tanto el total (sin discriminar por dirección), como los subintervalos $\mu \in [0,,0.5]$ y $\mu \in [0.5,,1]$.
+
+En la tabla se informan los valores de corriente para cada uno de estos subdominios, tanto para la simulación original como para la simulación utilizando la fuente distribucional. Se observa que las mayores diferencias relativas aparecen en aquellas regiones donde la corriente presenta mayor error estadístico, producto de la baja cantidad de partículas. En particular, esto se manifiesta en los subgrupos de baja letargia dentro de la región de agua, lo cual es esperable dado que, por su naturaleza moderadora, el agua contiene una mayor proporción de neutrones térmicos en comparación con los rápidos o epitérmicos.
+
+Por otro lado, en la región de vacío se observa que el subdominio de letargia alta muestra una mayor diferencia relativa que el de letargia baja. Esto también es coherente, ya que en el interior del tubo de vacío predominan los neutrones provenientes directamente de la fuente, los cuales tienen baja letargia. Además, los subconjuntos correspondientes a valores bajos de $\mu$ presentan mayores errores que los restantes. Esto es esperable, dado que dichos valores corresponden a neutrones que viajan con trayectorias no paralelas al eje del tubo de vacío, y por tanto son menos numerosos. La mayoría de los neutrones en esta región se encuentran colimados, es decir, con $\mu$ cercanos a 1.
+
+A partir de estos resultados, puede concluirse que el método desarrollado es capaz de reproducir la corriente de neutrones con una diferencia relativa menor al 5\% en aquellas regiones donde la estadística es suficiente. En cambio, en subdominios con escasa cantidad de partículas, el error estadístico asociado se incrementa notablemente, lo que se traduce en diferencias más significativas respecto a la simulación de referencia.
+
+\begin{table}[h]
+    \centering
+    {\scriptsize
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{3}{|c|}{\textbf{Rango de integración}} &
+        \textbf{Original} $J^{+}_{z}$ [n/s] &
+        \textbf{Remuestreado} $J^{+}_{z}$ [n/s] &
+        \textbf{Diferencia [\%]} \\
+        \hline
+        Región  & Letargía          & $\mu$         &                           &                           &           \\
+        \hline
+                &                   & Total         & $2.74(8)\times 10^{-6}$   & $2.6(2)\times 10^{-6}$    & $-5.1$    \\
+                & Total             & $[0,\,0.5]$   & $5.6(3)\times 10^{-7}$    & $5.8(6)\times 10^{-7}$    & $3.6$     \\
+                &                   & $[0.5,\,1]$   & $2.17(7)\times 10^{-6}$   & $2.0(2)\times 10^{-6}$    & $-7.8$    \\        
+                &                   & Total         & $2.9(5)\times 10^{-7}$    & $1.2(8)\times 10^{-7}$    & $-59$     \\        
+        Agua    & $[0,\,4]$         & $[0,\,0.5]$   & $6.2(5)\times 10^{-9}$    & $3(3)\times 10^{-9}$      & $-52$     \\        
+                &                   & $[0.5,\,1]$   & $2.9(5)\times 10^{-7}$    & $1.2(8)\times 10^{-7}$    & $-59$     \\        
+                &                   & Total         & $2.44(5)\times 10^{-6}$   & $2.5(2)\times 10^{-6}$    & $2.5$     \\        
+                & $[4,\,\infty]$    & $[0,\,0.5]$   & $5.628(3)\times 10^{-7}$  & $5.8(6)\times 10^{-7}$    & $3.1$     \\        
+                &                   & $[0.5,\,1]$   & $1.88(6)\times 10^{-6}$   & $1.9(2)\times 10^{-6}$    & $1.1$     \\
+        \hline
+                &                   & Total         & $4.005(3)\times 10^{-2}$  & $4.037(8)\times 10^{-2}$  & $0.80$    \\
+                & Total             & $[0,\,0.5]$   & $1.09(7)\times 10^{-7}$   & $1.2(3)\times 10^{-7}$    & $10$      \\
+                &                   & $[0.5,\,1]$   & $4.005(3)\times 10^{-2}$  & $4.037(8)\times 10^{-2}$  & $0.80$    \\       
+                &                   & Total         & $4.004(3)\times 10^{-2}$  & $4.037(8)\times 10^{-2}$  & $0.82$    \\       
+        Vacío   & $[0,\,4]$         & $[0,\,0.5]$   & $1.0(2)\times 10^{-9}$    & $2(2)\times 10^{-9}$      & $100$     \\       
+                &                   & $[0.5,\,1]$   & $4.004(3)\times 10^{-2}$  & $4.037(8)\times 10^{-2}$  & $0.82$    \\       
+                &                   & Total         & $3.4(2)\times 10^{-6}$    & $5.5(6)\times 10^{-6}$    & $62$      \\       
+                & $[4,\,\infty]$    & $[0,\,0.5]$   & $1.08(7)\times 10^{-7}$   & $1.2(3)\times 10^{-7}$    & $11$      \\      
+                &                   & $[0.5,\,1]$   & $3.3(2)\times 10^{-6}$    & $5.4(6)\times 10^{-6}$    & $64$      \\
+        \hline
+    \end{tabular}
+    }
+\caption{Comparación de corrientes para diferentes rangos de energía y ángulo para las regiones de agua y vacío.}
+\label{tab:comparacion_corriente}
+\end{table}
+
+
 
 
 \section{Conclusiones preliminares}
@@ -395,14 +465,10 @@ Los principales resultados obtenidos son:
 
 \begin{itemize}
     \item Se logró reconstruir el flujo escalar y el espectro en el canal de vacío. La región colimada de neutrones sin colisiones fue correctamente representada por el método propuesto.
-    
-    % \item La reconstrucción del flujo y el espectro en el agua presentó limitaciones más marcadas, debidas a la poca estadistica en el agua en el archivo de particulas original.
 
-    \item Se observó que el uso de histogramas adaptativos permite una representación más equilibrada y autónoma del espacio de fases, sin necesidad de intervención manual. No obstante, la incorporación de bordes definidos por el usuario sigue siendo una herramienta útil cuando se dispone de información a priori sobre el sistema, especialmente para evitar mezclas artificiales entre poblaciones diferenciadas.
+    \item Se observó que el uso de histogramas adaptativos permite una representación más equilibrada y autónoma del espacio de fases, sin necesidad de intervención manual. No obstante, la incorporación de bordes definidos por quien utiliza el código sigue siendo una herramienta útil cuando se dispone de información a priori sobre el sistema, especialmente para evitar mezclas artificiales entre poblaciones diferenciadas.
 
     \item La implementación de una reducción progresiva en la resolución de los histogramas macro y micro resultó eficaz para evitar el sobreajuste en conjuntos de poca estadística, evitando amplificar el ruido estadístico.
 \end{itemize}
-
-% Sin embargo, es importante destacar que la calidad de la fuente generada depende de la calidad estadística del archivo de partículas original. Este punto se discute en mayor profundidad en el Apéndice \ref{app:B}, donde se analiza el mismo caso utilizando un archivo de partículas con mayor estadística. En dicho análisis se obtienen mejoras significativas en la reconstrucción de la región de agua.
 
 

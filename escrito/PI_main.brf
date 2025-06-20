@@ -1,16 +1,32 @@
-\backcite {DeptoNeutronesCAB2025}{{\es@scroman {xiii}}{(document)}{Doc-Start}}
-\backcite {DeptoNeutronesCAB2025}{{\es@scroman {xiii}}{(document)}{Doc-Start}}
-\backcite {DeptoNeutronesCAB2025}{{\es@scroman {xiii}}{(document)}{Doc-Start}}
+\backcite {McStas2020Manual}{{2}{1.1}{figure.caption.13}}
+\backcite {Schmidt2022KDSourcePaper}{{2}{1.1}{figure.caption.13}}
+\backcite {Fairhurst2017Hist}{{2}{1.1}{figure.caption.13}}
+\backcite {DeptoReactoresNeutronesCAB2025}{{5}{1.2}{section.1.2}}
 \backcite {Fairhurst2017Hist}{{5}{1.2}{section.1.2}}
+\backcite {Ayala2019Hist}{{5}{1.2}{section.1.2}}
 \backcite {Abbate2020Hist}{{5}{1.2}{section.1.2}}
+\backcite {CNEA2025}{{5}{1.2}{section.1.2}}
+\backcite {IB2025}{{5}{1.2}{section.1.2}}
+\backcite {Schmidt2022KDSourcePaper}{{5}{1.2}{section.1.2}}
 \backcite {Abbate2021KDSource}{{5}{1.2}{section.1.2}}
 \backcite {Gimenez2024KDSourceOpenMC}{{5}{1.2}{section.1.2}}
+\backcite {OpenMC2024}{{5}{1.2}{section.1.2}}
 \backcite {OpenMC2024}{{7}{2.1}{section.2.1}}
+\backcite {HDF5_2025}{{7}{2.1}{section.2.1}}
+\backcite {MCPL2024}{{7}{2.1}{section.2.1}}
 \backcite {KDSource2024}{{8}{2.2}{section.2.2}}
 \backcite {HDF5_2025}{{8}{2.3}{section.2.3}}
 \backcite {MCPL2024}{{8}{2.3}{section.2.3}}
-\backcite {XML2025}{{9}{2.4}{section.2.4}}
-\backcite {DeptoNeutronesCAB2025}{{42}{5.1}{figure.caption.46}}
-\backcite {DeptoNeutronesCAB2025}{{43}{5.2}{figure.caption.47}}
-\backcite {DeptoNeutronesCAB2025}{{44}{5.3}{figure.caption.48}}
-\backcite {Mishra2006PULSTAR}{{49}{5.3.2}{figure.caption.54}}
+\backcite {XML2025}{{8}{2.4}{section.2.4}}
+\backcite {MCPL2024}{{9}{2.1}{figure.caption.15}}
+\backcite {Fairhurst2017Hist}{{15}{3.3.2}{subsection.3.3.2}}
+\backcite {RepositorioKDSource2025}{{18}{3.4}{figure.caption.22}}
+\backcite {RepositorioOpenMCSource2025}{{18}{3.4}{figure.caption.22}}
+\backcite {Schmidt2021Chopper}{{45}{5}{chapter.5}}
+\backcite {Schmidt2021Chopper}{{46}{5.1}{figure.caption.47}}
+\backcite {DeptoNeutronesCAB2025}{{47}{5.2}{figure.caption.48}}
+\backcite {Schmidt2021Chopper}{{48}{5.3}{figure.caption.49}}
+\backcite {Schmidt2021Chopper}{{51}{5.3.1}{subsection.5.3.1}}
+\backcite {Mishra2006PULSTAR}{{53}{5.3.2}{figure.caption.55}}
+\backcite {RepositorioKDSource2025}{{69}{B}{appendix.Alph2}}
+\backcite {RepositorioOpenMCSource2025}{{69}{B}{appendix.Alph2}}

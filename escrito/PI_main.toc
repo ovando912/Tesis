@@ -2,9 +2,9 @@
 \contentsline {chapter}{\'{I}ndice de s{\'{\i }}mbolos}{\es@scroman {v}}{section*.1}%
 \contentsline {chapter}{\'{I}ndice de contenidos}{\es@scroman {vii}}{section*.3}%
 \contentsline {chapter}{\'{I}ndice de figuras}{\es@scroman {xi}}{section*.5}%
-\contentsline {chapter}{\'{I}ndice de tablas}{\es@scroman {xv}}{section*.7}%
-\contentsline {chapter}{Resumen}{\es@scroman {xvii}}{section*.9}%
-\contentsline {chapter}{Abstract}{\es@scroman {xix}}{section*.11}%
+\contentsline {chapter}{\'{I}ndice de tablas}{\es@scroman {xvii}}{section*.7}%
+\contentsline {chapter}{Resumen}{\es@scroman {xix}}{section*.9}%
+\contentsline {chapter}{Abstract}{\es@scroman {xxi}}{section*.11}%
 \babel@toc {english}{}\relax 
 \babel@toc {spanish}{}\relax 
 \babel@toc {english}{}\relax 
@@ -17,7 +17,7 @@
 \contentsline {section}{\numberline {2.1}\texttt {OpenMC}}{7}{section.2.1}%
 \contentsline {section}{\numberline {2.2}\texttt {KDSource}}{8}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Formatos de listas de partículas: \texttt {MCPL} y \texttt {HDF5}}{8}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Formato \texttt {XML}}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Formato \texttt {XML}}{8}{section.2.4}%
 \contentsline {section}{\numberline {2.5}Lenguajes de programación: \texttt {Python}, \texttt {C} y \texttt {C++}}{9}{section.2.5}%
 \contentsline {chapter}{\numberline {3}Metodología para la generación de fuentes Monte Carlo mediante histogramas multidimensionales}{13}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Introducción general al método}{13}{section.3.1}%
@@ -27,37 +27,48 @@
 \contentsline {subsection}{\numberline {3.3.2}Utilización de histogramas macro y micro}{14}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Métodos de discretización aplicados a histogramas macro y micro}{16}{subsection.3.3.3}%
 \contentsline {section}{\numberline {3.4}Remuestreo de partículas en simulaciones Monte Carlo subsecuentes}{17}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Implementación computacional}{18}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Validación del metodo implementado: canal de vacío rodeado por agua}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descripción del modelo simulado en \texttt {OpenMC}}{20}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Descripción del archivo de partículas original}{21}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Procesamiento preliminar del archivo de partículas}{24}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Metodología del análisis}{24}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Distribuciones de letargía}{25}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Distribuciones de $\mu $}{28}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Distribuciones espaciales $X$–$Y$}{31}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Análisis preliminar de los resultados}{33}{subsection.4.3.5}%
-\contentsline {section}{\numberline {4.4}Procesamiento optimizado del archivo de partículas}{34}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Resultados de la simulación comparativa}{36}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Comparación del perfil de flujo a lo largo del canal}{36}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Comparación del espectro en la salida del canal}{38}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Comparación de la corriente}{39}{subsection.4.5.3}%
-\contentsline {section}{\numberline {4.6}Conclusiones preliminares}{39}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Validación experimental: Conducto Nº5 del reactor RA-6}{41}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Descripción del reactor RA-6 y instalación experimental del conducto Nº5}{42}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Procesamiento del archivo de partículas}{44}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Resultados de simulación en \texttt {OpenMC} y comparación experimental}{47}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Distribución espacial del flujo}{47}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Comparación con la medición experimental}{48}{subsection.5.3.2}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{51}{chapter.6}%
-\contentsline {chapter}{\numberline {A}Implementación computacional del método}{53}{appendix.Alph1}%
-\contentsline {chapter}{\numberline {B}Ejemplificación del bineado adaptativo}{55}{appendix.Alph2}%
-\contentsline {section}{Caso con 1 bin}{56}{section*.57}%
-\contentsline {section}{Caso con 2 bines}{57}{section*.60}%
-\contentsline {section}{Caso con 3 bines}{58}{section*.63}%
-\contentsline {section}{Caso con 5 bines}{59}{section*.66}%
-\contentsline {section}{Caso con 10 bines}{60}{section*.69}%
-\contentsline {section}{Caso con 25 bines}{61}{section*.72}%
-\contentsline {section}{Caso con 100 bines}{62}{section*.75}%
-\contentsline {chapter}{Bibliograf{\'{\i }}a}{65}{section*.78}%
-\contentsline {chapter}{Agradecimientos}{67}{section*.80}%
+\contentsline {section}{\numberline {3.5}Implementación computacional}{19}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Validación del método implementado: canal de vacío rodeado por agua}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descripción del modelo simulado en \texttt {OpenMC}}{22}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Descripción del archivo de partículas original}{23}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Procesamiento preliminar del archivo de partículas}{26}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Metodología del análisis}{26}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Distribuciones de letargía}{28}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Distribuciones de $\mu $}{30}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Distribuciones espaciales $X$–$Y$}{33}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Análisis preliminar de los resultados}{35}{subsection.4.3.5}%
+\contentsline {section}{\numberline {4.4}Procesamiento optimizado del archivo de partículas}{36}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Resultados de la simulación comparativa}{39}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Comparación del perfil de flujo a lo largo del canal}{39}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Comparación del espectro en la salida del canal}{40}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Comparación de la corriente}{41}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Conclusiones preliminares}{43}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Validación experimental: Conducto Nº5 del reactor RA-6}{45}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descripción del reactor RA-6 y instalación experimental del conducto Nº5}{46}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Procesamiento del archivo de partículas}{48}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Resultados de simulación en \texttt {OpenMC} y comparación experimental}{50}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Distribución espacial del flujo}{51}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Comparación con la medición experimental}{52}{subsection.5.3.2}%
+\contentsline {chapter}{\numberline {6}Resumen y conclusiones}{57}{chapter.6}%
+\contentsline {chapter}{\numberline {A}Ejemplificación del \textit {bineado} adaptativo}{59}{appendix.Alph1}%
+\contentsline {section}{Caso con 1 bin}{60}{section*.58}%
+\contentsline {section}{Caso con 2 bines}{61}{section*.61}%
+\contentsline {section}{Caso con 3 bines}{62}{section*.64}%
+\contentsline {section}{Caso con 5 bines}{63}{section*.67}%
+\contentsline {section}{Caso con 10 bines}{64}{section*.70}%
+\contentsline {section}{Caso con 25 bines}{65}{section*.73}%
+\contentsline {section}{Caso con 100 bines}{66}{section*.76}%
+\contentsline {chapter}{\numberline {B}Implementación computacional del método de generación de fuentes Monte Carlo mediante histogramas multidimensionales}{69}{appendix.Alph2}%
+\contentsline {section}{\numberline {B.1}Procesamiento de un archivo \texttt {HDF5} en \texttt {Python}}{69}{section.Alph2.1}%
+\contentsline {subsection}{\numberline {B.1.1}Estructura \texttt {TreeNode}}{70}{subsection.Alph2.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Construcción recursiva del árbol}{73}{subsection.Alph2.1.2}%
+\contentsline {section}{\numberline {B.2}\textit {Bineado} adaptativo y generación del \texttt {XML}}{78}{section.Alph2.2}%
+\contentsline {subsection}{\numberline {B.2.1}Función de \textit {bineado} adaptativo en \texttt {Python}}{78}{subsection.Alph2.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}Ejemplo de archivo \texttt {XML} generado}{81}{subsection.Alph2.2.2}%
+\contentsline {section}{\numberline {B.3}Implementación de \texttt {HistogramSource} en \texttt {C/C++} para \texttt {OpenMC}}{83}{section.Alph2.3}%
+\contentsline {subsection}{\numberline {B.3.1}Definición de \texttt {HistogramSource} en \texttt {source.h}}{83}{subsection.Alph2.3.1}%
+\contentsline {subsection}{\numberline {B.3.2}Función \texttt {fill\_particle} y \texttt {traverse} (\texttt {histograms.c})}{85}{subsection.Alph2.3.2}%
+\contentsline {subsection}{\numberline {B.3.3}Inicialización de la fuente \textit {on–the–fly} desde la API de \texttt {OpenMC}}{92}{subsection.Alph2.3.3}%
+\contentsline {section}{\numberline {B.4}Ejemplo de flujo completo}{92}{section.Alph2.4}%
+\contentsline {chapter}{Bibliograf{\'{\i }}a}{95}{section*.79}%
+\contentsline {chapter}{Agradecimientos}{97}{section*.81}%

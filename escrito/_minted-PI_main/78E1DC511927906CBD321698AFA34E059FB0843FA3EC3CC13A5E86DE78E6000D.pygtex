@@ -1,0 +1,103 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * Genera una partícula muestreada recursivamente a partir del árbol de histogramas.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * Esta función recorre el árbol de histogramas (estructura TreeNode) desde el nodo}
+\PYG{c+cm}{ * raíz hasta una hoja, extrayendo en cada nivel un valor muestreado según la}
+\PYG{c+cm}{ * distribución almacenada.}
+\PYG{c+cm}{ * El arreglo `valores\PYGZus{}particula` debe tener la longitud adecuada (igual a la}
+\PYG{c+cm}{ * profundidad del árbol) y ya debe estar reservado por la función que invoca a}
+\PYG{c+cm}{ * `recorrer\PYGZus{}arbol`.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * En cada nivel:}
+\PYG{c+cm}{ * 1. Se genera un número aleatorio uniforme en [0,1).}
+\PYG{c+cm}{ * 2. Se interpola linealmente este número sobre la CDF (`nodo\PYGZus{}actual\PYGZhy{}\PYGZgt{}cumul`)}
+\PYG{c+cm}{ *    para obtener un valor continuo `valor\PYGZus{}muestreado` en la escala “micro”}
+\PYG{c+cm}{ *    (`nodo\PYGZus{}actual\PYGZhy{}\PYGZgt{}micro`).}
+\PYG{c+cm}{ * 3. Se determina a qué “macro\PYGZhy{}grupo” pertenece `valor\PYGZus{}muestreado` mediante}
+\PYG{c+cm}{ *    la función `find\PYGZus{}interval(valor\PYGZus{}muestreado, nodo\PYGZus{}actual\PYGZhy{}\PYGZgt{}macro,}
+\PYG{c+cm}{ * nodo\PYGZus{}actual\PYGZhy{}\PYGZgt{}num\PYGZus{}macro)`.}
+\PYG{c+cm}{ * 4. Se avanza al hijo correspondiente (subnodo) y se almacena `valor\PYGZus{}muestreado`}
+\PYG{c+cm}{ *    en la posición `índice\PYGZus{}nivel` del arreglo `valores\PYGZus{}particula`.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * Cuando se llega a un nodo hoja (num\PYGZus{}children == 0), se realiza un último muestreo}
+\PYG{c+cm}{ * en ese nodo y se guarda el valor en la última posición de `valores\PYGZus{}particula`.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @param[in]  nodo\PYGZus{}raíz           Puntero al nodo raíz del árbol (tipo TreeNode*).}
+\PYG{c+cm}{ * @param[out] valores\PYGZus{}particula   Arreglo de tipo double[] donde se almacenan los}
+\PYG{c+cm}{ *                                 valores muestreados.}
+\PYG{c+cm}{ *                                 Debe tener prealojada la memoria con tamaño}
+\PYG{c+cm}{ *                                 igual a la profundidad del árbol.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @nota El árbol `TreeNode` debe cumplir que en cada nodo intermedio:}
+\PYG{c+cm}{ *       \PYGZhy{} `micro` y `cumul` sean arreglos de igual longitud `num\PYGZus{}micro \PYGZgt{} 0`.}
+\PYG{c+cm}{ *       \PYGZhy{} `macro` sea un arreglo ordenado.}
+\PYG{c+cm}{ *       \PYGZhy{} `children` sea un arreglo de punteros a `TreeNode` con}
+\PYG{c+cm}{ *       `num\PYGZus{}children == num\PYGZus{}macro \PYGZhy{} 1`.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @nota Si en algún nivel `find\PYGZus{}interval` retorna \PYGZhy{}1 (valor fuera de rango),}
+\PYG{c+cm}{ *       se imprimirá un mensaje de error en stderr y la función continuará con la}
+\PYG{c+cm}{ *       siguiente iteración.}
+\PYG{c+cm}{ *       Se asume que las distribuciones están correctamente definidas y}
+\PYG{c+cm}{ *       normalizadas en [0,1].}
+\PYG{c+cm}{ */}
+\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{traverse}\PYG{p}{(}\PYG{n}{TreeNode}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{nodo\PYGZus{}raíz}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[])}
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{     }\PYG{c+c1}{// Índice para recorrer el arreglo de salida}
+\PYG{+w}{     }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{indice\PYGZus{}nivel}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// Nodo actual inicia en la raíz}
+\PYG{+w}{     }\PYG{n}{TreeNode}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{nodo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{nodo\PYGZus{}raíz}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// Iterar mientras haya hijos (nodo no sea hoja)}
+\PYG{+w}{     }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{num\PYGZus{}children}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{c+c1}{// 1. Generar número aleatorio uniforme en [0,1)}
+\PYG{+w}{         }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{aleatorio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{)}\PYG{n}{rand}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{RAND\PYGZus{}MAX}\PYG{p}{;}
+
+\PYG{+w}{         }\PYG{c+c1}{// 2. Interpolar linealmente sobre la CDF (cumul) usando el arreglo de}
+\PYG{+w}{         }\PYG{c+c1}{//    micro\PYGZhy{}bins para obtener el valor continuo en “micro”.}
+\PYG{+w}{         }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{valor\PYGZus{}muestreado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{interpolacion\PYGZus{}lineal}\PYG{p}{(}
+\PYG{+w}{             }\PYG{n}{aleatorio}\PYG{p}{,}
+\PYG{+w}{             }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{micro}\PYG{p}{,}
+\PYG{+w}{             }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{cumul}\PYG{p}{,}
+\PYG{+w}{             }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{num\PYGZus{}micro}\PYG{p}{);}
+
+\PYG{+w}{         }\PYG{c+c1}{// 3. Encontrar el índice de la macro\PYGZhy{}banda donde cae el valor muestreado}
+\PYG{+w}{         }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{idx\PYGZus{}macro}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{find\PYGZus{}interval}\PYG{p}{(}
+\PYG{+w}{             }\PYG{n}{valor\PYGZus{}muestreado}\PYG{p}{,}
+\PYG{+w}{             }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{macro}\PYG{p}{,}
+\PYG{+w}{             }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{num\PYGZus{}macro}\PYG{p}{);}
+
+\PYG{+w}{         }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{idx\PYGZus{}macro}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{         }\PYG{p}{\PYGZob{}}
+\PYG{+w}{             }\PYG{c+c1}{// Si el valor muestreado está fuera de rango de las bandas “macro”}
+\PYG{+w}{             }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}
+\PYG{+w}{                     }\PYG{l+s}{\PYGZdq{}Error: valor muestreado \PYGZpc{}.6f fuera de rangos macro\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{                     }\PYG{n}{valor\PYGZus{}muestreado}\PYG{p}{,}
+\PYG{+w}{                     }\PYG{n}{indice\PYGZus{}nivel}\PYG{p}{);}
+\PYG{+w}{             }\PYG{c+c1}{// Se continúa para intentar en el siguiente nivel (aunque lógicamente}
+\PYG{+w}{             }\PYG{c+c1}{// este caso no debería ocurrir si las distribuciones están bien}
+\PYG{+w}{             }\PYG{c+c1}{// definidas).}
+\PYG{+w}{         }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{         }\PYG{k}{else}
+\PYG{+w}{         }\PYG{p}{\PYGZob{}}
+\PYG{+w}{             }\PYG{c+c1}{// 4. Avanzar al hijo correspondiente y guardar el valor en el arreglo}
+\PYG{+w}{             }\PYG{c+c1}{// de la partícula}
+\PYG{+w}{             }\PYG{n}{nodo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{children}\PYG{p}{[}\PYG{n}{idx\PYGZus{}macro}\PYG{p}{];}
+\PYG{+w}{         }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{         }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{n}{indice\PYGZus{}nivel}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{valor\PYGZus{}muestreado}\PYG{p}{;}
+\PYG{+w}{         }\PYG{n}{indice\PYGZus{}nivel}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{     }\PYG{c+c1}{// Al llegar a un nodo hoja, realizar un último muestreo en ese nodo}
+\PYG{+w}{     }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{aleatorio\PYGZus{}final}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{)}\PYG{n}{rand}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{RAND\PYGZus{}MAX}\PYG{p}{;}
+\PYG{+w}{     }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{valor\PYGZus{}final}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{interpolacion\PYGZus{}lineal}\PYG{p}{(}
+\PYG{+w}{         }\PYG{n}{aleatorio\PYGZus{}final}\PYG{p}{,}
+\PYG{+w}{         }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{micro}\PYG{p}{,}
+\PYG{+w}{         }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{cumul}\PYG{p}{,}
+\PYG{+w}{         }\PYG{n}{nodo\PYGZus{}actual}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{num\PYGZus{}micro}\PYG{p}{);}
+\PYG{+w}{     }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{n}{indice\PYGZus{}nivel}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{valor\PYGZus{}final}\PYG{p}{;}
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

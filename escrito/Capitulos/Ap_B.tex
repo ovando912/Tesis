@@ -1,8 +1,8 @@
 % \appendix
-\chapter{Ejemplificación del bineado adaptativo}
-\label{app:B}
+\chapter{Ejemplificación del \textit{bineado} adaptativo}
+\label{app:A}
 
-En este apéndice se presenta una serie de ejemplos ilustrativos que permiten visualizar el funcionamiento del algoritmo de bineado adaptativo descrito en el Capítulo~\ref{cap:metodo_histogramas}. La variable seleccionada para la demostración es la \textit{letargía} de un archivo de partículas, que se presenta en la Figura~\ref{fig:B_letargia}. La distribución de letargía en este caso exhibe tres regiones distintivas:
+En este apéndice se presenta una serie de ejemplos ilustrativos que permiten visualizar el funcionamiento del algoritmo de \textit{bineado} adaptativo descrito en el Capítulo~\ref{cap:metodo_histogramas}. La variable seleccionada para la demostración es la letargía $ln(E0/E)$ (donde $E0 = $20~MeV) de un archivo de partículas, que se presenta en la Figura~\ref{fig:B_letargia}. La distribución de letargía en este caso exhibe tres regiones distintivas:
 
 \begin{figure}[H]
     \centering
@@ -12,17 +12,17 @@ En este apéndice se presenta una serie de ejemplos ilustrativos que permiten vi
 \end{figure}
 
 \begin{itemize}
-    \item Una delta en $1~MeV$ asociada a una fuente monoenergética.
-    \item Una región aproximadamente constante en la región epitérmico.
-    \item Una acumulación en la región térmica.
+    \item Una delta de Dirac en $1~MeV$ asociada a una fuente monoenergética.
+    \item Una región aproximadamente constante en la región epitérmica.
+    \item Una distribución Maxwelliana correspondiente a la moderación de los neutrones.
 \end{itemize}
 
-Se parte de la distribución original de referencia, obtenida con alta resolución de bines, y se aplica el algoritmo de bineado adaptativo siguiendo el criterio de máxima discrepancia en la función de distribución acumulada (FDC). En cada iteración, se identifica el punto donde la diferencia absoluta entre la FDC original y la obtenida con el bineado actual es máxima, y se introduce allí un nuevo borde de bin. En este apendice se utiliza 1 bin como punto de partida, y se van añadiendo bines hasta alcanzar un total de 100 bines, lo que permite observar cómo el algoritmo refina la distribución a medida que se incrementa el número de bines.
+Se parte de la distribución original de referencia, obtenida con alta resolución producto de utilizar 50000 bines, y se aplica el algoritmo de \textit{bineado} adaptativo siguiendo el criterio de máxima discrepancia en la función de distribución acumulada (FDC): en cada iteración, se identifica el punto donde la diferencia absoluta entre la FDC original y la obtenida con el \textit{bineado} actual es máxima, y se introduce allí un nuevo borde de bin. En este apéndice se utiliza 1 bin como punto de partida, y se van añadiendo bines hasta alcanzar un total de 100 bines, lo que permite observar cómo el algoritmo refina la distribución a medida que se incrementa el número de bines.
 
 En las siguientes secciones se presentan los resultados obtenidos para distintos números de bines: 1, 2, 3, 5, 10, 25 y 100. En cada caso, se muestran:
 
 \begin{itemize}
-    \item La distribución estimada con el bineado actual, comparada con la distribución de referencia.
+    \item La distribución estimada con el \textit{bineado} actual, comparada con la distribución de referencia.
     \item Las funciones de distribución acumulada (FDC) de ambas distribuciones.
     \item La diferencia absoluta entre ambas FDC, utilizada como criterio de refinamiento.
 \end{itemize}
@@ -52,14 +52,14 @@ En la Figura~\ref{fig:B_letargia_1} se muestra la distribución de letargía apr
         \caption{Diferencia absoluta entre FDCs.}
         \label{fig:B_FDCdiff_1}
     \end{subfigure}
-    \caption{Evaluación del criterio de refinamiento para el caso de 1 bin.}
+    \caption{Evaluación del criterio de refinamiento para el caso de 1 bin. Se observa que la máxima diferencia ocurre cerca de letargía \sim 3, lo que indica que el nuevo bin debe ser ubicado en esa posición.}
     \label{fig:B_FDC_1_1}
 \end{figure}
-
+  
 \section*{Caso con 2 bines}
 \addcontentsline{toc}{section}{Caso con 2 bines}
 
-En la Figura~\ref{fig:B_letargia_2} se muestra la distribución de letargía aproximada con 2 bines. En este caso, el histograma comienza a capturar la delta en $1~MeV$, pero con un bin de ancho considerable. En la Figura~\ref{fig:B_FDC_2} se presentan las FDCs de la distribución original de referencia y la obtenida con 2 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_2} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración. Se observa que la posición del máximo en la Figura~\ref{fig:B_FDCdiff_2} ahora se encuentra con valor 0, producto de que se ubicó un bin en esa posición.
+En la Figura~\ref{fig:B_letargia_2} se muestra la distribución de letargía aproximada con 2 bines. En este caso, el histograma comienza a capturar la delta en $1~MeV$, pero con un bin de ancho considerable. En la Figura~\ref{fig:B_FDC_2} se presentan las FDCs de la distribución original de referencia y la obtenida con 2 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_2} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración. Se observa que la posición del máximo en la Figura~\ref{fig:B_FDCdiff_1} ahora se encuentra con valor 0, producto de que se ubicó un bin en esa posición.
 
 \begin{figure}[H]
     \centering
@@ -81,14 +81,14 @@ En la Figura~\ref{fig:B_letargia_2} se muestra la distribución de letargía apr
         \caption{Diferencia absoluta entre FDCs.}
         \label{fig:B_FDCdiff_2}
     \end{subfigure}
-    \caption{Evaluación del criterio de refinamiento para el caso de 2 bines.}
+    \caption{Evaluación del criterio de refinamiento para el caso de 2 bines. Se observa que la máxima diferencia ocurre nuevamente cerca de letargía \sim 3, lo que indica que el nuevo bin debe ser ubicado en esa posición.}
     \label{fig:B_FDC_2_2}
 \end{figure}
 
 \section*{Caso con 3 bines}
 \addcontentsline{toc}{section}{Caso con 3 bines}
 
-En la Figura~\ref{fig:B_letargia_3} se muestra la distribución de letargía aproximada con 3 bines. En este caso, el histograma logra capturar la delta en $1~MeV$ con mayor precisión. En la Figura~\ref{fig:B_FDC_3} se presentan las FDCs de la distribución original de referencia y la obtenida con 3 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_3} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración. \textbf{Nota para el corrector: aca en mas estoy repitiendo este parrafo para introducir las figuras y que no queden sin referencia. Podemos ver de cambiarlo si lo consideran necesario.}
+En la Figura~\ref{fig:B_letargia_3} se muestra la distribución de letargía aproximada con 3 bines. En este caso, el histograma logra capturar la delta en $1~MeV$ con mayor precisión. En la Figura~\ref{fig:B_FDC_3} se presentan las FDCs de la distribución original de referencia y la obtenida con 3 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_3} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
 
 \begin{figure}[H]
     \centering
@@ -110,7 +110,7 @@ En la Figura~\ref{fig:B_letargia_3} se muestra la distribución de letargía apr
         \caption{Diferencia absoluta entre FDCs.}
         \label{fig:B_FDCdiff_3}
     \end{subfigure}
-    \caption{Evaluación del criterio de refinamiento para el caso de 3 bines.}
+    \caption{Evaluación del criterio de refinamiento para el caso de 3 bines. Se observa que la máxima diferencia ocurre cerca de letargía \sim 18 y letargía \sim 22, lo que indica que los próximos dos bines deben ser ubicados en esas posiciones.}
     \label{fig:B_FDC_3_3}
 \end{figure}
 
@@ -139,14 +139,14 @@ En la Figura~\ref{fig:B_letargia_5} se muestra la distribución de letargía apr
         \caption{Diferencia absoluta entre FDCs.}
         \label{fig:B_FDCdiff_5}
     \end{subfigure}
-    \caption{Evaluación del criterio de refinamiento para el caso de 5 bines.}
+    \caption{Evaluación del criterio de refinamiento para el caso de 5 bines. Se observa en la diferencia absoluta entre FDCs los valores de mayor discrepancia, que indican que los próximos bines deben ser ubicados en esas posiciones.}
     \label{fig:B_FDC_5_5}
 \end{figure}
 
 \section*{Caso con 10 bines}
 \addcontentsline{toc}{section}{Caso con 10 bines}
 
-En la Figura~\ref{fig:B_letargia_10} se muestra la distribución de letargía aproximada con 10 bines. En este caso, el histograma logra capturar la delta en $1~MeV$ y comienza a mejorar la aproximación de la distribución en la región de termalización y en la región epitérmica. En la Figura~\ref{fig:B_FDC_10} se presentan las FDCs de la distribución original de referencia y la obtenida con 10 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_10} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
+En la Figura~\ref{fig:B_letargia_10} se muestra la distribución de letargía aproximada con 10 bines. En este caso, el histograma logra capturar la delta en 1~MeV y comienza a mejorar la aproximación de la distribución en la región de termalización y en la región epitérmica. En la Figura~\ref{fig:B_FDC_10} se presentan las FDCs de la distribución original de referencia y la obtenida con 10 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_10} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
 
 \begin{figure}[H]
     \centering
@@ -168,14 +168,14 @@ En la Figura~\ref{fig:B_letargia_10} se muestra la distribución de letargía ap
         \caption{Diferencia absoluta entre FDCs.}
         \label{fig:B_FDCdiff_10}
     \end{subfigure}
-    \caption{Evaluación del criterio de refinamiento para el caso de 10 bines.}
+    \caption{Evaluación del criterio de refinamiento para el caso de 10 bines. Se observa en la diferencia absoluta entre FDCs los valores de mayor discrepancia, que indican que los próximos bines deben ser ubicados en esas posiciones.}
     \label{fig:B_FDC_10_10}
 \end{figure}
 
 \section*{Caso con 25 bines}
 \addcontentsline{toc}{section}{Caso con 25 bines}
 
-En la Figura~\ref{fig:B_letargia_25} se muestra la distribución de letargía aproximada con 25 bines. En este caso, el histograma logra capturar la delta en $1~MeV$ y mejora significativamente la aproximación de la distribución en las regiones epitérmica y térmica, salvo para letargías mayores a \~ 22. En la Figura~\ref{fig:B_FDC_25} se presentan las FDCs de la distribución original de referencia y la obtenida con 25 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_25} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
+En la Figura~\ref{fig:B_letargia_25} se muestra la distribución de letargía aproximada con 25 bines. En este caso, el histograma logra capturar la delta en 1~MeV y mejora significativamente la aproximación de la distribución en las regiones epitérmica y térmica, salvo para letargías mayores a \~ 22. En la Figura~\ref{fig:B_FDC_25} se presentan las FDCs de la distribución original de referencia y la obtenida con 25 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_25} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
 
 \begin{figure}[H]
     \centering
@@ -197,14 +197,14 @@ En la Figura~\ref{fig:B_letargia_25} se muestra la distribución de letargía ap
         \caption{Diferencia absoluta entre FDCs.}
         \label{fig:B_FDCdiff_25}
     \end{subfigure}
-    \caption{Evaluación del criterio de refinamiento para el caso de 25 bines.}
+    \caption{Evaluación del criterio de refinamiento para el caso de 25 bines. Se observa en la diferencia absoluta entre FDCs los valores de mayor discrepancia, que indican que los próximos bines deben ser ubicados en esas posiciones.}
     \label{fig:B_FDC_25_25}
 \end{figure}
 
 \section*{Caso con 100 bines}
 \addcontentsline{toc}{section}{Caso con 100 bines}
 
-En la Figura~\ref{fig:B_letargia_100} se muestra la distribución de letargía aproximada con 100 bines. En este caso, el histograma logra capturar con precisión la distribución de letargía, salvo en la región de letargía mayor a \~ 22, debido a la poca intensidad que tiene la distribución en esa región. Sin embargo se observa una mejoría con respecto al caso de 25 bines. En la Figura~\ref{fig:B_FDC_100} se presentan las FDCs de la distribución original de referencia y la obtenida con 100 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_100} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
+En la Figura~\ref{fig:B_letargia_100} se muestra la distribución de letargía aproximada con 100 bines. En este caso, el histograma logra capturar con precisión la distribución de letargía, salvo en la región de letargía mayor a \~ 22, debido a la poca intensidad que tiene la distribución en esa región. Sin embargo se observa una mejoría con respecto al caso de 25 bines, donde la diferencia absoluta llega hasta 0.0016 y en el caso de 100 bines llega hasta 0.00012, aproximadamente un orden de magnitud menos. En la Figura~\ref{fig:B_FDC_100} se presentan las FDCs de la distribución original de referencia y la obtenida con 100 bines, mientras que en la Figura~\ref{fig:B_FDCdiff_100} se muestra la diferencia absoluta entre ambas FDCs, que sirve como criterio para determinar la ubicación del nuevo bin en la siguiente iteración.
 
 
 \begin{figure}[H]

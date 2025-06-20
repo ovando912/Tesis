@@ -1,0 +1,109 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k}{def} \PYG{n+nf}{obtener\PYGZus{}bordes\PYGZus{}adaptativos}\PYG{p}{(}
+        \PYG{n}{datos}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{,}
+        \PYG{n}{num\PYGZus{}bins}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{,}
+        \PYG{n}{pesos}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{None}\PYG{p}{,}
+        \PYG{o}{*}\PYG{p}{,}
+        \PYG{n}{initial\PYGZus{}bins}\PYG{p}{:} \PYG{n+nb}{int} \PYG{o}{=} \PYG{l+m+mi}{6}\PYG{p}{,}
+        \PYG{n}{fine\PYGZus{}bins}\PYG{p}{:} \PYG{n+nb}{int} \PYG{o}{=} \PYG{l+m+mi}{50\PYGZus{}000}\PYG{p}{,}
+        \PYG{n}{user\PYGZus{}edges}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{Sequence}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]]} \PYG{o}{=} \PYG{k+kc}{None}\PYG{p}{,}
+    \PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{:}
+\PYG{+w}{        }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{        Calcula bordes adaptativos para un histograma de `num\PYGZus{}bins` usando el}
+\PYG{l+s+sd}{        criterio |ΔCDF|máx.}
+
+\PYG{l+s+sd}{        El procedimiento realiza los siguientes pasos:}
+\PYG{l+s+sd}{          1. Construye un arreglo inicial de `initial\PYGZus{}bins + 1` bordes}
+\PYG{l+s+sd}{          equiespaciados entre el mínimo y máximo de `datos`.}
+\PYG{l+s+sd}{          2. Inserta, si se proporcionan, los `user\PYGZus{}edges` dentro del rango}
+\PYG{l+s+sd}{          [mín, max], descartando los que queden fuera y eliminando duplicados.}
+\PYG{l+s+sd}{          3. Calcula una CDF de alta resolución (`fine\PYGZus{}bins + 1` bordes) para tener}
+\PYG{l+s+sd}{             una referencia \PYGZdq{}casi continua\PYGZdq{} de la distribución de los datos.}
+\PYG{l+s+sd}{          4. Repite `extra\PYGZus{}bordes = num\PYGZus{}bins \PYGZhy{} initial\PYGZus{}bins` veces:}
+\PYG{l+s+sd}{             a. Calcula la CDF actual usando los bordes gruesos.}
+\PYG{l+s+sd}{             b. Interpola la CDF gruesa en los puntos finos.}
+\PYG{l+s+sd}{             c. Encuentra el índice donde la diferencia absoluta}
+\PYG{l+s+sd}{             |CDF\PYGZus{}fina \PYGZhy{} CDF\PYGZus{}gruesa\PYGZus{}interp| es máxima.}
+\PYG{l+s+sd}{             d. Inserta ese punto (de la división fina) como nuevo borde en el}
+\PYG{l+s+sd}{             arreglo grueso.}
+\PYG{l+s+sd}{          5. Devuelve los `num\PYGZus{}bins + 1` bordes finales, ordenados de menor a mayor.}
+
+\PYG{l+s+sd}{        Parámetros}
+\PYG{l+s+sd}{        \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{        datos : np.ndarray}
+\PYG{l+s+sd}{            Vector unidimensional de datos de entrada.}
+\PYG{l+s+sd}{        num\PYGZus{}bins : int}
+\PYG{l+s+sd}{            Número total de bines deseados (cantidad de intervalos = num\PYGZus{}bins,}
+\PYG{l+s+sd}{            cantidad de bordes = num\PYGZus{}bins + 1).}
+\PYG{l+s+sd}{        pesos : Optional[np.ndarray]}
+\PYG{l+s+sd}{            Arreglo de pesos asociado a cada dato (misma longitud que `datos`).}
+\PYG{l+s+sd}{            Si es None, se asume peso uniforme = 1 para cada punto.}
+\PYG{l+s+sd}{        initial\PYGZus{}bins : int, opcional (por defecto = 6)}
+\PYG{l+s+sd}{            Número inicial de bines gruesos (antes de refinar).}
+\PYG{l+s+sd}{            Debe cumplir 1 ≤ initial\PYGZus{}bins \PYGZlt{} num\PYGZus{}bins.}
+\PYG{l+s+sd}{        fine\PYGZus{}bins : int, opcional (por defecto = 50000)}
+\PYG{l+s+sd}{            Resolución de la malla fina usada para estimar la CDF de referencia.}
+\PYG{l+s+sd}{            Entre más grande, más precisa la ubicación de los bordes óptimos, pero}
+\PYG{l+s+sd}{            aumenta el costo computacional.}
+\PYG{l+s+sd}{        user\PYGZus{}edges : Optional[Sequence[float]], opcional}
+\PYG{l+s+sd}{            Lista de bordes que el usuario quiere insertar obligatoriamente. Estos}
+\PYG{l+s+sd}{            se agregan sólo si están dentro del rango [mín(datos), máx(datos)].}
+
+\PYG{l+s+sd}{        Retorna}
+\PYG{l+s+sd}{        \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{        np.ndarray}
+\PYG{l+s+sd}{            Vector ordenado de longitud `num\PYGZus{}bins + 1` con los bordes adaptativos}
+\PYG{l+s+sd}{            que garantizan minimizar el error máximo de la CDF en cada paso.}
+\PYG{l+s+sd}{        \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+        \PYG{k}{if} \PYG{n}{num\PYGZus{}bins} \PYG{o}{\PYGZlt{}=} \PYG{n}{initial\PYGZus{}bins}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}
+                \PYG{l+s+s2}{\PYGZdq{}El número de bines deseados \PYGZsq{}num\PYGZus{}bins\PYGZsq{} debe ser mayor que}
+                 \PYG{l+s+s1}{\PYGZsq{}initial\PYGZus{}bins\PYGZsq{}}\PYG{o}{.}\PYG{l+s+s2}{\PYGZdq{}}
+            \PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} 1. Determinamos los extremos de los datos}
+        \PYG{n}{minimo} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{min}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{))}
+        \PYG{n}{maximo} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{))}
+
+        \PYG{c+c1}{\PYGZsh{} 2. Construimos bordes equiespaciados iniciales (initial\PYGZus{}bins + 1)}
+        \PYG{n}{bordes} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{n}{minimo}\PYG{p}{,} \PYG{n}{maximo}\PYG{p}{,} \PYG{n}{initial\PYGZus{}bins} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} 3. Insertamos bordes de usuario si corresponden al rango y eliminamos}
+        \PYG{c+c1}{\PYGZsh{} duplicados}
+        \PYG{k}{if} \PYG{n}{user\PYGZus{}edges} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}\PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{} Filtrar sólo los user\PYGZus{}edges dentro de [mínimo, maximo]}
+            \PYG{n}{bordes\PYGZus{}usuario\PYGZus{}filtrados} \PYG{o}{=} \PYG{p}{[}
+                \PYG{n}{b} \PYG{k}{for} \PYG{n}{b} \PYG{o+ow}{in} \PYG{n}{user\PYGZus{}edges} \PYG{k}{if} \PYG{n}{minimo} \PYG{o}{\PYGZlt{}=} \PYG{n}{b} \PYG{o}{\PYGZlt{}=} \PYG{n}{maximo}
+            \PYG{p}{]}
+            \PYG{k}{if} \PYG{n}{bordes\PYGZus{}usuario\PYGZus{}filtrados}\PYG{p}{:}
+                \PYG{c+c1}{\PYGZsh{} Concatenamos, unificamos y ordenamos}
+                \PYG{n}{bordes} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}
+                    \PYG{n}{np}\PYG{o}{.}\PYG{n}{unique}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{concatenate}\PYG{p}{((}\PYG{n}{bordes}\PYG{p}{,} \PYG{n}{bordes\PYGZus{}usuario\PYGZus{}filtrados}\PYG{p}{)))}
+                \PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} 4. Calculamos CDF de alta resolución para referencia}
+        \PYG{n}{bordes\PYGZus{}finos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{n}{minimo}\PYG{p}{,} \PYG{n}{maximo}\PYG{p}{,} \PYG{n}{fine\PYGZus{}bins} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)}
+        \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{cdf\PYGZus{}fina} \PYG{o}{=} \PYG{n}{calcular\PYGZus{}cdf\PYGZus{}ponderada}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{,} \PYG{n}{bordes\PYGZus{}finos}\PYG{p}{,} \PYG{n}{pesos}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} 5. Insertamos iterativamente los bordes que maximizan |ΔCDF|}
+        \PYG{n}{extra\PYGZus{}bordes} \PYG{o}{=} \PYG{n}{num\PYGZus{}bins} \PYG{o}{\PYGZhy{}} \PYG{n}{initial\PYGZus{}bins}
+        \PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{extra\PYGZus{}bordes}\PYG{p}{):}
+            \PYG{c+c1}{\PYGZsh{} 5.a. CDF en bordes gruesos actuales}
+            \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{cdf\PYGZus{}gruesa} \PYG{o}{=} \PYG{n}{calcular\PYGZus{}cdf\PYGZus{}ponderada}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{,} \PYG{n}{bordes}\PYG{p}{,} \PYG{n}{pesos}\PYG{p}{)}
+
+            \PYG{c+c1}{\PYGZsh{} 5.b. Interpolamos la CDF gruesa en los puntos finos}
+            \PYG{c+c1}{\PYGZsh{}     Usamos np.interp: interpola cdf\PYGZus{}gruesa(bordes) en coordenadas}
+            \PYG{c+c1}{\PYGZsh{} bordes\PYGZus{}finos}
+            \PYG{n}{cdf\PYGZus{}gruesa\PYGZus{}interp} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{interp}\PYG{p}{(}\PYG{n}{bordes\PYGZus{}finos}\PYG{p}{,} \PYG{n}{bordes}\PYG{p}{,} \PYG{n}{cdf\PYGZus{}gruesa}\PYG{p}{)}
+
+            \PYG{c+c1}{\PYGZsh{} 5.c. Calculamos la diferencia absoluta con la CDF fina y buscamos el}
+            \PYG{c+c1}{\PYGZsh{} máximo}
+            \PYG{n}{diferencias} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{cdf\PYGZus{}fina} \PYG{o}{\PYGZhy{}} \PYG{n}{cdf\PYGZus{}gruesa\PYGZus{}interp}\PYG{p}{)}
+            \PYG{n}{indice\PYGZus{}max} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{diferencias}\PYG{p}{))}
+
+            \PYG{c+c1}{\PYGZsh{} 5.d. Insertamos el borde fino correspondiente y reordenamos}
+            \PYG{n}{nuevo\PYGZus{}borde} \PYG{o}{=} \PYG{n}{bordes\PYGZus{}finos}\PYG{p}{[}\PYG{n}{indice\PYGZus{}max}\PYG{p}{]}
+            \PYG{n}{bordes} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{bordes}\PYG{p}{,} \PYG{n}{nuevo\PYGZus{}borde}\PYG{p}{))}
+
+        \PYG{k}{return} \PYG{n}{bordes}
+\end{Verbatim}

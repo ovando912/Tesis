@@ -17,6 +17,21 @@
 \usepackage{subcaption}
 % \usepackage{subfigure}
 \usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{xcolor}
+
+\definecolor{LightGray}{gray}{0.95}
+
+\setminted{
+    fontsize=\footnotesize,
+    linenos,
+    frame=lines,
+    bgcolor=LightGray,
+    style=tango,
+    fontfamily=tt, % Evitá sans-serif tipo "Comic Sans"
+    % commentstyle=\color{gray!80}\ttfamily\itshape % Más sobrio y académico
+}
+
 
 %\usepackage{hyphen-spanis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -24,13 +39,13 @@
 \title{Incorporación de técnicas de muestreo mediante histogramas multidimensionales al código de
 simulación de fuentes de Monte Carlo KDSource}
 \author{Lucas Ezequiel Ovando}
-\director{Dr. Ariel Marquez}
-\codirector{Ing. Zoe Prieto}
+\director{Ariel Marquez}
+\codirector{Zoe Prieto}
 \carrera{Proyecto Integrador de la Carrera de Ingeniería Nuclear}
 \grado{Estudiante}
-\laboratorio{Departamento de Fisica de Reactores y Radiaciones}
-\jurado{Dr. Edmundo Lopasso \\ 
-Mg. Norberto Schmidt}
+\laboratorio{Departamento de Física de Reactores y Radiaciones}
+\jurado{Edmundo Lopasso \\ 
+Norberto Schmidt}
 \palabrasclave{Monte Carlo, Histogramas multidimensionales, OpenMC, KDSource, RA-6, Instituto Balseiro}
 \keywords{Monte Carlo, Multidimensional histograms, OpenMC, KDSource, RA-6, Instituto Balseiro}
 % Si queremos poner la fecha manualmente:
@@ -59,11 +74,11 @@ A todos por igual
 
 \begin{abreviaturas}
 \begin{itemize}
-    \item API: Application Programming Interface
+    \item API: Application Programming Interface.
     \item RAM: Random Access Memory.
     \item KDE: Kernel Density Estimation.
-    \item OpenMC: código Monte Carlo de transporte de partículas.
-    \item KDSource: herramienta para generar fuentes distribucionales para simulaciones Monte Carlo.
+    \item OpenMC: código abierto Monte Carlo de transporte de partículas.
+    \item KDSource: código abierto para generar fuentes distribucionales para simulaciones Monte Carlo.
     \item MCPL: formato de listas de partículas (Monte Carlo Particle List).
     \item XML: formato de archivo utilizado para definir fuentes en OpenMC/KDSource.
     \item On-the-fly: muestreo realizado dinámicamente durante la ejecución de una simulación.
@@ -93,9 +108,9 @@ A todos por igual
 \include{Capitulos/Conclusiones}
 
 \appendix
-\include{Capitulos/Ap_A}
-
 \include{Capitulos/Ap_B}
+
+\include{Capitulos/Ap_A}
 
 \begin{biblio}
 \bibliography{mibib}

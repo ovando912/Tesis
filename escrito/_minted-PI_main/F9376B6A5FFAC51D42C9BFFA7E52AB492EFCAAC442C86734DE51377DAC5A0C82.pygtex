@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{openmc}
+
+\PYG{n}{settings} \PYG{o}{=} \PYG{n}{openmc}\PYG{o}{.}\PYG{n}{Settings}\PYG{p}{()}
+\PYG{n}{settings}\PYG{o}{.}\PYG{n}{source} \PYG{o}{=} \PYG{n}{openmc}\PYG{o}{.}\PYG{n}{HistogramSource}\PYG{p}{(}
+    \PYG{n}{path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}source.xml\PYGZdq{}}
+\PYG{p}{)}
+\end{Verbatim}

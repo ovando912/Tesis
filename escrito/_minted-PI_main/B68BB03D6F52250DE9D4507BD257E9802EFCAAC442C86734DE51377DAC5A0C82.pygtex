@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{hs}\PYG{o}{.}\PYG{n}{generate\PYGZus{}mcpl}\PYG{p}{(}
+        \PYG{n}{n\PYGZus{}particles}\PYG{o}{=}\PYG{l+m+mf}{1e7}\PYG{p}{,}
+        \PYG{n}{write\PYGZus{}path}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}trackfile\PYGZus{}generated.mcpl\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{overwrite}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,}
+    \PYG{p}{)}
+\end{Verbatim}

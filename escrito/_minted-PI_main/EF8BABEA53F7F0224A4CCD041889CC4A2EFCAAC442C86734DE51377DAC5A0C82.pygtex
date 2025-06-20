@@ -1,0 +1,48 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k}{def} \PYG{n+nf}{calcular\PYGZus{}cdf\PYGZus{}ponderada}\PYG{p}{(}
+        \PYG{n}{datos}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{,} \PYG{n}{bordes}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{,} \PYG{n}{pesos}\PYG{p}{:} \PYG{n}{Optional}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{None}
+    \PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Tuple}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{]:}
+\PYG{+w}{        }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{        Calcula la función de distribución acumulada (CDF) ponderada en puntos dados.}
+
+\PYG{l+s+sd}{        Esta función construye un histograma de `datos` utilizando los `bordes`}
+\PYG{l+s+sd}{        especificados y, opcionalmente, aplica un arreglo de `pesos` a cada dato.}
+\PYG{l+s+sd}{        A partir de las frecuencias, se obtiene la CDF normalizada (entre 0 y 1).}
+
+\PYG{l+s+sd}{        Parámetros}
+\PYG{l+s+sd}{        \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{        datos : np.ndarray}
+\PYG{l+s+sd}{            Vector unidimensional de datos a discretizar.}
+\PYG{l+s+sd}{        bordes : np.ndarray}
+\PYG{l+s+sd}{            Arreglo de longitud N+1 que define los bordes de los bines donde se}
+\PYG{l+s+sd}{            evaluará la CDF.}
+\PYG{l+s+sd}{        pesos : Optional[np.ndarray]}
+\PYG{l+s+sd}{            Arreglo de pesos, de la misma longitud que `datos`. Si es None, se}
+\PYG{l+s+sd}{            asume peso=1 para cada dato.}
+
+\PYG{l+s+sd}{        Retorna}
+\PYG{l+s+sd}{        \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{        Tuple[np.ndarray, np.ndarray]}
+\PYG{l+s+sd}{            \PYGZhy{} bordes : np.ndarray}
+\PYG{l+s+sd}{                Copia de los bordes de entrada (sin modificar).}
+\PYG{l+s+sd}{            \PYGZhy{} cdf : np.ndarray}
+\PYG{l+s+sd}{                Vector de longitud N+1 con los valores de la CDF normalizada}
+\PYG{l+s+sd}{                evaluada en cada borde.}
+\PYG{l+s+sd}{                Notar que se inserta un 0 al inicio para representar la CDF antes}
+\PYG{l+s+sd}{                del primer bin.}
+\PYG{l+s+sd}{        \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+        \PYG{c+c1}{\PYGZsh{} Obtenemos los conteos ponderados por bin}
+        \PYG{n}{conteos}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{histogram}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{bordes}\PYG{p}{,} \PYG{n}{weights}\PYG{o}{=}\PYG{n}{pesos}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Construimos la CDF acumulada y agregamos un 0 inicial para la}
+        \PYG{c+c1}{\PYGZsh{} interpolación}
+        \PYG{n}{cdf} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{cumsum}\PYG{p}{(}\PYG{n}{conteos}\PYG{p}{),} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mf}{0.0}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} Normalizamos la CDF en [0,1], evitando división por cero si todos los}
+        \PYG{c+c1}{\PYGZsh{} conteos son cero}
+        \PYG{n}{total} \PYG{o}{=} \PYG{n}{cdf}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n}{total}\PYG{p}{:}
+            \PYG{n}{cdf} \PYG{o}{=} \PYG{n}{cdf} \PYG{o}{/} \PYG{n}{total}
+
+        \PYG{k}{return} \PYG{n}{bordes}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{(),} \PYG{n}{cdf}
+\end{Verbatim}

@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{import} \PYG{n+nn}{kdsource.histograms} \PYG{k}{as} \PYG{n+nn}{kdh}
+
+    \PYG{n}{hs} \PYG{o}{=} \PYG{n}{kdh}\PYG{o}{.}\PYG{n}{HistogramSource}\PYG{p}{(}
+        \PYG{n}{trackfile}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}tracks.h5\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{particle\PYGZus{}type}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}neutron\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{z0}\PYG{o}{=}\PYG{l+m+mf}{0.0}\PYG{p}{,}
+        \PYG{n}{Nparticles}\PYG{o}{=}\PYG{l+m+mf}{1e10}\PYG{p}{,}
+        \PYG{n}{surface\PYGZus{}geometry}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}circular\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{R}\PYG{o}{=}\PYG{l+m+mf}{5.0}\PYG{p}{,}
+        \PYG{n}{domain}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}w\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{]\PYGZcb{},}
+    \PYG{p}{)}
+
+    \PYG{n}{hs}\PYG{o}{.}\PYG{n}{configure\PYGZus{}binning}\PYG{p}{(}
+        \PYG{n}{variable\PYGZus{}order}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}ln(E0/E)\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}x\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}y\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}mu\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}phi\PYGZdq{}}\PYG{p}{],}
+        \PYG{n}{micro\PYGZus{}bins}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{75}\PYG{p}{,} \PYG{l+m+mi}{18}\PYG{p}{,} \PYG{l+m+mi}{18}\PYG{p}{,} \PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{],}
+        \PYG{n}{macro\PYGZus{}bins}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{7}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{],}
+        \PYG{n}{micro\PYGZus{}initial\PYGZus{}bins}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{],}
+        \PYG{n}{macro\PYGZus{}initial\PYGZus{}bins}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{],}
+        \PYG{n}{micro\PYGZus{}binning}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}adaptive\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{macro\PYGZus{}binning}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}adaptive\PYGZdq{}}\PYG{p}{,}
+    \PYG{p}{)}
+
+    \PYG{n}{hs}\PYG{o}{.}\PYG{n}{build\PYGZus{}tree}\PYG{p}{()}
+    \PYG{n}{hs}\PYG{o}{.}\PYG{n}{write\PYGZus{}xml}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}source.xml\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

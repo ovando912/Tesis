@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{c+cm}{/*! \PYGZbs{}class HistogramSource}
+\PYG{c+cm}{     *  \PYGZbs{}brief Fuente compuesta a partir de histogramas cargados desde XML.}
+\PYG{c+cm}{     */}
+\PYG{+w}{    }\PYG{k}{class}\PYG{+w}{ }\PYG{n+nc}{HistogramSource}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{k}{public}\PYG{+w}{ }\PYG{n}{Source}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{public}\PYG{o}{:}
+\PYG{+w}{      }\PYG{k}{explicit}\PYG{+w}{ }\PYG{n}{HistogramSource}\PYG{p}{(}\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}node}\PYG{+w}{ }\PYG{n}{node}\PYG{p}{);}
+\PYG{+w}{      }\PYG{o}{\PYGZti{}}\PYG{n}{HistogramSource}\PYG{p}{()}\PYG{+w}{ }\PYG{k}{override}\PYG{p}{;}
+
+\PYG{+w}{      }\PYG{c+c1}{// Muestrea un punto del espacio de fases usando el árbol de histogramas}
+\PYG{+w}{      }\PYG{n}{SourceSite}\PYG{+w}{ }\PYG{n+nf}{sample}\PYG{p}{(}\PYG{k+kt}{uint64\PYGZus{}t}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{seed}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{const}\PYG{+w}{ }\PYG{k}{override}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{private}\PYG{o}{:}
+\PYG{+w}{      }\PYG{n}{TreeNode}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{cumul\PYGZus{}micro\PYGZus{}macro}\PYG{p}{;}\PYG{+w}{  }\PYG{c+c1}{// Raíz del árbol (definido en histograms.h)}
+\PYG{+w}{      }\PYG{n}{HSHeader}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{header}\PYG{p}{;}\PYG{+w}{             }\PYG{c+c1}{// Estructura con J, z0, var\PYGZus{}order, etc.}
+\PYG{+w}{      }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{z0}\PYG{p}{;}\PYG{+w}{                    }\PYG{c+c1}{// Coordenada z de la superficie}
+\PYG{+w}{      }\PYG{n}{ParticleType}\PYG{+w}{ }\PYG{n}{particle}\PYG{p}{;}\PYG{+w}{        }\PYG{c+c1}{// Tipo de partícula (\PYGZdq{}neutron\PYGZdq{} o \PYGZdq{}photon\PYGZdq{})}
+\PYG{+w}{      }\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{variable\PYGZus{}order}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Orden de variables}
+\PYG{+w}{      }\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{+w}{ }\PYG{n}{surface\PYGZus{}geometry}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{surface\PYGZus{}radius}\PYG{p}{;}\PYG{+w}{        }\PYG{c+c1}{// Si circular}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{};}
+\end{Verbatim}

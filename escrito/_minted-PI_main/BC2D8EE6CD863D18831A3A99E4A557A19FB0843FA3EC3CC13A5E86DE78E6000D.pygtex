@@ -1,0 +1,158 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * Rellena un mcpl\PYGZus{}particle\PYGZus{}t con valores muestreados del árbol de histogramas.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * Esta función genera una partícula a partir de un árbol jerárquico de histogramas}
+\PYG{c+cm}{ * (TreeNode) y del encabezado HSHeader, que define parámetros como la geometría de}
+\PYG{c+cm}{ * la superficie (\PYGZdq{}rectangular\PYGZdq{} o \PYGZdq{}circular\PYGZdq{}), el radio R (si corresponde) y la}
+\PYG{c+cm}{ * coordenada z de la fuente.}
+\PYG{c+cm}{ * El muestreo se realiza nivel por nivel: en cada nivel se extrae un valor de la}
+\PYG{c+cm}{ * distribución acumulada (CDF) mediante interpolación lineal. En el caso de}
+\PYG{c+cm}{ * geometría circular, se impone la restricción x² + y² ≤ R² al muestrear los dos}
+\PYG{c+cm}{ * primeros grados de libertad espaciales.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @param[out] particula\PYGZus{}mcpl     Puntero al struct mcpl\PYGZus{}particle\PYGZus{}t que se va a}
+\PYG{c+cm}{ *                                rellenar.}
+\PYG{c+cm}{ * @param[in]  arbol\PYGZus{}histograma   Puntero al nodo raíz del árbol de histogramas}
+\PYG{c+cm}{ *                                (TreeNode).}
+\PYG{c+cm}{ * @param[in]  encabezado\PYGZus{}hs      Puntero a HSHeader con parámetros de la fuente:}
+\PYG{c+cm}{ *                                \PYGZhy{} nvars: número de variables a muestrear en cada}
+\PYG{c+cm}{ *                                partícula.}
+\PYG{c+cm}{ *                                \PYGZhy{} surface\PYGZus{}geometry: \PYGZdq{}rectangular\PYGZdq{} o \PYGZdq{}circular\PYGZdq{}.}
+\PYG{c+cm}{ *                                \PYGZhy{} R: radio máximo permitido (solo si}
+\PYG{c+cm}{ *                                surface\PYGZus{}geometry == \PYGZdq{}circular\PYGZdq{}).}
+\PYG{c+cm}{ *                                \PYGZhy{} z: coordenada z fija de la superficie fuente.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * Notar:}
+\PYG{c+cm}{ * \PYGZhy{} Se reserva dinámicamente un arreglo intermedio de tamaño encabezado\PYGZus{}hs\PYGZhy{}\PYGZgt{}nvars}
+\PYG{c+cm}{ *   para almacenar los valores muestreados en cada nivel del árbol. Al final de la}
+\PYG{c+cm}{ *   función, este arreglo se libera.}
+\PYG{c+cm}{ * \PYGZhy{} Si ocurre cualquier error (memoria, geometría no soportada, o no poder}
+\PYG{c+cm}{ *   muestrear dentro del círculo tras varios intentos), la función termina el}
+\PYG{c+cm}{ *   programa con exit(EXIT\PYGZus{}FAILURE).}
+\PYG{c+cm}{ */}
+\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{fill\PYGZus{}particle}\PYG{p}{(}\PYG{n}{mcpl\PYGZus{}particle\PYGZus{}t}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{particula\PYGZus{}mcpl}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{TreeNode}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{arbol\PYGZus{}histograma}\PYG{p}{,}
+\PYG{+w}{  }\PYG{n}{HSHeader}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{encabezado\PYGZus{}hs}\PYG{p}{)}
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{     }\PYG{c+c1}{// Verificar parámetros obligatorios}
+\PYG{+w}{     }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{particula\PYGZus{}mcpl}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{NULL}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{arbol\PYGZus{}histograma}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{NULL}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{encabezado\PYGZus{}hs}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{NULL}\PYG{p}{)}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Error en fill\PYGZus{}particle: puntero nulo.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{         }\PYG{n}{exit}\PYG{p}{(}\PYG{n}{EXIT\PYGZus{}FAILURE}\PYG{p}{);}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{     }\PYG{c+c1}{// Reservar espacio para almacenar los valores muestreados de la partícula}
+\PYG{+w}{     }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{valores\PYGZus{}particula}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{double}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{encabezado\PYGZus{}hs}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{nvars}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+\PYG{+w}{     }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valores\PYGZus{}particula}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n+nb}{NULL}\PYG{p}{)}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Error en fill\PYGZus{}particle: no se pudo asignar memoria.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{         }\PYG{n}{exit}\PYG{p}{(}\PYG{n}{EXIT\PYGZus{}FAILURE}\PYG{p}{);}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{     }\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Muestreo según la geometría definida en el encabezado \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{     }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{strcmp}\PYG{p}{(}\PYG{n}{encabezado\PYGZus{}hs}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{surface\PYGZus{}geometry}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}rectangular\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{c+c1}{// Geometría rectangular: muestreamos sin restricción adicional}
+\PYG{+w}{         }\PYG{n}{traverse}\PYG{p}{(}\PYG{n}{arbol\PYGZus{}histograma}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{);}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{     }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{strcmp}\PYG{p}{(}\PYG{n}{encabezado\PYGZus{}hs}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{surface\PYGZus{}geometry}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}circular\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{c+c1}{// Geometría circular: muestrear con restricción x\PYGZca{}2 + y\PYGZca{}2 ≤ R\PYGZca{}2}
+\PYG{+w}{         }\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{MAX\PYGZus{}INTENTOS}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{20}\PYG{p}{;}
+\PYG{+w}{         }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{intento}\PYG{p}{;}
+\PYG{+w}{         }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{exito}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// 0 = dentro del círculo, 1 = fuera o sin éxito}
+
+\PYG{+w}{         }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{intento}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{intento}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{MAX\PYGZus{}INTENTOS}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{intento}\PYG{o}{++}\PYG{p}{)}
+\PYG{+w}{         }\PYG{p}{\PYGZob{}}
+\PYG{+w}{             }\PYG{n}{exito}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{traverse\PYGZus{}circular}\PYG{p}{(}\PYG{n}{arbol\PYGZus{}histograma}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{encabezado\PYGZus{}hs}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{R}\PYG{p}{);}
+\PYG{+w}{             }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{exito}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{             }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                 }\PYG{c+c1}{// Se encontró un par (x,y) válido dentro del círculo}
+\PYG{+w}{                 }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{             }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{         }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{         }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{exito}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{         }\PYG{p}{\PYGZob{}}
+\PYG{+w}{             }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}
+\PYG{+w}{                     }\PYG{l+s}{\PYGZdq{}Error en fill\PYGZus{}particle: no se generó una partícula válida}
+\PYG{+w}{                     }\PYG{n}{dentro}\PYG{+w}{ }\PYG{n}{del}\PYG{+w}{ }\PYG{n}{círculo}\PYG{+w}{ }\PYG{n}{después}\PYG{+w}{ }\PYG{n}{de}\PYG{+w}{ }\PYG{o}{\PYGZpc{}}\PYG{n}{d}\PYG{+w}{ }\PYG{n}{intentos}\PYG{p}{.}\PYG{l+s}{\PYGZdq{},}
+\PYG{+w}{                     }\PYG{n}{MAX\PYGZus{}INTENTOS}\PYG{p}{);}
+\PYG{+w}{             }\PYG{n}{free}\PYG{p}{(}\PYG{n}{valores\PYGZus{}particula}\PYG{p}{);}
+\PYG{+w}{             }\PYG{n}{exit}\PYG{p}{(}\PYG{n}{EXIT\PYGZus{}FAILURE}\PYG{p}{);}
+\PYG{+w}{         }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{     }\PYG{k}{else}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{c+c1}{// Geometría no soportada}
+\PYG{+w}{         }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}
+\PYG{+w}{                 }\PYG{l+s}{\PYGZdq{}Error en fill\PYGZus{}particle: geometría de superficie \PYGZsq{}\PYGZpc{}s\PYGZsq{} no soportada.}
+\PYG{+w}{                 }\PYG{n}{Use}\PYG{+w}{ }\PYG{n}{rectangular}\PYG{+w}{ }\PYG{n}{o}\PYG{+w}{ }\PYG{n}{circular}\PYG{p}{.}\PYG{l+s}{\PYGZdq{},}
+\PYG{+w}{                 }\PYG{n}{encabezado\PYGZus{}hs}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{surface\PYGZus{}geometry}\PYG{p}{);}
+\PYG{+w}{         }\PYG{n}{free}\PYG{p}{(}\PYG{n}{valores\PYGZus{}particula}\PYG{p}{);}
+\PYG{+w}{         }\PYG{n}{exit}\PYG{p}{(}\PYG{n}{EXIT\PYGZus{}FAILURE}\PYG{p}{);}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{     }\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Conversión de valores muestreados a campos de mcpl\PYGZus{}particle\PYGZus{}t \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{     }\PYG{c+c1}{// Valores esperados en valores\PYGZus{}particula:}
+\PYG{+w}{     }\PYG{c+c1}{// [0] → ln(E0/E)    (primera variable muestreada)}
+\PYG{+w}{     }\PYG{c+c1}{// [1] → coordenada x (segunda variable)}
+\PYG{+w}{     }\PYG{c+c1}{// [2] → coordenada y (tercera variable)}
+\PYG{+w}{     }\PYG{c+c1}{// [3] → mu = cos(theta) (cuarta variable)}
+\PYG{+w}{     }\PYG{c+c1}{// [4] → phi (quinta variable)}
+\PYG{+w}{     }\PYG{c+c1}{// (Queda por generalizar otros orden de variables)}
+
+\PYG{+w}{     }\PYG{c+c1}{// 1. Energía cinética:}
+\PYG{+w}{     }\PYG{c+c1}{//    Relación E = 20 * exp(\PYGZhy{}ln(E0/E)) = 20 / exp(ln(E0/E))}
+\PYG{+w}{     }\PYG{c+c1}{//    Simplificando, E = 20 * exp(\PYGZhy{}valores\PYGZus{}particula[0]).}
+\PYG{+w}{     }\PYG{c+c1}{//    (La constante 20 corresponde a E0 en MeV; ajustar según convenga).}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ekin}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{20.0}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]);}
+
+\PYG{+w}{     }\PYG{c+c1}{// 2. Polarización: se inicializa en cero (no se emplea en este muestreo).}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{polarisation}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.0}\PYG{p}{;}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{polarisation}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.0}\PYG{p}{;}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{polarisation}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.0}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// 3. Posición espacial:}
+\PYG{+w}{     }\PYG{c+c1}{//    \PYGZhy{} x = valores\PYGZus{}particula[1]}
+\PYG{+w}{     }\PYG{c+c1}{//    \PYGZhy{} y = valores\PYGZus{}particula[2]}
+\PYG{+w}{     }\PYG{c+c1}{//    \PYGZhy{} z = coordenada fija definida en encabezado\PYGZus{}hs\PYGZhy{}\PYGZgt{}z}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{position}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{position}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{position}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{encabezado\PYGZus{}hs}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{z}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// 4. Dirección del vuelo:}
+\PYG{+w}{     }\PYG{c+c1}{//    La cuarta variable muestreadap es μ = cos(theta).}
+\PYG{+w}{     }\PYG{c+c1}{//    La quinta variable es φ (ángulo azimutal).}
+\PYG{+w}{     }\PYG{c+c1}{//    Entonces:}
+\PYG{+w}{     }\PYG{c+c1}{//      theta = acos(μ)}
+\PYG{+w}{     }\PYG{c+c1}{//      direction\PYGZus{}x = sin(theta) * cos(phi)}
+\PYG{+w}{     }\PYG{c+c1}{//      direction\PYGZus{}y = sin(theta) * sin(phi)}
+\PYG{+w}{     }\PYG{c+c1}{//      direction\PYGZus{}z = μ}
+\PYG{+w}{     }\PYG{p}{\PYGZob{}}
+\PYG{+w}{         }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{mu}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{];}
+\PYG{+w}{         }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{phi}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{valores\PYGZus{}particula}\PYG{p}{[}\PYG{l+m+mi}{4}\PYG{p}{];}
+\PYG{+w}{         }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{theta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{acos}\PYG{p}{(}\PYG{n}{mu}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Ángulo polar}
+\PYG{+w}{         }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{sin\PYGZus{}theta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{sin}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{);}
+
+\PYG{+w}{         }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{direction}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{sin\PYGZus{}theta}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{cos}\PYG{p}{(}\PYG{n}{phi}\PYG{p}{);}
+\PYG{+w}{         }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{direction}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{sin\PYGZus{}theta}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{sin}\PYG{p}{(}\PYG{n}{phi}\PYG{p}{);}
+\PYG{+w}{         }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{direction}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{mu}\PYG{p}{;}
+\PYG{+w}{     }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{     }\PYG{c+c1}{// 5. Tiempo de emisión: se asigna un valor fijo.}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{time}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// 6. Peso estadístico de la partícula}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{weight}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{1.0}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// 7. PDG code (neutron)}
+\PYG{+w}{     }\PYG{c+c1}{//    2112 corresponde a un neutrón. Ajustar si se muestrean otras partículas.}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{pdgcode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2112}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// 8. User flags (sin uso; se inicializa en cero)}
+\PYG{+w}{     }\PYG{n}{particula\PYGZus{}mcpl}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{userflags}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{+w}{     }\PYG{c+c1}{// Liberar memoria intermedia}
+\PYG{+w}{     }\PYG{n}{free}\PYG{p}{(}\PYG{n}{valores\PYGZus{}particula}\PYG{p}{);}
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,82 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{n}{HistogramSource}\PYG{o}{::}\PYG{n}{HistogramSource}\PYG{p}{(}\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}node}\PYG{+w}{ }\PYG{n}{node}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{c+c1}{// 1. Obtener el path al archivo XML}
+\PYG{+w}{      }\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{+w}{ }\PYG{n}{path}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{get\PYGZus{}node\PYGZus{}value}\PYG{p}{(}\PYG{n}{node}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}HistogramSource\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{c+c1}{// 2. Parsear el archivo XML}
+\PYG{+w}{      }\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}document}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}parse\PYGZus{}result}\PYG{+w}{ }\PYG{n}{result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{.}\PYG{n}{load\PYGZus{}file}\PYG{p}{(}\PYG{n}{path}\PYG{p}{.}\PYG{n}{c\PYGZus{}str}\PYG{p}{());}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{result}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{throw}\PYG{+w}{ }\PYG{n}{std}\PYG{o}{::}\PYG{n}{runtime\PYGZus{}error}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Error al cargar XML de HistogramSource: \PYGZdq{}}\PYG{+w}{ }\PYG{o}{+}
+\PYG{+w}{                                 }\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{p}{(}\PYG{n}{result}\PYG{p}{.}\PYG{n}{description}\PYG{p}{()));}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{      }\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}node}\PYG{+w}{ }\PYG{n}{root}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}HistogramSource\PYGZdq{}}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{c+c1}{// 3. Leer la corriente J}
+\PYG{+w}{      }\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}node}\PYG{+w}{ }\PYG{n}{j\PYGZus{}node}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}J\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{j\PYGZus{}node}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{strength\PYGZus{}}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{std}\PYG{o}{::}\PYG{n}{stod}\PYG{p}{(}\PYG{n}{j\PYGZus{}node}\PYG{p}{.}\PYG{n}{child\PYGZus{}value}\PYG{p}{());}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{throw}\PYG{+w}{ }\PYG{n}{std}\PYG{o}{::}\PYG{n}{runtime\PYGZus{}error}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}El nodo \PYGZlt{}J\PYGZgt{} no está presente en el archivo XML.\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{      }\PYG{c+c1}{// 4. Leer el tipo de partícula}
+\PYG{+w}{      }\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{+w}{ }\PYG{n}{particle\PYGZus{}name}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}ParticleType\PYGZdq{}}\PYG{p}{).}\PYG{n}{child\PYGZus{}value}\PYG{p}{();}
+\PYG{+w}{      }\PYG{n}{particle}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{string\PYGZus{}to\PYGZus{}particle}\PYG{p}{(}\PYG{n}{particle\PYGZus{}name}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{c+c1}{// 5. Leer z0}
+\PYG{+w}{      }\PYG{n}{z0}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{std}\PYG{o}{::}\PYG{n}{stod}\PYG{p}{(}\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}z\PYGZdq{}}\PYG{p}{).}\PYG{n}{child\PYGZus{}value}\PYG{p}{());}
+
+\PYG{+w}{      }\PYG{c+c1}{// 6. Leer orden de variables}
+\PYG{+w}{      }\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{+w}{ }\PYG{n}{order\PYGZus{}string}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}VariableOrder\PYGZdq{}}\PYG{p}{).}\PYG{n}{child\PYGZus{}value}\PYG{p}{();}
+\PYG{+w}{      }\PYG{n}{variable\PYGZus{}order}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{split\PYGZus{}string}\PYG{p}{(}\PYG{n}{order\PYGZus{}string}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{c+c1}{// 7. Leer geometría de la superficie}
+\PYG{+w}{      }\PYG{n}{surface\PYGZus{}geometry}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}SurfaceGeometry\PYGZdq{}}\PYG{p}{).}\PYG{n}{child\PYGZus{}value}\PYG{p}{();}
+
+\PYG{+w}{      }\PYG{c+c1}{// 8. Leer radio de la superficie}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{surface\PYGZus{}geometry}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}circular\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{surface\PYGZus{}radius}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{std}\PYG{o}{::}\PYG{n}{stod}\PYG{p}{(}\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Radius\PYGZdq{}}\PYG{p}{).}\PYG{n}{child\PYGZus{}value}\PYG{p}{());}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{      }\PYG{c+c1}{// 9. Construir el árbol recursivamente desde el nodo \PYGZlt{}node\PYGZgt{}}
+\PYG{+w}{      }\PYG{n}{pugi}\PYG{o}{::}\PYG{n}{xml\PYGZus{}node}\PYG{+w}{ }\PYG{n}{root\PYGZus{}node}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{.}\PYG{n}{child}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}node\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{root\PYGZus{}node}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{throw}\PYG{+w}{ }\PYG{n}{std}\PYG{o}{::}\PYG{n}{runtime\PYGZus{}error}\PYG{p}{(}
+\PYG{+w}{          }\PYG{l+s}{\PYGZdq{}No se encontró el nodo raíz \PYGZlt{}node\PYGZgt{} del árbol jerárquico.\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{cumul\PYGZus{}micro\PYGZus{}macro}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{parse\PYGZus{}node}\PYG{p}{(}\PYG{n}{root\PYGZus{}node}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{c+c1}{// 10. LLeno el header}
+\PYG{+w}{      }\PYG{n}{HSHeader}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{header\PYGZus{}aux}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{HSHeader}\PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{HSHeader}\PYG{p}{));}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{header\PYGZus{}aux}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Error: No se pudo asignar memoria para header.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{exit}\PYG{p}{(}\PYG{n}{EXIT\PYGZus{}FAILURE}\PYG{p}{);}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{J}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{strength\PYGZus{}}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{particle}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{ParticleType}\PYG{o}{::}\PYG{n}{neutron}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ptype}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{strdup}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}neutron\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{z}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{z0}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{nvars}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{variable\PYGZus{}order}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}
+\PYG{+w}{      }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{var\PYGZus{}order}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{char}\PYG{o}{**}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{nvars}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{char}\PYG{o}{*}\PYG{p}{));}
+\PYG{+w}{      }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{nvars}\PYG{p}{;}\PYG{+w}{ }\PYG{o}{++}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{var\PYGZus{}order}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{char}\PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{variable\PYGZus{}order}\PYG{p}{[}\PYG{n}{i}\PYG{p}{].}\PYG{n}{size}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{std}\PYG{o}{::}\PYG{n}{strcpy}\PYG{p}{(}\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{var\PYGZus{}order}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}\PYG{+w}{ }\PYG{n}{variable\PYGZus{}order}\PYG{p}{[}\PYG{n}{i}\PYG{p}{].}\PYG{n}{c\PYGZus{}str}\PYG{p}{());}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{surface\PYGZus{}geometry}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}circular\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{surface\PYGZus{}geometry}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{strdup}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}circular\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{R}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{surface\PYGZus{}radius}\PYG{p}{;}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{surface\PYGZus{}geometry}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}rectangular\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{header\PYGZus{}aux}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{surface\PYGZus{}geometry}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{strdup}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}rectangular\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Error: Geometría de superficie no válida.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{exit}\PYG{p}{(}\PYG{n}{EXIT\PYGZus{}FAILURE}\PYG{p}{);}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{      }\PYG{n}{header}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{header\PYGZus{}aux}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

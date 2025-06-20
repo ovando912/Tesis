@@ -1,17 +1,1062 @@
 % \appendix
-\chapter{Implementación computacional del método}
-\label{app:A}
+\chapter{Implementación computacional del método de generación de fuentes Monte Carlo mediante histogramas multidimensionales}
+\label{app:B}
 
-% \section{Código detallado en Python/C++}
-% \label{app:codigo}
-% % Incluir listings o referencias a archivos externos
 
-% \section{Pseudocódigo y comentarios}
-% \label{app:pseudocodigo}
+En este apéndice se presenta la implementación computacional del método de generación de fuentes Monte Carlo mediante histogramas multidimensionales. Se detallan los principales componentes, abarcando tanto el procesamiento en \texttt{Python} y \texttt{C/C++} como la integración con \texttt{OpenMC}:
 
-% \section{Archivos de configuración XML}
-% \label{app:xml}
+\begin{itemize}
+    \item El procesamiento de un archivo \texttt{HDF5} en \texttt{Python}, incluyendo la construcción de la estructura \texttt{TreeNode} a partir de los datos de partículas.
+    \item El algoritmo de \textit{bineado} adaptativo implementado en \texttt{Python} y un ejemplo de cómo se genera el archivo \texttt{XML} resultante.
+    \item La implementación en \texttt{C/C++} de la clase \texttt{HistogramSource} dentro de \texttt{OpenMC}, con foco en la función \texttt{fill\_particle} y en la forma de utilizar esta fuente para una simulación.
+\end{itemize}
 
-% \section{Flujo de trabajo práctico}
-% \label{app:flujo}
-%========================================================
+\vspace{0.5em}
+\noindent
+El código fuente completo del proyecto se encuentra disponible en un repositorio público de \textit{GitHub} \cite{RepositorioKDSource2025} \cite{RepositorioOpenMCSource2025}.
+
+\section{Procesamiento de un archivo \texttt{HDF5} en \texttt{Python}}\label{sec:procesamiento_h5}
+
+Para extraer la información de un archivo \texttt{HDF5} generado por \texttt{OpenMC} y construir los histogramas multidimensionales, se emplea el módulo \texttt{histograms.py}. A continuación se describe el procedimiento principal:
+
+\begin{enumerate}
+    \item Lectura de variables del espacio de fases (energía, posición y ángulo) y pesos estadísticos.
+    \item Construcción de un \texttt{DataFrame} de \texttt{pandas} que contenga:
+    \[
+      \{\texttt{ln(E0/E)},\, x,\, y,\, \mu,\, \phi,\, \texttt{wgt}\}.
+    \]
+    \item Ejecución recursiva de la función \texttt{build\_node}, que genera un árbol de nodos \texttt{TreeNode}.
+\end{enumerate}
+
+\subsection{Estructura \texttt{TreeNode}}\label{subsec:treenode}
+
+Cada nodo del árbol jerárquico almacena la distribución acumulada (CDF), los bordes de micro-bines, los bordes de macro-bines y los punteros a sus hijos. La clase en \texttt{Python} se define de la siguiente forma:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines]{python}
+class TreeNode:
+    """Nodo elemental de un árbol jerárquico de histogramas multidimensionales.
+
+    Cada nodo contiene:
+    - **distribucion_acumulada** – Vector CDF (incluye un 0 inicial) para muestreo.
+    - **bordes_micro** – Bordes del histograma fino (bins “micro”).
+    - **bordes_macro** – Bordes del histograma grueso (bins “macro”).
+    - **hijos** – Lista de subnodos.
+
+    Atributos
+    ----------
+    distribucion_acumulada : Optional[np.ndarray]
+        Vector de la distribución acumulada (CDF). None en hojas sin datos.
+    bordes_micro : Optional[np.ndarray]
+        Bordes de bins finos. None en hojas sin datos.
+    bordes_macro : Optional[np.ndarray]
+        Bordes de bins gruesos para particionar en hijos. 
+        None si es última dimensión.
+    hijos : List[TreeNode]
+        Lista de nodos hijos (subárboles) en orden de bins_macro.
+    """
+
+    # ---------------------------------------------------------------------
+    # Constructor: convertimos a `np.ndarray` sólo si los vectores existen.
+    # ---------------------------------------------------------------------
+    def __init__(
+        self,
+        distribucion_acumulada: Optional[Sequence[float]],
+        bordes_micro: Optional[Sequence[float]],
+        bordes_macro: Optional[Sequence[float]],
+    ) -> None:
+        # Inicializamos lista de hijos vacía
+        self.hijos: List[TreeNode] = []
+
+        # Convertimos secuencias a np.ndarray si existen, manteniendo dtype float
+        if distribucion_acumulada is not None:
+            self.distribucion_acumulada: np.ndarray = np.asarray(
+                distribucion_acumulada, dtype=float
+            )
+        else:
+            self.distribucion_acumulada = None
+
+        if bordes_micro is not None:
+            self.bordes_micro: np.ndarray = np.asarray(
+                bordes_micro, dtype=float
+            )
+        else:
+            self.bordes_micro = None
+
+        if bordes_macro is not None:
+            self.bordes_macro: np.ndarray = np.asarray(
+                bordes_macro, dtype=float
+            )
+        else:
+            self.bordes_macro = None
+
+    def add_child(self, hijo: "TreeNode") -> None:
+        """Añade un nodo hijo al final de la lista de hijos.
+
+        Args:
+            hijo (TreeNode): Nodo que se desea incorporar como subárbol.
+        """
+        self.hijos.append(hijo)
+
+    def to_xml(self) -> ET.Element:
+        """Serializa el nodo (y recursivamente sus hijos) a un elemento XML.
+
+        Cada nodo se representa como:
+        <node>
+          <cumul>...valores separados por comas o "None"</cumul>
+          <micro>...bordes_micro separados por comas o "None"</micro>
+          <macro>...bordes_macro separados por comas o "None"</macro>
+          <!-- subnodos aquí -->
+        </node>
+
+        Returns:
+            ET.Element: Elemento <node> con sus etiquetas internas y subnodos.
+        """
+        nodo_elem = ET.Element("node")
+
+        # Convertimos cada vector a texto CSV; si es None, escribimos "None"
+        etiquetas = ("cumul", "micro", "macro")
+        vectores = (
+            self.distribucion_acumulada,
+            self.bordes_micro,
+            self.bordes_macro,
+        )
+
+        for etiqueta, vector in zip(etiquetas, vectores):
+            subelem = ET.SubElement(nodo_elem, etiqueta)
+            if vector is None:
+                subelem.text = "None"
+            else:
+                # .tolist() asegura que sea iterable de Python puro
+                subelem.text = ",".join(map(str, vector.tolist()))
+
+        # Añadimos los hijos de forma recursiva
+        for hijo in self.hijos:
+            nodo_elem.append(hijo.to_xml())
+
+        return nodo_elem
+\end{minted}
+
+\noindent En esta estructura:
+\begin{itemize}
+    \item \texttt{distribucion\_acumulada} contiene la función de distribución acumulada (CDF) normalizada, incluyendo un cero inicial. Su longitud es igual al número de micro-bines más uno.
+    \item \texttt{bordes\_micro} define los bordes del histograma fino (micro-bines), utilizados para el muestreo de la variable en el nodo actual.
+    \item \texttt{bordes\_macro} define los bordes del histograma grueso (macro-bines), que particionan el dominio y determinan los subnodos (hijos).
+    \item \texttt{hijos} es la lista de subnodos jerárquicos, con una cantidad dada por
+    \[
+        \lvert \texttt{hijos} \rvert \;=\; \lvert \texttt{bordes\_macro} \rvert - 1,
+    \]
+    ya que cada intervalo definido por \texttt{bordes\_macro} representa una rama independiente del árbol.
+\end{itemize}
+
+\noindent La clase incluye tres métodos principales:
+\begin{itemize}
+    \item \texttt{\_\_init\_\_}: inicializa un nodo, convirtiendo los vectores de entrada en arreglos de tipo \texttt{numpy} si están definidos, y creando una lista vacía de hijos.
+    \item \texttt{add\_child}: incorpora dinámicamente un subnodo al árbol, agregándolo al final de la lista \texttt{hijos}.
+    \item \texttt{to\_xml}: serializa el nodo actual y sus hijos a un elemento XML, escribiendo los vectores como cadenas separadas por comas y anidando recursivamente los subnodos. Este método permite almacenar la estructura completa del árbol jerárquico en un único archivo \texttt{XML}.
+\end{itemize}
+
+\subsection{Construcción recursiva del árbol}\label{subsec:build_node}
+
+La función principal que construye este árbol se denomina \texttt{build\_node}. Esta función recibe el \texttt{DataFrame} con la información del archivo de partículas y la configuración de procesamiento. Su código es:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines]{python}
+def build_node(
+    df: pd.DataFrame,
+    columns: Sequence[str],
+    micro_bins: Sequence[int],
+    macro_bins: Sequence[int],
+    micro_initial_bins: Sequence[Optional[int]],
+    macro_initial_bins: Sequence[Optional[int]],
+    micro_binning: str,
+    macro_binning: str,
+    user_edges: Sequence[Optional[List[float]]],
+) -> TreeNode:
+    """
+    Construye recursivamente un TreeNode a partir de un DataFrame, discretizando
+    sucesivamente según la lista de `columns` en dimensiones jerárquicas.
+
+    Cada nivel crea:
+        - macro_edges: bordes de macro-bins (si hay más dimensiones por procesar),
+        - micro_edges + cumul: bordes de micro-bins y su CDF correspondiente.
+
+    Parámetros
+    ----------
+    df : pd.DataFrame
+        Subconjunto de tracks (cada fila es un evento), que debe contener:
+            - Columnas numéricas en `columns`.
+            - Columna "wgt" con pesos para cada fila.
+    columns : Sequence[str]
+        Lista de nombres de columnas que se discretizarán en orden jerárquico.
+    micro_bins : Sequence[int]
+        Número de micro-bins a generar para cada dimensión (paralelo a `columns`).
+    macro_bins : Sequence[int]
+        Número de macro-bins a generar para cada dimensión (paralelo a `columns`).
+    micro_initial_bins : Sequence[Optional[int]]
+        Parámetros initial_bins para binning adaptativo en micro-bins por dimensión.
+        Debe tener la misma longitud que `columns`.
+    macro_initial_bins : Sequence[Optional[int]]
+        Parámetros initial_bins para binning adaptativo en macro-bins por dimensión.
+        Debe tener la misma longitud que `columns`.
+    micro_binning : str
+        Estrategia de micro-binning: 'equal_bins' o 'adaptive'.
+    macro_binning : str
+        Estrategia de macro-binning: 'equal_bins' o 'adaptive'.
+    user_edges : Sequence[Optional[List[float]]]
+        Lista de listas de bordes de usuario para cada dimensión.
+        Cada elemento puede ser None (no hay bordes forzados) o una lista de floats.
+
+    Retorna
+    -------
+    TreeNode
+        Nodo raíz que contiene:
+            - cumul: CDF de la primera dimensión (o None si no aplica).
+            - micro_edges: bordes de micro-bins en la primera dimensión.
+            - macro_edges: bordes de macro-bins en la primera dimensión.
+        Y sus hijos correspondientes para las siguientes dimensiones.
+    """
+    # -------------------------------------------------------------------------
+    # 1. Caso base: si no hay eventos, devolvemos un nodo “vacío” sin bordes.
+    # -------------------------------------------------------------------------
+    if df.empty:
+        # TreeNode acepta (cumul, micro_edges, macro_edges). 
+        # Pasamos None para indicar vacío.
+        return TreeNode(None, None, None)
+
+    # Nombre de la columna actual sobre la que estamos trabajando
+    col = columns[0]
+
+    # -------------------------------------------------------------------------
+    # 2. Manejo de la “especialidad”: todos los eventos en esta dimensión 
+    # son idénticos
+    # -------------------------------------------------------------------------
+    # Si todos los valores en df[col] son iguales, no tiene sentido calcular 
+    # múltiples bines.
+    # Definimos micro_edges triviales y, si hay más dimensiones, generamos 
+    # macro_edges minimal.
+    if df[col].min() == df[col].max():
+        valor_constante = float(df[col].min())
+
+        # Si es la última dimensión, no necesitamos macro_edges
+        if len(columns) == 1:
+            macro_edges: Optional[np.ndarray] = None
+        else:
+            # Para asegurar que haya al menos dos extremos y no crashear 
+            # np.digitize, generamos un rango [valor-1, valor+1] (o cualquier 
+            # delta pequeño).
+            macro_edges = np.array(
+                [valor_constante - 1.0, valor_constante + 1.0]
+            )
+
+        # micro_edges queda en un único punto (el valor constante)
+        micro_edges = np.array([valor_constante], dtype=float)
+        # La CDF acumulada es trivial: toda la probabilidad en ese único punto
+        cumul = np.array([1.0], dtype=float)
+
+    else:
+        # ---------------------------------------------------------------------
+        # 3. Cálculo de macro_edges (si corresponde) en esta dimensión
+        # ---------------------------------------------------------------------
+        if len(columns) == 1:
+            # Última dimensión: no necesitamos macro_edges
+            macro_edges = None
+        else:
+            # Llamamos a la función refactorizada `determine_macro_edges`
+            macro_edges = determine_macro_edges(
+                df,
+                col,
+                macro_bins[0],
+                macro_binning,
+                user_edges[0],
+                initial_bins=macro_initial_bins[0],
+            )
+            if macro_edges is None:
+                print("macro_edges is None")
+
+        # ---------------------------------------------------------------------
+        # 4. Cálculo de micro_edges y su CDF (cumul) en esta dimensión
+        # ---------------------------------------------------------------------
+        micro_edges, cumul = compute_micro_edges_and_cumul(
+            df,
+            col,
+            micro_bins[0],
+            micro_binning,
+            macro_edges,
+            initial_bins=micro_initial_bins[0],
+        )
+
+    # Creamos el nodo actual con los resultados en esta dimensión
+    node = TreeNode(cumul, micro_edges, macro_edges)
+
+    # -------------------------------------------------------------------------
+    # 5. Caso recursivo: si hay más columnas, creamos hijos para cada macro-bin
+    # -------------------------------------------------------------------------
+    if len(columns) > 1:
+        # Si no hay macro_edges (por ser última dimensión), no hay recursión
+        if macro_edges is None:
+            return node
+
+        # 5.1 Calculamos el índice de macro-bin para cada fila en df
+        # np.digitize devuelve índices de bin (1-based) para cada valor en df[col].
+        # Restamos 1 para pasar a 0-based.
+        idx = np.digitize(df[col].to_numpy(), bins=macro_edges) - 1
+
+        total_macro_bins = (
+            len(macro_edges) - 1
+        )  # Cantidad de intervalos macrobins
+
+        for i in range(total_macro_bins):
+            # -----------------------------------------------------------------
+            # 5.2 Construcción de la máscara para extraer sub-DataFrame en el bin i
+            # -----------------------------------------------------------------
+            # Truco de KDSource: en el penúltimo bin (i == total_macro_bins - 2),
+            # incluimos también los que quedaron en el último bin (i+1)
+            # para abarcar el rango abierto derecho.
+            # if total_macro_bins > 1 and i == total_macro_bins - 2:
+            #     mask = (idx == i) | (idx == i + 1)
+            # else:
+            #     mask = idx == i
+
+            mask = (
+                (idx == i) | ((i == len(macro_edges) - 2) & (idx == i + 1))
+                if len(macro_edges) > 2
+                else (idx == i)
+            )
+
+            # df filtrado de eventos cuya coordenada col cae en el macro-bin i
+            child_df = df[mask]
+
+            # -----------------------------------------------------------------
+            # 5.3 Llamada recursiva: descartamos la primera columna y avanzamos
+            # -----------------------------------------------------------------
+            child_node = build_node(
+                child_df,
+                columns[1:],  # Quitamos la primera dimension
+                micro_bins[1:],  # Micro-bins de las dimensiones restantes
+                macro_bins[1:],  # Macro-bins de las dimensiones restantes
+                micro_initial_bins[
+                    1:
+                ],  # Parámetros initial_bins para micro-bins
+                macro_initial_bins[
+                    1:
+                ],  # Parámetros initial_bins para macro-bins
+                micro_binning,  # Misma estrategia para todas las dimensiones
+                macro_binning,  # Misma estrategia para todas las dimensiones
+                user_edges[1:],  # Bordes de usuario para dimensiones restantes
+            )
+            # Agregamos el nodo hijo a la lista de hijos del nodo actual
+            node.add_child(child_node)
+
+    return node
+\end{minted}
+
+\noindent La función \texttt{build\_node} implementa el método desarrolado en el trabajo. Su objetivo es generar un árbol de tipo \texttt{TreeNode} a partir de un conjunto de partículas representado como un \texttt{DataFrame}. La estructura resultante representa de forma recursiva la distribución multidimensional de las variables.
+
+Cada nodo del árbol corresponde a una variable del espacio de fases, siguiendo el orden dado en \texttt{columns}. En cada nivel, el conjunto de eventos se divide primero mediante un histograma grueso (\texttt{macro\_bins}), generando subregiones que determinan los nodos hijos. Luego, dentro de cada subregión, se estima la distribución acumulada (CDF) sobre una grilla de histogramas finos (\texttt{micro\_bins}).
+
+En particular:
+\begin{itemize}
+    \item Si todos los eventos presentan el mismo valor en una dimensión, se utiliza una discretización trivial y se evita la creación innecesaria de bins.
+    \item Si no hay más dimensiones por procesar, el nodo creado se considera una hoja del árbol.
+    \item Si existen más dimensiones, se invoca recursivamente \texttt{build\_node} sobre cada subconjunto definido por los macro-bines, construyendo los hijos correspondientes.
+\end{itemize}
+
+Esta estructura es la que luego se serializa en formato \texttt{XML} mediante el método \texttt{to\_xml} para el muestreo de partículas en etapas posteriores.
+
+\section{\textit{Bineado} adaptativo y generación del \texttt{XML}}\label{sec:bineado_adaptativo}
+
+En esta sección se detalla el algoritmo de \textit{bineado} adaptativo utilizado tanto para los macro-bines como para los micro-bines. Se ejemplifica a continuación la función para obtener bordes adaptativos en una sola dimensión:
+
+\subsection{Función de \textit{bineado} adaptativo en \texttt{Python}}
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines]{python}
+    def obtener_bordes_adaptativos(
+        datos: np.ndarray,
+        num_bins: int,
+        pesos: Optional[np.ndarray] = None,
+        *,
+        initial_bins: int = 6,
+        fine_bins: int = 50_000,
+        user_edges: Optional[Sequence[float]] = None,
+    ) -> np.ndarray:
+        """
+        Calcula bordes adaptativos para un histograma de `num_bins` usando el 
+        criterio |ΔCDF|máx.
+    
+        El procedimiento realiza los siguientes pasos:
+          1. Construye un arreglo inicial de `initial_bins + 1` bordes 
+          equiespaciados entre el mínimo y máximo de `datos`.
+          2. Inserta, si se proporcionan, los `user_edges` dentro del rango 
+          [mín, max], descartando los que queden fuera y eliminando duplicados.
+          3. Calcula una CDF de alta resolución (`fine_bins + 1` bordes) para tener
+             una referencia "casi continua" de la distribución de los datos.
+          4. Repite `extra_bordes = num_bins - initial_bins` veces:
+             a. Calcula la CDF actual usando los bordes gruesos.
+             b. Interpola la CDF gruesa en los puntos finos.
+             c. Encuentra el índice donde la diferencia absoluta
+             |CDF_fina - CDF_gruesa_interp| es máxima.
+             d. Inserta ese punto (de la división fina) como nuevo borde en el 
+             arreglo grueso.
+          5. Devuelve los `num_bins + 1` bordes finales, ordenados de menor a mayor.
+    
+        Parámetros
+        ----------
+        datos : np.ndarray
+            Vector unidimensional de datos de entrada.
+        num_bins : int
+            Número total de bines deseados (cantidad de intervalos = num_bins,
+            cantidad de bordes = num_bins + 1).
+        pesos : Optional[np.ndarray]
+            Arreglo de pesos asociado a cada dato (misma longitud que `datos`).
+            Si es None, se asume peso uniforme = 1 para cada punto.
+        initial_bins : int, opcional (por defecto = 6)
+            Número inicial de bines gruesos (antes de refinar).
+            Debe cumplir 1 ≤ initial_bins < num_bins.
+        fine_bins : int, opcional (por defecto = 50000)
+            Resolución de la malla fina usada para estimar la CDF de referencia.
+            Entre más grande, más precisa la ubicación de los bordes óptimos, pero
+            aumenta el costo computacional.
+        user_edges : Optional[Sequence[float]], opcional
+            Lista de bordes que el usuario quiere insertar obligatoriamente. Estos
+            se agregan sólo si están dentro del rango [mín(datos), máx(datos)].
+    
+        Retorna
+        -------
+        np.ndarray
+            Vector ordenado de longitud `num_bins + 1` con los bordes adaptativos
+            que garantizan minimizar el error máximo de la CDF en cada paso.
+        """
+        if num_bins <= initial_bins:
+            raise ValueError(
+                "El número de bines deseados 'num_bins' debe ser mayor que
+                 'initial_bins'."
+            )
+    
+        # 1. Determinamos los extremos de los datos
+        minimo = float(np.min(datos))
+        maximo = float(np.max(datos))
+    
+        # 2. Construimos bordes equiespaciados iniciales (initial_bins + 1)
+        bordes = np.linspace(minimo, maximo, initial_bins + 1)
+    
+        # 3. Insertamos bordes de usuario si corresponden al rango y eliminamos 
+        # duplicados
+        if user_edges is not None:
+            # Filtrar sólo los user_edges dentro de [mínimo, maximo]
+            bordes_usuario_filtrados = [
+                b for b in user_edges if minimo <= b <= maximo
+            ]
+            if bordes_usuario_filtrados:
+                # Concatenamos, unificamos y ordenamos
+                bordes = np.sort(
+                    np.unique(np.concatenate((bordes, bordes_usuario_filtrados)))
+                )
+    
+        # 4. Calculamos CDF de alta resolución para referencia
+        bordes_finos = np.linspace(minimo, maximo, fine_bins + 1)
+        _, cdf_fina = calcular_cdf_ponderada(datos, bordes_finos, pesos)
+    
+        # 5. Insertamos iterativamente los bordes que maximizan |ΔCDF|
+        extra_bordes = num_bins - initial_bins
+        for _ in range(extra_bordes):
+            # 5.a. CDF en bordes gruesos actuales
+            _, cdf_gruesa = calcular_cdf_ponderada(datos, bordes, pesos)
+    
+            # 5.b. Interpolamos la CDF gruesa en los puntos finos
+            #     Usamos np.interp: interpola cdf_gruesa(bordes) en coordenadas 
+            # bordes_finos
+            cdf_gruesa_interp = np.interp(bordes_finos, bordes, cdf_gruesa)
+    
+            # 5.c. Calculamos la diferencia absoluta con la CDF fina y buscamos el 
+            # máximo
+            diferencias = np.abs(cdf_fina - cdf_gruesa_interp)
+            indice_max = int(np.argmax(diferencias))
+    
+            # 5.d. Insertamos el borde fino correspondiente y reordenamos
+            nuevo_borde = bordes_finos[indice_max]
+            bordes = np.sort(np.append(bordes, nuevo_borde))
+    
+        return bordes
+\end{minted}
+
+\noindent Donde la función auxiliar \texttt{calcular\_cdf\_ponderada} es:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines]{python}
+    def calcular_cdf_ponderada(
+        datos: np.ndarray, bordes: np.ndarray, pesos: Optional[np.ndarray] = None
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Calcula la función de distribución acumulada (CDF) ponderada en puntos dados.
+    
+        Esta función construye un histograma de `datos` utilizando los `bordes`
+        especificados y, opcionalmente, aplica un arreglo de `pesos` a cada dato.
+        A partir de las frecuencias, se obtiene la CDF normalizada (entre 0 y 1).
+    
+        Parámetros
+        ----------
+        datos : np.ndarray
+            Vector unidimensional de datos a discretizar.
+        bordes : np.ndarray
+            Arreglo de longitud N+1 que define los bordes de los bines donde se 
+            evaluará la CDF.
+        pesos : Optional[np.ndarray]
+            Arreglo de pesos, de la misma longitud que `datos`. Si es None, se 
+            asume peso=1 para cada dato.
+    
+        Retorna
+        -------
+        Tuple[np.ndarray, np.ndarray]
+            - bordes : np.ndarray
+                Copia de los bordes de entrada (sin modificar).
+            - cdf : np.ndarray
+                Vector de longitud N+1 con los valores de la CDF normalizada 
+                evaluada en cada borde.
+                Notar que se inserta un 0 al inicio para representar la CDF antes 
+                del primer bin.
+        """
+        # Obtenemos los conteos ponderados por bin
+        conteos, _ = np.histogram(datos, bins=bordes, weights=pesos)
+    
+        # Construimos la CDF acumulada y agregamos un 0 inicial para la 
+        # interpolación
+        cdf = np.insert(np.cumsum(conteos), 0, 0.0)
+    
+        # Normalizamos la CDF en [0,1], evitando división por cero si todos los 
+        # conteos son cero
+        total = cdf[-1]
+        if total:
+            cdf = cdf / total
+    
+        return bordes.copy(), cdf
+\end{minted}
+
+\subsection{Ejemplo de archivo \texttt{XML} generado}\label{subsec:xml_generado}
+
+Una vez construido el árbol completo (\texttt{TreeNode}), se genera el archivo \texttt{XML} que define la fuente para \texttt{OpenMC}. El formato general del archivo \texttt{source.xml} es el siguiente:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{xml}
+<HistogramSource>
+  <J> <!-- Corriente escalar -->
+    1.2345e-3
+  </J>
+  <ParticleType> neutron </ParticleType>
+  <z> 15.0 </z>
+  <VariableOrder> ln(E0/E),x,y,mu,phi </VariableOrder>
+  <SurfaceGeometry> rectangular </SurfaceGeometry>
+  <!-- Si SurfaceGeometry == circular, incluir <Radius> R </Radius> -->
+  <!-- A continuación, se anidan los nodos <node> del árbol de histogramas -->
+  <node>
+    <cumul>0.000,0.200,0.450,0.700,0.900,1.000</cumul>
+    <micro> ... valores separados por comas ... </micro>
+    <macro> ... valores separados por comas ... </macro>
+    <!-- Subnodos -->
+    <node>
+        <cumul> ... </cumul>
+        <micro> ... </micro>
+        <macro> ... </macro>
+        <!-- Y así sucesivamente -->
+    </node>
+    <node> ... </node>
+    <!-- ... -->
+  </node>
+</HistogramSource>
+\end{minted}
+
+\noindent En este XML:
+\begin{itemize}
+    \item \texttt{<J>} contiene la corriente escalar \(J = \sum w_i / N\).
+    \item \texttt{<ParticleType>} indica ``neutron'' o ``photon''.
+    \item \texttt{<z>} es la coordenada de la superficie de registro (en cm).
+    \item \texttt{<VariableOrder>} es la lista CSV de variables procesadas, por ejemplo \texttt{ln(E0/E),x,y,mu,phi}.
+    \item \texttt{<SurfaceGeometry>} es ``rectangular'' o ``circular''. En el caso circular, se incluye \texttt{<Radius>R</Radius>} debido a que esta opcion permite verificar que las particulas generadas aparecen dentro de un radio R dado. En caso de que aparezcan fuera de este radio se vuelve a sortear la posicion hasta que aparecen dentro del radio.
+    \item Cada etiqueta \texttt{<node>} contiene:
+    \begin{itemize}
+        \item \texttt{<cumul>}: valores de la CDF en los bordes de micro-nivel.
+        \item \texttt{<micro>}: bordes de micro-bines separados por comas.
+        \item \texttt{<macro>}: bordes de macro-bines separados por comas.
+        \item Subnodos anidados para las dimensiones siguientes.
+    \end{itemize}
+\end{itemize}
+
+De este modo, el archivo \texttt{XML} contiene toda la parametrización jerárquica que describe la fuente.
+
+\section{Implementación  de \texttt{HistogramSource} en \texttt{C/C++} para \texttt{OpenMC}}\label{sec:histogramsource_c}
+
+Para integrar la fuente jerárquica en \texttt{OpenMC}, se definió la clase \texttt{HistogramSource} en \texttt{C++}. A continuación se muestran los fragmentos más relevantes.
+
+\subsection{Definición de \texttt{HistogramSource} en \texttt{source.h}}\label{subsec:source_h}
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{cpp}
+    /*! \class HistogramSource
+     *  \brief Fuente compuesta a partir de histogramas cargados desde XML.
+     */
+    class HistogramSource : public Source {
+    public:
+      explicit HistogramSource(pugi::xml_node node);
+      ~HistogramSource() override;
+    
+      // Muestrea un punto del espacio de fases usando el árbol de histogramas
+      SourceSite sample(uint64_t* seed) const override;
+    
+    private:
+      TreeNode* cumul_micro_macro;  // Raíz del árbol (definido en histograms.h)
+      HSHeader* header;             // Estructura con J, z0, var_order, etc.
+      double z0;                    // Coordenada z de la superficie
+      ParticleType particle;        // Tipo de partícula ("neutron" o "photon")
+      std::vector<std::string> variable_order; // Orden de variables
+      std::string surface_geometry; 
+      double surface_radius;        // Si circular
+    };
+    \end{minted}
+    
+
+\noindent El constructor lee el XML y construye el árbol:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{cpp}
+    HistogramSource::HistogramSource(pugi::xml_node node)
+    {
+      // 1. Obtener el path al archivo XML
+      std::string path = get_node_value(node, "HistogramSource", false, true);
+    
+      // 2. Parsear el archivo XML
+      pugi::xml_document doc;
+      pugi::xml_parse_result result = doc.load_file(path.c_str());
+      if (!result) {
+        throw std::runtime_error("Error al cargar XML de HistogramSource: " +
+                                 std::string(result.description()));
+      }
+    
+      pugi::xml_node root = doc.child("HistogramSource");
+    
+      // 3. Leer la corriente J
+      pugi::xml_node j_node = root.child("J");
+      if (j_node) {
+        strength_ = std::stod(j_node.child_value());
+      } else {
+        throw std::runtime_error("El nodo <J> no está presente en el archivo XML.");
+      }
+    
+      // 4. Leer el tipo de partícula
+      std::string particle_name = root.child("ParticleType").child_value();
+      particle = string_to_particle(particle_name);
+    
+      // 5. Leer z0
+      z0 = std::stod(root.child("z").child_value());
+    
+      // 6. Leer orden de variables
+      std::string order_string = root.child("VariableOrder").child_value();
+      variable_order = split_string(order_string);
+    
+      // 7. Leer geometría de la superficie
+      surface_geometry = root.child("SurfaceGeometry").child_value();
+    
+      // 8. Leer radio de la superficie
+      if (surface_geometry == "circular") {
+        surface_radius = std::stod(root.child("Radius").child_value());
+      }
+    
+      // 9. Construir el árbol recursivamente desde el nodo <node>
+      pugi::xml_node root_node = root.child("node");
+      if (!root_node) {
+        throw std::runtime_error(
+          "No se encontró el nodo raíz <node> del árbol jerárquico.");
+      }
+      cumul_micro_macro = parse_node(root_node);
+    
+      // 10. LLeno el header
+      HSHeader* header_aux = (HSHeader*)malloc(sizeof(HSHeader));
+      if (!header_aux) {
+        fprintf(stderr, "Error: No se pudo asignar memoria para header.\n");
+        exit(EXIT_FAILURE);
+      }
+      header_aux->J = strength_;
+      if (particle == ParticleType::neutron) {
+        header_aux->ptype = strdup("neutron");
+      }
+      header_aux->z = z0;
+      header_aux->nvars = variable_order.size();
+      header_aux->var_order = (char**)malloc(header_aux->nvars * sizeof(char*));
+      for (int i = 0; i < header_aux->nvars; ++i) {
+        header_aux->var_order[i] = (char*)malloc(variable_order[i].size() + 1);
+        std::strcpy(header_aux->var_order[i], variable_order[i].c_str());
+      }
+    
+      if (surface_geometry == "circular") {
+        header_aux->surface_geometry = strdup("circular");
+        header_aux->R = surface_radius;
+      } else if (surface_geometry == "rectangular") {
+        header_aux->surface_geometry = strdup("rectangular");
+      } else {
+        fprintf(stderr, "Error: Geometría de superficie no válida.\n");
+        exit(EXIT_FAILURE);
+      }
+    
+      header = header_aux;
+    }
+\end{minted}
+   
+\noindent
+Este constructor de la clase \texttt{HistogramSource} se encarga de inicializar completamente la fuente a partir de un archivo \texttt{XML}. En primer lugar, extrae parámetros como la corriente escalar \(J\), el tipo de partícula, la posición de la superficie \(z_0\), el orden de las variables del espacio de fases y la geometría de la superficie. Posteriormente, llama a una función recursiva que interpreta el árbol de nodos \texttt{<node>} desde el XML y lo transforma en una estructura de tipo \texttt{TreeNode}, que permite muestrear partículas conforme a la distribución multidimensional almacenada.
+
+Finalmente, se completa la estructura auxiliar \texttt{HSHeader}, que contiene la información relevante para ser utilizada por el código en tiempo de ejecución, como ser el orden de variables, el tipo de superficie y, si corresponde, su radio. Esta estructura facilita el acceso a los metadatos durante el muestreo sin necesidad de volver a consultar el archivo XML.
+    
+
+\subsection{Función \texttt{fill\_particle} y \texttt{traverse} (\texttt{histograms.c})}\label{subsec:fill_particle}
+
+La función encargada de recorrer el árbol y rellenar la estructura \texttt{mcpl\_particle\_t} es \texttt{fill\_particle}. El proceso es:
+
+\begin{enumerate}
+  \item Generar, para cada nivel del árbol, un número aleatorio uniforme en \([0,1)\).
+  \item Interpolar linealmente sobre la CDF (\texttt{cumul}) para obtener un valor continuo.
+  \item Determinar el índice del macro-bin con \texttt{find\_interval} y avanzar al nodo hijo.
+  \item Repetir hasta la última dimensión y asignar los valores a \texttt{mcpl\_particle\_t}.
+\end{enumerate}
+
+A continuación se muestra el código de \texttt{traverse} y \texttt{fill\_particle}:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{c}
+/**
+ * Genera una partícula muestreada recursivamente a partir del árbol de histogramas.
+ *
+ * Esta función recorre el árbol de histogramas (estructura TreeNode) desde el nodo
+ * raíz hasta una hoja, extrayendo en cada nivel un valor muestreado según la 
+ * distribución almacenada.
+ * El arreglo `valores_particula` debe tener la longitud adecuada (igual a la 
+ * profundidad del árbol) y ya debe estar reservado por la función que invoca a 
+ * `recorrer_arbol`.
+ *
+ * En cada nivel:
+ * 1. Se genera un número aleatorio uniforme en [0,1).
+ * 2. Se interpola linealmente este número sobre la CDF (`nodo_actual->cumul`)
+ *    para obtener un valor continuo `valor_muestreado` en la escala “micro”
+ *    (`nodo_actual->micro`).
+ * 3. Se determina a qué “macro-grupo” pertenece `valor_muestreado` mediante
+ *    la función `find_interval(valor_muestreado, nodo_actual->macro, 
+ * nodo_actual->num_macro)`.
+ * 4. Se avanza al hijo correspondiente (subnodo) y se almacena `valor_muestreado`
+ *    en la posición `índice_nivel` del arreglo `valores_particula`.
+ *
+ * Cuando se llega a un nodo hoja (num_children == 0), se realiza un último muestreo
+ * en ese nodo y se guarda el valor en la última posición de `valores_particula`.
+ *
+ * @param[in]  nodo_raíz           Puntero al nodo raíz del árbol (tipo TreeNode*).
+ * @param[out] valores_particula   Arreglo de tipo double[] donde se almacenan los 
+ *                                 valores muestreados.     
+ *                                 Debe tener prealojada la memoria con tamaño 
+ *                                 igual a la profundidad del árbol.
+ *
+ * @nota El árbol `TreeNode` debe cumplir que en cada nodo intermedio:
+ *       - `micro` y `cumul` sean arreglos de igual longitud `num_micro > 0`.
+ *       - `macro` sea un arreglo ordenado.
+ *       - `children` sea un arreglo de punteros a `TreeNode` con 
+ *       `num_children == num_macro - 1`.
+ *
+ * @nota Si en algún nivel `find_interval` retorna -1 (valor fuera de rango),
+ *       se imprimirá un mensaje de error en stderr y la función continuará con la 
+ *       siguiente iteración.
+ *       Se asume que las distribuciones están correctamente definidas y 
+ *       normalizadas en [0,1].
+ */
+ void traverse(TreeNode *nodo_raíz, double valores_particula[])
+ {
+     // Índice para recorrer el arreglo de salida
+     int indice_nivel = 0;
+ 
+     // Nodo actual inicia en la raíz
+     TreeNode *nodo_actual = nodo_raíz;
+ 
+     // Iterar mientras haya hijos (nodo no sea hoja)
+     while (nodo_actual->num_children > 0)
+     {
+         // 1. Generar número aleatorio uniforme en [0,1)
+         double aleatorio = (double)rand() / RAND_MAX;
+ 
+         // 2. Interpolar linealmente sobre la CDF (cumul) usando el arreglo de 
+         //    micro-bins para obtener el valor continuo en “micro”.
+         double valor_muestreado = interpolacion_lineal(
+             aleatorio,
+             nodo_actual->micro,
+             nodo_actual->cumul,
+             nodo_actual->num_micro);
+ 
+         // 3. Encontrar el índice de la macro-banda donde cae el valor muestreado
+         int idx_macro = find_interval(
+             valor_muestreado,
+             nodo_actual->macro,
+             nodo_actual->num_macro);
+ 
+         if (idx_macro < 0)
+         {
+             // Si el valor muestreado está fuera de rango de las bandas “macro”
+             fprintf(stderr,
+                     "Error: valor muestreado %.6f fuera de rangos macro",
+                     valor_muestreado,
+                     indice_nivel);
+             // Se continúa para intentar en el siguiente nivel (aunque lógicamente
+             // este caso no debería ocurrir si las distribuciones están bien 
+             // definidas).
+         }
+         else
+         {
+             // 4. Avanzar al hijo correspondiente y guardar el valor en el arreglo 
+             // de la partícula
+             nodo_actual = nodo_actual->children[idx_macro];
+         }
+ 
+         valores_particula[indice_nivel] = valor_muestreado;
+         indice_nivel++;
+     }
+ 
+     // Al llegar a un nodo hoja, realizar un último muestreo en ese nodo
+     double aleatorio_final = (double)rand() / RAND_MAX;
+     double valor_final = interpolacion_lineal(
+         aleatorio_final,
+         nodo_actual->micro,
+         nodo_actual->cumul,
+         nodo_actual->num_micro);
+     valores_particula[indice_nivel] = valor_final;
+ }
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{c}
+/**
+ * Rellena un mcpl_particle_t con valores muestreados del árbol de histogramas.
+ *
+ * Esta función genera una partícula a partir de un árbol jerárquico de histogramas 
+ * (TreeNode) y del encabezado HSHeader, que define parámetros como la geometría de
+ * la superficie ("rectangular" o "circular"), el radio R (si corresponde) y la 
+ * coordenada z de la fuente.
+ * El muestreo se realiza nivel por nivel: en cada nivel se extrae un valor de la
+ * distribución acumulada (CDF) mediante interpolación lineal. En el caso de 
+ * geometría circular, se impone la restricción x² + y² ≤ R² al muestrear los dos 
+ * primeros grados de libertad espaciales.
+ *
+ * @param[out] particula_mcpl     Puntero al struct mcpl_particle_t que se va a 
+ *                                rellenar.
+ * @param[in]  arbol_histograma   Puntero al nodo raíz del árbol de histogramas 
+ *                                (TreeNode).
+ * @param[in]  encabezado_hs      Puntero a HSHeader con parámetros de la fuente:
+ *                                - nvars: número de variables a muestrear en cada 
+ *                                partícula.
+ *                                - surface_geometry: "rectangular" o "circular".
+ *                                - R: radio máximo permitido (solo si 
+ *                                surface_geometry == "circular").
+ *                                - z: coordenada z fija de la superficie fuente.
+ *
+ * Notar:
+ * - Se reserva dinámicamente un arreglo intermedio de tamaño encabezado_hs->nvars
+ *   para almacenar los valores muestreados en cada nivel del árbol. Al final de la
+ *   función, este arreglo se libera.
+ * - Si ocurre cualquier error (memoria, geometría no soportada, o no poder 
+ *   muestrear dentro del círculo tras varios intentos), la función termina el 
+ *   programa con exit(EXIT_FAILURE).
+ */
+ void fill_particle(mcpl_particle_t *particula_mcpl, TreeNode *arbol_histograma,
+  HSHeader *encabezado_hs)
+ {
+     // Verificar parámetros obligatorios
+     if (particula_mcpl == NULL || arbol_histograma == NULL || encabezado_hs == NULL)
+     {
+         fprintf(stderr, "Error en fill_particle: puntero nulo.\n");
+         exit(EXIT_FAILURE);
+     }
+ 
+     // Reservar espacio para almacenar los valores muestreados de la partícula
+     double *valores_particula = (double *)malloc(encabezado_hs->nvars * sizeof(double));
+     if (valores_particula == NULL)
+     {
+         fprintf(stderr, "Error en fill_particle: no se pudo asignar memoria.\n");
+         exit(EXIT_FAILURE);
+     }
+ 
+     // ------ Muestreo según la geometría definida en el encabezado -------
+     if (strcmp(encabezado_hs->surface_geometry, "rectangular") == 0)
+     {
+         // Geometría rectangular: muestreamos sin restricción adicional
+         traverse(arbol_histograma, valores_particula);
+     }
+     else if (strcmp(encabezado_hs->surface_geometry, "circular") == 0)
+     {
+         // Geometría circular: muestrear con restricción x^2 + y^2 ≤ R^2
+         const int MAX_INTENTOS = 20;
+         int intento;
+         int exito = 1; // 0 = dentro del círculo, 1 = fuera o sin éxito
+ 
+         for (intento = 0; intento < MAX_INTENTOS; intento++)
+         {
+             exito = traverse_circular(arbol_histograma, valores_particula, encabezado_hs->R);
+             if (exito == 0)
+             {
+                 // Se encontró un par (x,y) válido dentro del círculo
+                 break;
+             }
+         }
+         if (exito != 0)
+         {
+             fprintf(stderr,
+                     "Error en fill_particle: no se generó una partícula válida 
+                     dentro del círculo después de %d intentos.",
+                     MAX_INTENTOS);
+             free(valores_particula);
+             exit(EXIT_FAILURE);
+         }
+     }
+     else
+     {
+         // Geometría no soportada
+         fprintf(stderr,
+                 "Error en fill_particle: geometría de superficie '%s' no soportada. 
+                 Use rectangular o circular.",
+                 encabezado_hs->surface_geometry);
+         free(valores_particula);
+         exit(EXIT_FAILURE);
+     }
+ 
+     // ------ Conversión de valores muestreados a campos de mcpl_particle_t ------
+     // Valores esperados en valores_particula:
+     // [0] → ln(E0/E)    (primera variable muestreada)
+     // [1] → coordenada x (segunda variable)
+     // [2] → coordenada y (tercera variable)
+     // [3] → mu = cos(theta) (cuarta variable)
+     // [4] → phi (quinta variable)
+     // (Queda por generalizar otros orden de variables)
+ 
+     // 1. Energía cinética:
+     //    Relación E = 20 * exp(-ln(E0/E)) = 20 / exp(ln(E0/E))
+     //    Simplificando, E = 20 * exp(-valores_particula[0]).
+     //    (La constante 20 corresponde a E0 en MeV; ajustar según convenga).
+     particula_mcpl->ekin = 20.0 * exp(-valores_particula[0]);
+ 
+     // 2. Polarización: se inicializa en cero (no se emplea en este muestreo).
+     particula_mcpl->polarisation[0] = 0.0;
+     particula_mcpl->polarisation[1] = 0.0;
+     particula_mcpl->polarisation[2] = 0.0;
+ 
+     // 3. Posición espacial:
+     //    - x = valores_particula[1]
+     //    - y = valores_particula[2]
+     //    - z = coordenada fija definida en encabezado_hs->z
+     particula_mcpl->position[0] = valores_particula[1];
+     particula_mcpl->position[1] = valores_particula[2];
+     particula_mcpl->position[2] = encabezado_hs->z;
+ 
+     // 4. Dirección del vuelo:
+     //    La cuarta variable muestreadap es μ = cos(theta).
+     //    La quinta variable es φ (ángulo azimutal).
+     //    Entonces:
+     //      theta = acos(μ)
+     //      direction_x = sin(theta) * cos(phi)
+     //      direction_y = sin(theta) * sin(phi)
+     //      direction_z = μ
+     {
+         double mu = valores_particula[3];
+         double phi = valores_particula[4];
+         double theta = acos(mu); // Ángulo polar
+         double sin_theta = sin(theta);
+ 
+         particula_mcpl->direction[0] = sin_theta * cos(phi);
+         particula_mcpl->direction[1] = sin_theta * sin(phi);
+         particula_mcpl->direction[2] = mu;
+     }
+ 
+     // 5. Tiempo de emisión: se asigna un valor fijo.
+     particula_mcpl->time = 10.0;
+ 
+     // 6. Peso estadístico de la partícula
+     particula_mcpl->weight = 1.0;
+ 
+     // 7. PDG code (neutron)
+     //    2112 corresponde a un neutrón. Ajustar si se muestrean otras partículas.
+     particula_mcpl->pdgcode = 2112;
+ 
+     // 8. User flags (sin uso; se inicializa en cero)
+     particula_mcpl->userflags = 0;
+ 
+     // Liberar memoria intermedia
+     free(valores_particula);
+ }
+\end{minted}
+
+\noindent
+Las funciones \texttt{traverse} y \texttt{fill\_particle} constituyen el muestreo de partículas a partir del árbol jerárquico de histogramas. La primera realiza un recorrido recursivo por la estructura \texttt{TreeNode}, interpolando valores en cada nivel según la CDF asociada y seleccionando el subnodo correspondiente. Este proceso se repite hasta alcanzar una hoja del árbol, generando un vector con las variables muestreadas del espacio de fases.
+
+Por su parte, \texttt{fill\_particle} utiliza este vector para completar todos los campos relevantes de la estructura \texttt{mcpl\_particle\_t}. Esto incluye la conversión inversa de la letargia a energía, la asignación de posición y dirección de vuelo según el sistema de coordenadas definido, y la adaptación a la geometría de superficie (circular o rectangular).
+
+\subsection{Inicialización de la fuente \textit{on–the–fly} desde la API de \texttt{OpenMC}}\label{subsec:openmc_input}
+
+La clase \texttt{HistogramSource} puede integrarse directamente en una simulación de \texttt{OpenMC} mediante su \texttt{API} de \texttt{Python}, sin necesidad de modificar el archivo \texttt{settings.xml}. Para ello, basta con instanciar la fuente a partir del archivo \texttt{XML} generado en la etapa de procesamiento y asignarla al objeto \texttt{settings}:
+
+\begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{python}
+import openmc
+
+settings = openmc.Settings()
+settings.source = openmc.HistogramSource(
+    path="source.xml"
+)
+\end{minted}
+
+\noindent
+De esta manera, \texttt{OpenMC} cargará automáticamente la fuente al inicio de la simulación, utilizando muestreo \textit{on-the-fly} directamente desde el árbol jerárquico definido en el archivo.
+
+
+\section{Ejemplo de flujo completo}\label{sec:ejemplo_flujo}
+
+A continuación se resume el flujo completo que permite integrar el método desarrollado dentro de una simulación Monte Carlo con \texttt{OpenMC}. Se describe el paso a paso desde la obtención del archivo de partículas hasta su uso como fuente distribucional.
+
+\begin{enumerate}
+    \item \textbf{Generación del archivo HDF5 por OpenMC:} se ejecuta una simulación y se registran las partículas que atraviesan una superficie en un archivo \texttt{.h5} (por ejemplo, \texttt{tracks.h5}).
+
+    \item \textbf{Procesamiento en Python:} utilizando el módulo \texttt{HistogramSource} de \texttt{kdh}, se lee el archivo y se genera el árbol jerárquico de histogramas multidimensionales:
+    
+    \begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{python}
+    import kdsource.histograms as kdh
+
+    hs = kdh.HistogramSource(
+        trackfile="tracks.h5",
+        particle_type="neutron",
+        z0=0.0,
+        Nparticles=1e10,
+        surface_geometry="circular",
+        R=5.0,
+        domain={"w": [0, 2]},
+    )
+
+    hs.configure_binning(
+        variable_order=["ln(E0/E)", "x", "y", "mu", "phi"],
+        micro_bins=[75, 18, 18, 15, 10],
+        macro_bins=[3, 7, 4, 4],
+        micro_initial_bins=[1, 1, 1, 1, 1],
+        macro_initial_bins=[1, 1, 1, 1],
+        micro_binning="adaptive",
+        macro_binning="adaptive",
+    )
+
+    hs.build_tree()
+    hs.write_xml("source.xml")
+    \end{minted}
+
+    \item \textbf{Simulación con \texttt{OpenMC} usando la fuente \textit{on–the–fly}:} la fuente puede integrarse directamente desde la \textit{API} de \texttt{Python}:
+    
+    \begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{python}
+    import openmc
+
+    settings = openmc.Settings()
+    settings.source = openmc.HistogramSource(path="source.xml")
+    settings.batches = 100
+    settings.particles = 100_000
+
+    settings.export_to_xml()
+    openmc.run()
+    \end{minted}
+
+    \item \textbf{Generación de un archivo de partículas:} en caso de que se desee pre-generar un archivo \texttt{.mcpl} para utilizarlo como fuente en otras herramientas, puede hacerse con:
+    
+    \begin{minted}[fontsize=\footnotesize, linenos, frame=lines, bgcolor=LightGray]{python}
+    hs.generate_mcpl(
+        n_particles=1e7,
+        write_path="trackfile_generated.mcpl",
+        overwrite=True,
+    )
+    \end{minted}
+\end{enumerate}
+
+
